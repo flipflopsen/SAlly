@@ -1,0 +1,36 @@
+<div class="modal" [class.is-active]="showSettings">
+  <div class="modal-background" (click)="closeSettings()"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">
+        Traffic Lights Settings
+      </p>
+      <button class="delete" aria-label="close" (click)="closeSettings()"></button>
+    </header>
+    <section class="modal-card-body">
+
+      <form [formGroup]="form">
+        <p>
+          <strong>Green-Yellow-Threshold: </strong>
+          <input class="input" type="number" name="greenYellowThreshold" formControlName="greenYellowThreshold"
+            [(ngModel)]="greenYellowThreshold" />
+        </p>
+        <p>
+          <strong>Yellow-Red-Threshold: </strong>
+          <input class="input" type="number" name="yellowRedThreshold" formControlName="yellowRedThreshold"
+            [(ngModel)]="yellowRedThreshold" />
+        </p>
+        <div *ngIf="form.errors?.['value1LargerThanValue2']">
+          Green-yellow threshold must be less than yellow-red threshold.
+        </div>
+
+      </form>
+    </section>
+    <footer class="modal-card-foot">
+      <button class="button is-success" (click)="saveSettings()">
+        Save changes
+      </button>
+      <button class="button ml-3" (click)="closeSettings()">Close</button>
+    </footer>
+  </div>
+</div>

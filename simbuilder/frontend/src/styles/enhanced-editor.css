@@ -1,0 +1,468 @@
+/* Enhanced Node Editor Styles */
+
+/* Import the existing editor styles */
+@import url('./editor.css');
+
+/* Enhanced Node Styles */
+.enhanced-node {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+  position: relative;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  backdrop-filter: blur(10px);
+}
+
+.enhanced-node:hover {
+  transform: translateY(-2px);
+}
+
+.enhanced-node.selected {
+  animation: selectedPulse 2s ease-in-out infinite;
+}
+
+@keyframes selectedPulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 10px rgba(59, 130, 246, 0);
+  }
+}
+
+/* Enhanced Node Content Styles */
+.enhanced-node .node-content {
+  position: relative;
+  z-index: 2;
+}
+
+.enhanced-node .node-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.enhanced-node .node-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  transition: all 0.2s ease;
+}
+
+.enhanced-node:hover .node-icon {
+  transform: scale(1.1);
+}
+
+.enhanced-node .node-label {
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: capitalize;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.enhanced-node .node-description {
+  font-size: 11px;
+  color: #6b7280;
+  margin: 2px 0 0 0;
+  line-height: 1.3;
+  max-width: 100%;
+}
+
+.enhanced-node .node-value-enhanced {
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 6px;
+  padding: 6px 8px;
+  font-size: 12px;
+  font-family: 'Monaco', 'Menlo', monospace;
+  text-align: center;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.enhanced-node:hover .node-value-enhanced {
+  background: rgba(255, 255, 255, 0.9);
+  transform: scale(1.02);
+}
+
+/* Enhanced Node Fields */
+.enhanced-node .node-fields-enhanced {
+  margin-top: 4px;
+}
+
+.enhanced-node .node-fields-section-enhanced {
+  margin-bottom: 8px;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.enhanced-node .node-fields-section-title {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.enhanced-node .node-field-enhanced {
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  padding: 4px 6px;
+  margin-bottom: 2px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+  transition: all 0.2s ease;
+}
+
+.enhanced-node .node-field-enhanced:hover {
+  transform: translateX(2px);
+  background: rgba(255, 255, 255, 0.95);
+}
+
+.enhanced-node .node-field-name {
+  font-weight: 600;
+  margin-right: 8px;
+}
+
+.enhanced-node .node-field-value {
+  font-family: 'Monaco', 'Menlo', monospace;
+  font-weight: 500;
+  max-width: 60%;
+  text-align: right;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Enhanced Handle Styles */
+.enhanced-handle {
+  position: relative;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 10;
+}
+
+.enhanced-handle::after {
+  content: attr(title);
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 10px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+  z-index: 1000;
+}
+
+.enhanced-handle:hover::after {
+  opacity: 1;
+}
+
+.enhanced-handle:hover {
+  transform: scale(1.2);
+  z-index: 20;
+}
+
+.enhanced-handle-input {
+  border-radius: 8px 0 0 8px;
+}
+
+.enhanced-handle-output {
+  border-radius: 0 8px 8px 0;
+}
+
+.enhanced-handle .handle-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 8px;
+  font-weight: bold;
+  color: white;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  pointer-events: none;
+}
+
+/* Enhanced Connection Styles */
+.enhanced-connection-template {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+}
+
+.enhanced-connection-template.selected {
+  animation: connectionPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes connectionPulse {
+  0%, 100% {
+    transform: translateY(-1px) scale(1.02);
+  }
+  50% {
+    transform: translateY(-3px) scale(1.08);
+  }
+}
+
+.enhanced-connection-template::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.enhanced-connection-template:hover::before {
+  left: 100%;
+}
+
+/* Enhanced React Flow Styles */
+.react-flow__node.enhanced-node {
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+
+.react-flow__node.enhanced-node:hover {
+  filter: brightness(1.05);
+}
+
+.react-flow__node.enhanced-node.selected {
+  filter: brightness(1.1);
+}
+
+/* Enhanced Edge Styles */
+.react-flow__edge.enhanced-edge {
+  stroke-width: 3;
+  transition: all 0.3s ease;
+}
+
+.react-flow__edge.enhanced-edge:hover {
+  stroke-width: 4;
+  filter: brightness(1.2);
+}
+
+.react-flow__edge.enhanced-edge.selected {
+  stroke-width: 5;
+  animation: edgeFlow 2s linear infinite;
+}
+
+@keyframes edgeFlow {
+  to {
+    stroke-dashoffset: -20;
+  }
+}
+
+/* Connection Type Specific Enhancements */
+.react-flow__edge[data-connection-type="input"] .react-flow__edge-path {
+  stroke: #22c55e;
+  stroke-width: 3;
+  stroke-dasharray: 8 4;
+}
+
+.react-flow__edge[data-connection-type="output"] .react-flow__edge-path {
+  stroke: #ef4444;
+  stroke-width: 3;
+  stroke-dasharray: 4 2;
+}
+
+.react-flow__edge[data-connection-type="monitor"] .react-flow__edge-path {
+  stroke: #3b82f6;
+  stroke-width: 3;
+  stroke-dasharray: 12 6;
+}
+
+.react-flow__edge[data-connection-type="input"].selected .react-flow__edge-path,
+.react-flow__edge[data-connection-type="input"]:hover .react-flow__edge-path {
+  stroke: #16a34a;
+  stroke-width: 4;
+}
+
+.react-flow__edge[data-connection-type="output"].selected .react-flow__edge-path,
+.react-flow__edge[data-connection-type="output"]:hover .react-flow__edge-path {
+  stroke: #dc2626;
+  stroke-width: 4;
+}
+
+.react-flow__edge[data-connection-type="monitor"].selected .react-flow__edge-path,
+.react-flow__edge[data-connection-type="monitor"]:hover .react-flow__edge-path {
+  stroke: #2563eb;
+  stroke-width: 4;
+}
+
+/* Enhanced MiniMap Styles */
+.react-flow__minimap {
+  background: rgba(255, 255, 255, 0.95);
+  border: 2px solid rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+/* Enhanced Controls Styles */
+.react-flow__controls {
+  background: rgba(255, 255, 255, 0.95);
+  border: 2px solid rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.react-flow__controls-button {
+  background: transparent;
+  border: none;
+  transition: all 0.2s ease;
+  font-weight: 600;
+}
+
+.react-flow__controls-button:hover {
+  background: rgba(59, 130, 246, 0.1);
+  transform: scale(1.1);
+}
+
+/* Enhanced Background */
+.react-flow__background {
+  background: radial-gradient(circle at 25px 25px, rgba(186, 219, 162, 0.15) 2px, transparent 0),
+              radial-gradient(circle at 75px 75px, rgba(186, 219, 162, 0.1) 1px, transparent 0);
+  background-size: 100px 100px;
+}
+
+/* Status Indicators */
+.enhanced-node::before {
+  content: '';
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #10b981;
+  border: 2px solid white;
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.enhanced-node.connected::before {
+  opacity: 1;
+}
+
+.enhanced-node.error::before {
+  background: #ef4444;
+  box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
+}
+
+.enhanced-node.warning::before {
+  background: #f59e0b;
+  box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
+}
+
+/* Loading Animation */
+.enhanced-node.loading::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.8) 50%, transparent 70%);
+  animation: shimmer 1.5s ease-in-out infinite;
+  border-radius: 12px;
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Responsive Enhancements */
+@media (max-width: 768px) {
+  .enhanced-node {
+    min-width: 160px;
+    max-width: 280px;
+  }
+  
+  .enhanced-node .node-icon {
+    width: 24px;
+    height: 24px;
+    font-size: 12px;
+  }
+  
+  .enhanced-node .node-label {
+    font-size: 12px;
+  }
+  
+  .enhanced-node .node-description {
+    font-size: 10px;
+  }
+  
+  .enhanced-node .node-value-enhanced {
+    font-size: 11px;
+    padding: 4px 6px;
+  }
+  
+  .enhanced-node .node-field-enhanced {
+    font-size: 10px;
+    padding: 3px 4px;
+  }
+  
+  .enhanced-handle {
+    width: 12px;
+    height: 12px;
+  }
+  
+  .enhanced-handle .handle-icon {
+    font-size: 6px;
+  }
+}
+
+/* Focus and Accessibility */
+.enhanced-node:focus-within {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+.enhanced-handle:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+/* Print Styles */
+@media print {
+  .enhanced-node {
+    background: white !important;
+    border: 2px solid #000 !important;
+    box-shadow: none !important;
+    color: black !important;
+  }
+  
+  .enhanced-handle {
+    background: #666 !important;
+    border-color: #000 !important;
+  }
+  
+  .react-flow__edge-path {
+    stroke: #000 !important;
+    stroke-width: 2 !important;
+  }
+}

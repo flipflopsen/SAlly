@@ -1,0 +1,58 @@
+<p (click)="openModal()">Filter Grafana</p>
+<div id="grafana-control-modal" class="modal">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Filter Infoboard</p>
+      <button class="delete" aria-label="close" (click)="closeModal()"></button>
+    </header>
+    <section class="modal-card-body" height="1000px">
+      <div class="columns">
+        <div class="column is-one-quarter">
+          <div class="tags">
+            <div *ngFor="let item of selectedComponents">
+              <div class="tags has-addons">
+                <span class="tag">{{ item }}</span>
+                <a (click)="removeClicked(item)" class="tag is-delete"></a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div *ngFor="let item of categorizedComponentIds | keyvalue">
+          <div class="column">
+            <div id="filter-dropdown-{{ item.key }}" class="dropdown">
+              <div class="dropdown-trigger">
+                <button class="button" aria-haspopup="true" aria-controls="dropdown-menu4"
+                  (click)="toggleDropdown(item.key)">
+                  <span>{{ item.key }}</span>
+                  <fa-icon class="pl-1" [icon]="faCaretDown" />
+                </button>
+              </div>
+              <div class="dropdown-menu" id="dropdown-menu" role="menu">
+                <div class="dropdown-content">
+                  <a *ngFor="let id of item.value" class="dropdown-item" (click)="clickDropdownItem(id)">
+                    {{ id }}
+                    <span *ngIf="selectedComponents.indexOf(id) !== -1">
+                      <fa-icon class="pl-1" [icon]="faCheck" />
+                    </span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <footer class="modal-card-foot">
+      <div class="buttons">
+        <button class="button is-success" (click)="updateInfoboard()">
+          Update Infoboard
+        </button>
+        <button class="button is-success" (click)="resetFilter()">
+          Reset Filter
+        </button>
+        <button class="button" (click)="closeModal()">Cancel</button>
+      </div>
+    </footer>
+  </div>
+</div>

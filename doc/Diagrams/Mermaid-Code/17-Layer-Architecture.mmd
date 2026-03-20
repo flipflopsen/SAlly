@@ -1,0 +1,173 @@
+%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#4A90D9', 'primaryTextColor': '#1a1a1a', 'primaryBorderColor': '#2563eb', 'lineColor': '#4b5563', 'secondaryColor': '#f3f4f6', 'tertiaryColor': '#e5e7eb', 'background': '#ffffff', 'mainBkg': '#ffffff', 'nodeBorder': '#374151', 'clusterBkg': '#f9fafb', 'clusterBorder': '#d1d5db', 'titleColor': '#111827'}}}%%
+
+%% Layer Architecture Diagram (Clean Architecture)
+%% Author: Sally SCADA System Documentation
+%% Purpose: Show the layered architecture following Clean Architecture principles
+
+flowchart TB
+    subgraph External["External Layer (Frameworks & Drivers)"]
+        direction TB
+
+        subgraph ExtData["Data Sources"]
+            direction LR
+            HDF5["HDF5 Files<br/><i>h5py</i>"]
+            PostgresDB["TimescaleDB<br/><i>asyncpg</i>"]
+            MosaikFW["Mosaik Framework<br/><i>mosaik-api-v3</i>"]
+        end
+
+        subgraph ExtUI["User Interface"]
+            direction LR
+            TkinterGUI["Tkinter GUI<br/><i>ttkbootstrap</i>"]
+            AngularWeb["Angular Web<br/><i>Frontend App</i>"]
+        end
+
+        subgraph ExtComm["Communication"]
+            direction LR
+            MQTTLib["MQTT<br/><i>paho-mqtt</i>"]
+            SocketIO["Socket.IO<br/><i>python-socketio</i>"]
+            OTELLib["OpenTelemetry<br/><i>OTEL SDK</i>"]
+        end
+    end
+
+    subgraph Infrastructure["Infrastructure Layer (sally/infrastructure/)"]
+        direction TB
+
+        subgraph DataMgmt["Data Management"]
+            direction LR
+            TimescaleConn["TimescaleDBConnection<br/><i>Connection pooling</i>"]
+            HDF5DataMgr["HDF5DataManager<br/><i>File I/O wrapper</i>"]
+            CSVDataMgr["CSVDataManager<br/><i>CSV export/import</i>"]
+        end
+
+        subgraph Services["Services"]
+            direction LR
+            ScadaOrch["SCADAOrchestrationService<br/><i>Coordination</i>"]
+            MQTTBridge["MqttBridgeService<br/><i>MQTT integration</i>"]
+            WSBridge["WebSocketBridgeService<br/><i>WebSocket integration</i>"]
+            GridDataSvc["GridDataService<br/><i>Data access</i>"]
+            TopologySvc["GridTopologyService<br/><i>Topology management</i>"]
+        end
+    end
+
+    subgraph Application["Application Layer (sally/application/)"]
+        direction TB
+
+        subgraph Simulation["Simulation"]
+            direction LR
+            BaseSim["BaseSimulation<br/><i>Abstract base</i>"]
+            HDF5Sim["SmartGridSimulation<br/><i>HDF5-based sim</i>"]
+            MosaikSim["MosaikSimulation<br/><i>Co-simulation</i>"]
+        end
+
+        subgraph RuleMgmt["Rule Management"]
+            direction LR
+            RuleManager["SmartGridRuleManager<br/><i>Rule lifecycle</i>"]
+            SGRule["SmartGridRule<br/><i>Rule definition</i>"]
+        end
+    end
+
+    subgraph Domain["Domain Layer (sally/domain/)"]
+        direction TB
+
+        subgraph Entities["Entities"]
+            direction LR
+            GridMeas["GridMeasurement<br/><i>Measurement data</i>"]
+            EntityType["EntityType<br/><i>Entity classification</i>"]
+            GridEntity["GridEntityData<br/><i>Entity metadata</i>"]
+            GridConn["GridConnectionData<br/><i>Topology data</i>"]
+        end
+
+        subgraph DomainEvents["Domain Events"]
+            direction LR
+            Event["Event<br/><i>Base event</i>"]
+            GridDataEvt["GridDataEvent"]
+            RuleEvt["RuleTriggeredEvent"]
+            ControlEvt["ControlActionEvent"]
+            SetpointEvt["SetpointChangeEvent"]
+        end
+
+        subgraph State["State Management"]
+            direction LR
+            SCADAState["SCADAState<br/><i>Aggregated state</i>"]
+            RuleStatus["RuleStatus"]
+            AnomalyInfo["AnomalyInfo"]
+        end
+    end
+
+    subgraph Core["Core Layer (sally/core/)"]
+        direction TB
+
+        subgraph CoreServices["Core Services"]
+            direction LR
+            EventBus["EventBus<br/><i>Event distribution</i>"]
+            Config["Configuration<br/><i>YAML/env loading</i>"]
+            Logger["Logger<br/><i>Structured logging</i>"]
+        end
+
+        subgraph Telemetry["Telemetry"]
+            direction LR
+            TelemetryMgr["TelemetryManager<br/><i>OTEL integration</i>"]
+            ServiceTelem["ServiceTelemetry<br/><i>Service-specific init</i>"]
+            MetricsReg["MetricsRegistry<br/><i>Metric constants</i>"]
+        end
+
+        subgraph Buffers["High-Performance Buffers"]
+            direction LR
+            RingBuffer["RingBuffer<br/><i>SPSC</i>"]
+            MPSCBuf["MPSCBuffer"]
+            SPMCBuf["SPMCBuffer"]
+        end
+    end
+
+    subgraph Presentation["Presentation Layer (sally/presentation/)"]
+        direction TB
+
+        subgraph GUI["Desktop GUI"]
+            direction LR
+            SCADAWin["SCADAMainWindow<br/><i>Main display</i>"]
+            SLDDisplay["SLDDisplay<br/><i>Single-line diagram</i>"]
+            RuleManagerUI["RuleManagerApp<br/><i>Rule editor</i>"]
+            SetpointPanel["SetpointPanel<br/><i>Override controls</i>"]
+        end
+
+        subgraph WebGUI["Web GUI"]
+            direction LR
+            NodeBackend["Node.js Backend<br/><i>API gateway</i>"]
+            AngularApp["Angular Frontend<br/><i>Browser UI</i>"]
+        end
+    end
+
+    %% Dependency Direction (Inward)
+    ExtData --> DataMgmt
+    ExtUI --> Presentation
+    ExtComm --> Services
+
+    DataMgmt --> Application
+    Services --> Application
+
+    Application --> Domain
+
+    Domain --> Core
+
+    Presentation --> Infrastructure
+
+    %% Cross-cutting concerns
+    TelemetryMgr -.->|"instrumenting"| Infrastructure
+    TelemetryMgr -.->|"instrumenting"| Application
+    EventBus -.->|"event distribution"| Application
+    EventBus -.->|"event distribution"| Infrastructure
+
+    %% Styling
+    classDef external fill:#f3f4f6,stroke:#6b7280,stroke-width:2px,color:#374151
+    classDef infrastructure fill:#dbeafe,stroke:#2563eb,stroke-width:2px,color:#1e40af
+    classDef application fill:#fef3c7,stroke:#d97706,stroke-width:2px,color:#92400e
+    classDef domain fill:#dcfce7,stroke:#16a34a,stroke-width:2px,color:#166534
+    classDef core fill:#fce7f3,stroke:#db2777,stroke-width:2px,color:#9d174d
+    classDef presentation fill:#ede9fe,stroke:#7c3aed,stroke-width:2px,color:#5b21b6
+
+    class HDF5,PostgresDB,MosaikFW,TkinterGUI,AngularWeb,MQTTLib,SocketIO,OTELLib external
+    class TimescaleConn,HDF5DataMgr,CSVDataMgr,ScadaOrch,MQTTBridge,WSBridge,GridDataSvc,TopologySvc infrastructure
+    class BaseSim,HDF5Sim,MosaikSim,RuleManager,SGRule application
+    class GridMeas,EntityType,GridEntity,GridConn,Event,GridDataEvt,RuleEvt,ControlEvt,SetpointEvt,SCADAState,RuleStatus,AnomalyInfo domain
+    class EventBus,Config,Logger,TelemetryMgr,ServiceTelem,MetricsReg,RingBuffer,MPSCBuf,SPMCBuf core
+    class SCADAWin,SLDDisplay,RuleManagerUI,SetpointPanel,NodeBackend,AngularApp presentation

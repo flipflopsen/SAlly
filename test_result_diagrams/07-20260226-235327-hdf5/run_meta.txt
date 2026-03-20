@@ -1,0 +1,5 @@
+timestamp=2026-02-26T23:54:03
+group=hdf5
+exit_code=0
+cwd=A:\Thesis-Code\thesis-sally-repo
+pytest_args=-m hdf5 -q

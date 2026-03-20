@@ -1,0 +1,27 @@
+{
+  "name": "@guardian/scada",
+  "version": "1.0.0",
+  "description": "Guardian SCADA Web Application",
+  "scripts": {
+    "start": "pnpm -F @guardian/scada-backend start",
+    "build:shared": "pnpm -F @guardian/scada-shared build",
+    "build:frontend": "pnpm -F @guardian/scada-frontend build",
+    "build:backend": "pnpm -F @guardian/scada-backend build",
+    "build": "pnpm run build:shared && concurrently \"pnpm run build:frontend\" \"pnpm run build:backend\"",
+    "dev:frontend": "pnpm -F @guardian/scada-frontend start",
+    "dev:backend": "pnpm -F @guardian/scada-backend dev",
+    "dev": "pnpm run build:shared && pnpm run build:backend && concurrently \"pnpm run dev:frontend\" \"pnpm run dev:backend\"",
+    "test:backend": "pnpm -F @guardian/scada-backend test",
+    "test": "pnpm run test:backend"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "pnpm": ">=8.0.0"
+  }
+}

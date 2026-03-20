@@ -1,0 +1,128 @@
+%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#4A90D9', 'primaryTextColor': '#1a1a1a', 'primaryBorderColor': '#2563eb', 'lineColor': '#4b5563', 'secondaryColor': '#f3f4f6', 'tertiaryColor': '#e5e7eb', 'background': '#ffffff', 'mainBkg': '#ffffff', 'actorBkg': '#dbeafe', 'actorBorder': '#2563eb', 'activationBorderColor': '#4b5563', 'sequenceNumberColor': '#ffffff', 'signalColor': '#374151', 'signalTextColor': '#1f2937'}}}%%
+
+%% Sequence Diagram: System Startup and Initialization
+%% Author: Sally SCADA System Documentation
+%% Purpose: Show the complete system initialization sequence
+
+sequenceDiagram
+    autonumber
+
+    participant Main as main_scada_full.py
+    participant Config as Configuration
+    participant Telem as TelemetryManager
+    participant EB as EventBus
+    participant Rules as SmartGridRuleManager
+    participant Sim as SmartGridSimulation
+    participant Orch as SCADAOrchestrationService
+    participant GUI as SCADA GUI
+    participant RulesGUI as Rule Manager GUI
+
+    Note over Main,RulesGUI: Sally SCADA System Startup
+
+    Main->>Config: Load configuration
+    activate Config
+    Config-->>Main: SCADAOrchestrationConfig
+    deactivate Config
+
+    Main->>Main: Resolve config paths
+    Note right of Main: config_path<br/>rules_path<br/>hdf5_path
+
+    rect rgb(237, 233, 254)
+        Note over Main,Telem: Telemetry Initialization
+        Main->>Telem: init_service_telemetry("SAlly.Orchestrator")
+        activate Telem
+        Telem->>Telem: Load TelemetryConfig from env/yaml
+        Telem->>Telem: Initialize TracerProvider
+        Telem->>Telem: Initialize MeterProvider
+        Telem->>Telem: Initialize LoggerProvider
+        Telem->>Telem: Connect to OTEL Collector
+        Telem-->>Main: TelemetryManager instance
+        deactivate Telem
+    end
+
+    rect rgb(220, 252, 231)
+        Note over Main,EB: EventBus Initialization
+        Main->>EB: EventBus(buffer_size, batch_size, worker_count)
+        activate EB
+        EB->>EB: Initialize ring buffers
+        EB->>EB: Register OTEL metrics
+        EB-->>Main: EventBus instance
+        deactivate EB
+    end
+
+    rect rgb(254, 243, 199)
+        Note over Main,Rules: Rule Manager Initialization
+        Main->>Rules: SmartGridRuleManager()
+        activate Rules
+        Rules->>Rules: Register OTEL metrics
+        Rules-->>Main: RuleManager instance
+        deactivate Rules
+
+        Main->>Main: Load rules from JSON file
+        Main->>Rules: load_rules(rules_data)
+        activate Rules
+        loop For each rule definition
+            Rules->>Rules: add_rule(rule_dict)
+            Rules->>Rules: Parse entity.variable
+            Rules->>Rules: Create SmartGridRule
+        end
+        Rules-->>Main: Rules loaded
+        deactivate Rules
+    end
+
+    rect rgb(219, 234, 254)
+        Note over Main,Sim: Simulation Initialization
+        Main->>Sim: SmartGridSimulation(hdf5_path, rule_manager, event_bus)
+        activate Sim
+        Sim->>Sim: _load_hdf5_data()
+        Sim->>Sim: Parse entities and variables
+        Sim->>Sim: Load relation data
+        Sim->>Sim: Register OTEL metrics
+        Sim->>EB: subscribe(self)
+        Sim-->>Main: Simulation instance
+        deactivate Sim
+    end
+
+    rect rgb(252, 231, 243)
+        Note over Main,Orch: Orchestration Service Initialization
+        Main->>Orch: SCADAOrchestrationService(event_bus, simulation, rule_manager, config)
+        activate Orch
+        Orch->>Orch: Initialize state queues
+        Orch->>Orch: Register OTEL metrics
+        Orch-->>Main: Orchestration instance
+        deactivate Orch
+
+        Main->>Orch: start()
+        activate Orch
+        Orch->>EB: subscribe(self)
+        Orch->>Orch: Start event bus thread
+        Orch->>Orch: Start trio orchestration thread
+        Orch-->>Main: Service started
+        deactivate Orch
+    end
+
+    rect rgb(240, 253, 244)
+        Note over Main,RulesGUI: GUI Initialization
+        Main->>GUI: create_scada_window(orchestration)
+        activate GUI
+        GUI->>GUI: Build UI components
+        GUI->>GUI: Initialize SLD Display
+        GUI->>GUI: Start data ingestion thread
+        GUI->>GUI: Start render loop
+        GUI-->>Main: SCADA Window
+        deactivate GUI
+
+        Main->>Main: Schedule rule manager window
+        Main->>RulesGUI: create_rule_manager_window(scada_window, event_bus, rule_manager)
+        activate RulesGUI
+        RulesGUI->>RulesGUI: Build rule editor UI
+        RulesGUI->>RulesGUI: Initialize sync service
+        RulesGUI-->>Main: Rule Manager Window
+        deactivate RulesGUI
+    end
+
+    Main->>GUI: mainloop()
+    activate GUI
+    Note over GUI: Tkinter Event Loop Running
+
+    Note over Main,RulesGUI: System Running - Processing Events

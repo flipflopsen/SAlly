@@ -1,0 +1,228 @@
+%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#4A90D9', 'primaryTextColor': '#1a1a1a', 'primaryBorderColor': '#2563eb', 'lineColor': '#4b5563', 'secondaryColor': '#f3f4f6', 'tertiaryColor': '#e5e7eb', 'background': '#ffffff', 'mainBkg': '#ffffff', 'nodeBorder': '#374151'}}}%%
+
+%% Class Diagram: Domain Events and Entities
+%% Author: Sally SCADA System Documentation
+%% Purpose: Document the domain model classes and their relationships
+
+classDiagram
+    direction TB
+
+    %% Base Event Class
+    class Event {
+        <<dataclass>>
+        +str event_type
+        +float timestamp
+        +Optional~str~ correlation_id
+        +Dict~str, Any~ metadata
+        +int lifetime_seconds
+        +bool delete_event_after_all_subscribers_handled
+    }
+
+    %% Grid Data Events
+    class GridDataEvent {
+        <<dataclass>>
+        +str event_type = "grid_data_update"
+        +GridMeasurement measurement
+    }
+
+    class GridAlarmEvent {
+        <<dataclass>>
+        +str event_type = "grid_alarm"
+        +str entity
+        +str entity_type
+        +str alarm_type
+        +str severity
+        +str message
+        +Optional~float~ threshold_value
+        +Optional~float~ measured_value
+    }
+
+    class RuleTriggeredEvent {
+        <<dataclass>>
+        +str event_type = "rule_triggered"
+        +str entity_name
+        +str variable_name
+        +float threshold
+        +float actual_value
+        +str action
+        +str rule_id
+    }
+
+    class ControlActionEvent {
+        <<dataclass>>
+        +str event_type = "control_action"
+        +str target_entity
+        +str action_type
+        +float control_value
+        +str reason
+        +str expected_result
+    }
+
+    class SetpointChangeEvent {
+        <<dataclass>>
+        +str event_type = "setpoint_change"
+        +str entity
+        +str variable
+        +float old_value
+        +float new_value
+        +str source
+    }
+
+    class SimulationStepEvent {
+        <<dataclass>>
+        +str event_type = "simulation_step"
+        +int timestep
+        +float simulation_time
+    }
+
+    class SimulationStateEvent {
+        <<dataclass>>
+        +str event_type = "simulation_state"
+        +int timestep
+        +float simulation_time
+        +Dict~str, Any~ snapshot
+    }
+
+    %% Grid Entities
+    class EntityType {
+        <<enumeration>>
+        PYPOWER_NODE
+        PYPOWER_BRANCH
+        PYPOWER_TR_PRI
+        PYPOWER_TR_SEC
+        PYPOWER_TRANSFORMER
+        PANDAPOWER_BUS
+        PANDAPOWER_LOAD
+        PANDAPOWER_SGEN
+        PANDAPOWER_TRAFO
+        PANDAPOWER_LINE
+        PANDAPOWER_SWITCH
+        PANDAPOWER_EXT_GRID
+        HOUSEHOLD_SIM
+        CSV_PV
+        WIND_TURBINE
+        BATTERY_ESS
+        LOAD_BUS
+    }
+
+    class GridMeasurement {
+        <<dataclass>>
+        +str entity
+        +EntityType entity_type
+        +float timestamp
+        +Optional~float~ p
+        +Optional~float~ p_out
+        +Optional~float~ p_from
+        +Optional~float~ p_to
+        +Optional~float~ q
+        +Optional~float~ q_from
+        +Optional~float~ va
+        +Optional~float~ vl
+        +Optional~float~ vm
+        +Optional~float~ p_mw
+        +Optional~float~ q_mvar
+        +Optional~float~ vm_pu
+        +Optional~float~ va_degree
+        +Optional~float~ loading_percent
+        +Optional~bool~ in_service
+        +Optional~bool~ closed
+        +Optional~Dict~ metadata
+        +validate_measurements() bool
+    }
+
+    class GridEntityData {
+        <<dataclass>>
+        +int entity_id
+        +str entity_name
+        +str entity_type
+        +Optional~float~ rated_power
+        +Optional~float~ rated_voltage
+        +Optional~str~ location
+        +Optional~str~ manufacturer
+        +Optional~str~ model
+        +Optional~str~ installation_date
+        +Optional~Dict~ metadata
+    }
+
+    class GridConnectionData {
+        <<dataclass>>
+        +int from_entity_id
+        +int to_entity_id
+        +str connection_type
+        +Optional~float~ line_length
+        +Optional~float~ resistance
+        +Optional~float~ reactance
+        +Optional~float~ capacity
+        +Optional~bool~ is_active
+        +Optional~Dict~ metadata
+    }
+
+    %% SCADA State Classes
+    class SCADAState {
+        <<dataclass>>
+        +Dict~str, GridMeasurement~ _measurements
+        +List~RuleStatus~ _triggered_rules
+        +List~AnomalyInfo~ _anomalies
+        +float _simulation_time
+        +Dict~str, float~ _setpoints
+        +update_measurement(measurement)
+        +add_triggered_rule(rule_status, max_history)
+        +add_anomaly(anomaly, max_history)
+        +update_simulation_time(time)
+        +update_setpoint(key, value)
+        +snapshot() SCADAState
+    }
+
+    class RuleStatus {
+        <<dataclass>>
+        +str rule_id
+        +str entity_name
+        +str variable_name
+        +str action
+        +float timestamp
+        +str severity
+    }
+
+    class AnomalyInfo {
+        <<dataclass>>
+        +str entity
+        +str anomaly_type
+        +str severity
+        +float timestamp
+        +str details
+    }
+
+    %% Rule Classes
+    class SmartGridRule {
+        <<dataclass>>
+        +str rule_id
+        +str entity_name
+        +str variable_name
+        +str operator
+        +float threshold_value
+        +str action
+        +bool active
+        +str group
+        +str logic_op
+        +Optional~str~ linked_rule_id
+        +str original_gui_entity_str
+        +evaluate(actual_value) bool
+    }
+
+    %% Inheritance Relationships
+    Event <|-- GridDataEvent
+    Event <|-- GridAlarmEvent
+    Event <|-- RuleTriggeredEvent
+    Event <|-- ControlActionEvent
+    Event <|-- SetpointChangeEvent
+    Event <|-- SimulationStepEvent
+    Event <|-- SimulationStateEvent
+
+    %% Composition Relationships
+    GridDataEvent *-- GridMeasurement
+    GridMeasurement --> EntityType
+    SCADAState *-- GridMeasurement
+    SCADAState *-- RuleStatus
+    SCADAState *-- AnomalyInfo
+    RuleTriggeredEvent ..> SmartGridRule : triggered by
+    GridEntityData --> EntityType

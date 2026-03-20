@@ -1,0 +1,15 @@
+  <div class="box">
+    <canvas 
+      #chart
+      baseChart 
+      [data]="chartData" 
+      [options]="chartOptions" 
+      type="line"
+    ></canvas>
+
+    <button (click)="onInfoBtnClick()">
+      <fa-icon class="pl-1" [icon]="faInfo" />
+    </button>
+    <div *ngIf="infoTextActive">Grid Health: the mean per-unit voltage of all busses. Min/Max Health: the individual per-unit voltage of the bus with the minimum/maximum per-unit voltage.</div>
+  
+  </div>

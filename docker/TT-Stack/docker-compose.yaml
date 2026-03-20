@@ -1,0 +1,108 @@
+version: "3.8"
+
+services:
+  # 0. MQTT Broker: Message broker for SCADA web integration
+  mosquitto:
+    image: eclipse-mosquitto:2.0
+    ports:
+      - "1883:1883"   # MQTT default port
+      - "9001:9001"   # WebSocket port (for browser clients)
+    volumes:
+      - ./mosquitto.conf:/mosquitto/config/mosquitto.conf
+      - ./volumes/mosquitto-data:/mosquitto/data
+      - ./volumes/mosquitto-log:/mosquitto/log
+    restart: unless-stopped
+
+  # 1. TimescaleDB: Time-series database for grid data storage and analysis
+  timescaledb:
+    image: timescale/timescaledb-ha:pg17
+    environment:
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=sally_grid
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./volumes/timescaledb-data:/var/lib/postgresql/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # 2. OpenTelemetry Collector: Receives data from App, processes it, and exports it.
+  otel-collector:
+    image: otel/opentelemetry-collector-contrib:0.95.0
+    command: ["--config=/etc/otel-collector-config.yaml"]
+    volumes:
+      - ./otel-collector-config.yaml:/etc/otel-collector-config.yaml
+    ports:
+      - "4317:4317" # OTLP gRPC receiver
+      - "4318:4318" # OTLP HTTP receiver
+      - "8889:8889" # Prometheus exporter metrics endpoint
+    environment:
+      - SALLY_OTEL_ENABLED=true
+
+  # 3. Prometheus: Scrapes metrics from the Collector.
+  prometheus:
+    image: prom/prometheus:v2.50.0
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+      - --web.enable-lifecycle
+      - --storage.tsdb.retention.time=7d
+    volumes:
+      - ./prometheus.yaml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+
+  # 4. Tempo: Backend for Traces (needed for full OTEL value).
+  tempo:
+    image: grafana/tempo:2.3.0
+    command: ["-config.file=/etc/tempo.yaml"]
+    volumes:
+      - ./tempo.yaml:/etc/tempo.yaml
+      - ./volumes/tempo-data:/var/tempo # Persist trace data
+    ports:
+      - "3200:3200" # Tempo HTTP (for Grafana datasource)
+      - "4317" # OTLP gRPC (internal docker network)
+    user: root
+
+  # 5. Grafana: Visualization Dashboard.
+  grafana:
+    image: grafana/grafana:10.3.3
+    environment:
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
+      - GF_AUTH_DISABLE_LOGIN_FORM=true
+      # Add this feature toggle for correlation
+      - GF_FEATURE_TOGGLES_ENABLE=traceqlEditor
+      # Default home dashboard
+      - GF_DASHBOARDS_DEFAULT_HOME_DASHBOARD_PATH=/etc/grafana/provisioning/dashboards/sally-overview.json
+    volumes:
+      - ./grafana-datasources.yaml:/etc/grafana/provisioning/datasources/datasources.yaml
+      - ./grafana-dashboards.yaml:/etc/grafana/provisioning/dashboards/dashboards.yaml
+      - ./dashboards:/etc/grafana/provisioning/dashboards
+    ports:
+      - "3000:3000"
+    depends_on:
+      - prometheus
+      - tempo
+
+  # 6. Loki: Log aggregation system (The "L" in PLGT Stack)
+  loki:
+    image: grafana/loki:2.9.2
+    command: ["-config.expand-env=true", "-config.file=/etc/loki/loki-config.yaml"]
+    volumes:
+      - ./loki-config.yaml:/etc/loki/loki-config.yaml
+      - ./volumes/loki-data:/loki
+    ports:
+      - "3100:3100"
+    user: root
+
+
+volumes:
+  tempo-data:
+  loki-data:
+  mosquitto-data:
+  mosquitto-log:
+  timescaledb-data:

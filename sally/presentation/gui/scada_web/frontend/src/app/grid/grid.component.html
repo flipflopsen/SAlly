@@ -1,0 +1,39 @@
+<button
+  #backBtn
+  class="button-40"
+  style="left: 0%;"
+  routerLink="/"
+>
+  Back
+</button>
+<button
+  #openInfoBoardBtn
+  class="button-40"
+  style="right: 0%;"
+  (click)="EVENT_HANDLER.openInfoboardBtn.onclick(state)"
+>
+  Please select an element
+</button>
+
+<div #canvasDiv class="canvas-div">
+  <canvas
+    #mainCanvas
+    (mousedown)="EVENT_HANDLER.canvas.onmousedown(state, $event)"
+    (mousemove)="EVENT_HANDLER.canvas.onmousemove(state, $event)"
+    (mouseup)="EVENT_HANDLER.canvas.onmouseup(state, $event)"
+    (wheel)="EVENT_HANDLER.canvas.onwheel(state, $event)"
+  ></canvas>
+</div>
+
+<div #timelineDiv class="footer">
+  <input
+    #timelineSlider
+    type="range"
+    min="1"
+    max="-1"
+    value="0"
+    class="slider"
+    (input)="EVENT_HANDLER.timelineSlider.oninput(state)"
+  >
+  <output #selectedRecordText></output>
+</div>

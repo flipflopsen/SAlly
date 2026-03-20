@@ -1,0 +1,26 @@
+[
+    {
+        "entity_name": "CSV-0.PV_0",
+        "variable_name": "P",
+        "operator": "GREATER_THAN",
+        "value": "0",
+        "action": "DoPVFirst",
+        "active": true,
+        "group": "PV-1",
+        "logic_op": "AND",
+        "linked_rule_id": "",
+        "id": "314b5d8d"
+    },
+    {
+        "entity_name": "CSV-0.PV_1",
+        "variable_name": "P",
+        "operator": "GREATER_THAN",
+        "value": "0",
+        "action": "DoSecondAsWell",
+        "active": true,
+        "group": "PV-1",
+        "logic_op": "NONE",
+        "linked_rule_id": "314b5d8d",
+        "id": "4ceb85f6"
+    }
+]

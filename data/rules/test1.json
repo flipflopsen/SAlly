@@ -1,0 +1,10 @@
+[
+    {
+        "entity_name": "HouseholdSim-0.House_20",
+        "variable_name": "P_out",
+        "operator": "CONTAINS",
+        "value": "1",
+        "action": "yallah",
+        "id": "d5113090"
+    }
+]

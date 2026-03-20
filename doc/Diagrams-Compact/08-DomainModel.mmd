@@ -1,0 +1,54 @@
+%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#e5e5e5', 'primaryTextColor': '#1a1a1a', 'lineColor': '#525252', 'background': '#ffffff'}}}%%
+
+%% Domain Model - Compact Class Diagram
+classDiagram
+    class Event {
+        +event_type: str
+        +timestamp: float
+        +correlation_id: str
+    }
+
+    class GridDataEvent {
+        +measurement: GridMeasurement
+    }
+
+    class RuleTriggeredEvent {
+        +rule_id: str
+        +entity_name: str
+        +threshold: float
+        +actual_value: float
+        +action: str
+    }
+
+    class ControlActionEvent {
+        +target_entity: str
+        +action_type: str
+        +control_value: float
+    }
+
+    class GridMeasurement {
+        +entity: str
+        +entity_type: EntityType
+        +timestamp: float
+        +p: float
+        +q: float
+        +vm: float
+        +va: float
+    }
+
+    class SmartGridRule {
+        +rule_id: str
+        +entity_name: str
+        +variable_name: str
+        +operator: str
+        +threshold_value: float
+        +action: str
+        +active: bool
+        +evaluate() bool
+    }
+
+    Event <|-- GridDataEvent
+    Event <|-- RuleTriggeredEvent
+    Event <|-- ControlActionEvent
+    GridDataEvent *-- GridMeasurement
+    SmartGridRule ..> RuleTriggeredEvent : creates

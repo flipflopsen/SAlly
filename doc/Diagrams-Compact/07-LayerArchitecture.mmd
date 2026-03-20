@@ -1,0 +1,42 @@
+%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#e5e5e5', 'primaryTextColor': '#1a1a1a', 'primaryBorderColor': '#525252', 'lineColor': '#525252', 'background': '#ffffff', 'mainBkg': '#ffffff', 'nodeBorder': '#404040', 'clusterBkg': '#fafafa', 'clusterBorder': '#a3a3a3'}}}%%
+
+%% Clean Architecture Layers - Compact
+flowchart TB
+    subgraph Presentation["Presentation Layer"]
+        GUI["SCADA GUI"]
+        Web["Web Frontend"]
+    end
+
+    subgraph Infrastructure["Infrastructure Layer"]
+        Services["Services"]
+        DataMgmt["Data Management"]
+    end
+
+    subgraph Application["Application Layer"]
+        Sim["Simulation"]
+        RuleMgmt["Rule Management"]
+    end
+
+    subgraph Domain["Domain Layer"]
+        Events["Events"]
+        Entities["Entities"]
+        State["State"]
+    end
+
+    subgraph Core["Core Layer"]
+        EventBus["EventBus"]
+        Telemetry["Telemetry"]
+        Config["Config"]
+    end
+
+    Presentation --> Infrastructure
+    Infrastructure --> Application
+    Application --> Domain
+    Domain --> Core
+
+    classDef default fill:#f5f5f5,stroke:#525252,stroke-width:1px,color:#171717
+    classDef layer1 fill:#e5e5e5,stroke:#404040,stroke-width:2px,color:#171717
+    classDef layer2 fill:#d4d4d4,stroke:#404040,stroke-width:2px,color:#171717
+
+    class EventBus,Telemetry,Config layer2
+    class Events,Entities,State layer1

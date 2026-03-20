@@ -1,0 +1,131 @@
+%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#4A90D9', 'primaryTextColor': '#1a1a1a', 'primaryBorderColor': '#2563eb', 'lineColor': '#4b5563', 'secondaryColor': '#f3f4f6', 'tertiaryColor': '#e5e7eb', 'background': '#ffffff', 'mainBkg': '#ffffff', 'nodeBorder': '#374151', 'clusterBkg': '#f9fafb', 'clusterBorder': '#d1d5db', 'titleColor': '#111827'}}}%%
+
+%% Deployment Diagram: Sally SCADA System
+%% Author: Sally SCADA System Documentation
+%% Purpose: Show the physical/container deployment architecture
+
+flowchart TB
+    subgraph HostMachine["Host Machine (Development/Production)"]
+        direction TB
+
+        subgraph PythonProcess["Python Process (sally.main_scada_*)"]
+            direction LR
+
+            subgraph MainThread["Main Thread"]
+                SCADAGUI["SCADA GUI<br/><i>Tkinter/ttkbootstrap</i>"]
+                RuleManagerGUI["Rule Manager GUI"]
+            end
+
+            subgraph OrchThread["Orchestration Thread<br/><i>trio async</i>"]
+                OrchService["SCADAOrchestrationService"]
+            end
+
+            subgraph EventBusThread["EventBus Thread<br/><i>asyncio</i>"]
+                EventBus["EventBus<br/><i>Worker Pool</i>"]
+            end
+
+            subgraph DataThread["Data Thread"]
+                DataIngestion["Data Ingestion<br/><i>Queue Consumer</i>"]
+            end
+        end
+
+        subgraph FileSystem["Local File System"]
+            HDF5Files[("📁 HDF5 Files<br/><i>data/hdf5/</i>")]
+            ConfigFiles[("📁 Config Files<br/><i>sally/config/</i>")]
+            RulesFiles[("📁 Rules JSON<br/><i>data/rules/</i>")]
+        end
+    end
+
+    subgraph DockerNetwork["Docker Network: tt-stack"]
+        direction TB
+
+        subgraph Container1["Container: mosquitto"]
+            Mosquitto["Eclipse Mosquitto 2.0<br/><i>MQTT Broker</i>"]
+            MQTTPorts["Ports: 1883, 9001"]
+        end
+
+        subgraph Container2["Container: timescaledb"]
+            TimescaleDB["TimescaleDB-HA pg17<br/><i>Time-series Database</i>"]
+            TSDBPort["Port: 5432"]
+        end
+
+        subgraph Container3["Container: otel-collector"]
+            OTELCollector["OTEL Collector 0.95<br/><i>Telemetry Processing</i>"]
+            OTELPorts["Ports: 4317, 4318, 8889"]
+        end
+
+        subgraph Container4["Container: prometheus"]
+            Prometheus["Prometheus 2.50<br/><i>Metrics Storage</i>"]
+            PromPort["Port: 9090"]
+        end
+
+        subgraph Container5["Container: tempo"]
+            Tempo["Grafana Tempo 2.3<br/><i>Trace Storage</i>"]
+            TempoPort["Port: 3200"]
+        end
+
+        subgraph Container6["Container: loki"]
+            Loki["Grafana Loki 2.9<br/><i>Log Aggregation</i>"]
+            LokiPort["Port: 3100"]
+        end
+
+        subgraph Container7["Container: grafana"]
+            Grafana["Grafana 10.3<br/><i>Visualization</i>"]
+            GrafanaPort["Port: 3000"]
+        end
+    end
+
+    subgraph OptionalWebStack["Optional: SCADA Web Stack"]
+        direction LR
+
+        subgraph NodeProcess["Node.js Process"]
+            WebBackend["SCADA Web Backend<br/><i>Express + Socket.IO</i>"]
+            WebBackendPort["Port: 3001"]
+        end
+
+        subgraph AngularProcess["Angular Dev Server"]
+            WebFrontend["SCADA Web Frontend<br/><i>Angular 17</i>"]
+            WebFrontendPort["Port: 4200"]
+        end
+    end
+
+    subgraph Browser["Web Browser"]
+        BrowserClient["Browser Client<br/><i>Chrome/Firefox/Edge</i>"]
+    end
+
+    %% Connections from Python Process
+    PythonProcess -->|"OTLP gRPC<br/>:4317"| OTELCollector
+    PythonProcess -->|"PostgreSQL<br/>:5432"| TimescaleDB
+    PythonProcess -->|"MQTT Publish<br/>:1883"| Mosquitto
+    PythonProcess -->|"Read"| HDF5Files
+    PythonProcess -->|"Read"| ConfigFiles
+    PythonProcess -->|"Read/Write"| RulesFiles
+
+    %% OTEL Pipeline
+    OTELCollector -->|"Metrics scrape<br/>:8889"| Prometheus
+    OTELCollector -->|"Traces export<br/>:4317"| Tempo
+    OTELCollector -->|"Logs export<br/>:3100"| Loki
+
+    %% Grafana Connections
+    Grafana -->|"Query"| Prometheus
+    Grafana -->|"Query"| Tempo
+    Grafana -->|"Query"| Loki
+
+    %% Web Stack Connections
+    Mosquitto -->|"MQTT Subscribe<br/>:1883"| WebBackend
+    WebBackend -->|"Socket.IO"| WebFrontend
+    WebFrontend -->|"HTTP"| BrowserClient
+    Grafana -->|"HTTP :3000"| BrowserClient
+
+    %% Styling
+    classDef pythonApp fill:#dcfce7,stroke:#16a34a,stroke-width:2px,color:#166534
+    classDef docker fill:#dbeafe,stroke:#2563eb,stroke-width:2px,color:#1e40af
+    classDef storage fill:#fef3c7,stroke:#d97706,stroke-width:2px,color:#92400e
+    classDef web fill:#fce7f3,stroke:#db2777,stroke-width:2px,color:#9d174d
+    classDef client fill:#e0e7ff,stroke:#4f46e5,stroke-width:2px,color:#3730a3
+
+    class SCADAGUI,RuleManagerGUI,OrchService,EventBus,DataIngestion pythonApp
+    class Mosquitto,TimescaleDB,OTELCollector,Prometheus,Tempo,Loki,Grafana docker
+    class HDF5Files,ConfigFiles,RulesFiles storage
+    class WebBackend,WebFrontend web
+    class BrowserClient client

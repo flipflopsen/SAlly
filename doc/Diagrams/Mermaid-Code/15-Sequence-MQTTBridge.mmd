@@ -1,0 +1,141 @@
+%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#4A90D9', 'primaryTextColor': '#1a1a1a', 'primaryBorderColor': '#2563eb', 'lineColor': '#4b5563', 'secondaryColor': '#f3f4f6', 'tertiaryColor': '#e5e7eb', 'background': '#ffffff', 'mainBkg': '#ffffff', 'actorBkg': '#dbeafe', 'actorBorder': '#2563eb', 'activationBorderColor': '#4b5563', 'sequenceNumberColor': '#ffffff', 'signalColor': '#374151', 'signalTextColor': '#1f2937'}}}%%
+
+%% Sequence Diagram: MQTT Bridge Communication Flow
+%% Author: Sally SCADA System Documentation
+%% Purpose: Show the message flow between Sally backend and SCADA Web frontend via MQTT
+
+sequenceDiagram
+    autonumber
+
+    participant Sim as SmartGridSimulation
+    participant EB as EventBus
+    participant MQTT as MqttBridgeService
+    participant Broker as Mosquitto Broker
+    participant Backend as Node.js Backend
+    participant Frontend as Angular Frontend
+    participant User as Web User
+
+    Note over Sim,User: Real-time Grid Data Flow to Web Frontend
+
+    %% Simulation Step
+    Sim->>Sim: step()
+    activate Sim
+    Sim->>Sim: Build GridMeasurement
+
+    Sim->>EB: publish(GridDataEvent)
+    activate EB
+    deactivate Sim
+
+    %% EventBus Distribution
+    EB->>MQTT: handle_sync(GridDataEvent)
+    activate MQTT
+    deactivate EB
+
+    %% MQTT Processing
+    MQTT->>MQTT: Extract measurement data
+    MQTT->>MQTT: _categorize_entity()
+    Note right of MQTT: Categorize: load, sgen,<br/>bus, trafo, line
+
+    MQTT->>MQTT: _accumulate_sensor_data()
+    Note right of MQTT: Batch data for step
+    deactivate MQTT
+
+    %% End of Step - Publish Batch
+    Sim->>EB: publish(SimulationStepEvent)
+    activate EB
+    EB->>MQTT: handle_sync(SimulationStepEvent)
+    activate MQTT
+    deactivate EB
+
+    MQTT->>MQTT: _publish_step_data()
+
+    loop For each entity category
+        MQTT->>Broker: publish("sensor/{category}/{id}", JSON)
+        activate Broker
+        Broker-->>MQTT: ACK
+        deactivate Broker
+    end
+
+    MQTT->>Broker: publish("meta/simulation/step-finished", timestamp)
+    activate Broker
+    Broker-->>MQTT: ACK
+    deactivate Broker
+    deactivate MQTT
+
+    %% MQTT to Backend
+    Note over Broker,Backend: MQTT Subscription
+
+    Broker->>Backend: message("sensor/+/+")
+    activate Backend
+    Backend->>Backend: Parse JSON payload
+    Backend->>Backend: Accumulate step data
+    deactivate Backend
+
+    Broker->>Backend: message("meta/simulation/step-finished")
+    activate Backend
+    Backend->>Backend: Prepare step bundle
+
+    %% WebSocket to Frontend
+    Backend->>Frontend: emit("step", [timestamp, sensorData])
+    activate Frontend
+    deactivate Backend
+
+    Frontend->>Frontend: Update sensor display
+    Frontend->>Frontend: Refresh topology view
+    Frontend->>Frontend: Update charts
+    deactivate Frontend
+
+    %% Anomaly Flow
+    Note over Sim,User: Anomaly Detection Flow
+
+    Sim->>EB: publish(RuleTriggeredEvent)
+    activate EB
+    EB->>MQTT: handle_sync(RuleTriggeredEvent)
+    activate MQTT
+    deactivate EB
+
+    MQTT->>MQTT: Convert to anomaly format
+    MQTT->>Broker: publish("anomaly/rule_violation", JSON)
+    activate Broker
+
+    Broker->>Backend: message("anomaly/rule_violation")
+    activate Backend
+    deactivate Broker
+
+    Backend->>Frontend: emit("anomaly", anomalyData)
+    activate Frontend
+    deactivate Backend
+    deactivate MQTT
+
+    Frontend->>Frontend: Show anomaly alert
+    Frontend->>Frontend: Highlight affected entity
+    Frontend->>User: Visual/Audio notification
+    deactivate Frontend
+
+    %% Topology Flow
+    Note over Sim,User: Initial Topology Publication
+
+    Sim->>EB: publish(EntityRelationalDataEvent)
+    activate EB
+    EB->>MQTT: handle_sync(EntityRelationalDataEvent)
+    activate MQTT
+    deactivate EB
+
+    MQTT->>Broker: publish("topology", JSON, retain=true)
+    activate Broker
+    Broker-->>MQTT: ACK
+    deactivate MQTT
+    deactivate Broker
+
+    Note over Broker: Retained message<br/>for new clients
+
+    User->>Frontend: Open SCADA Web
+    activate Frontend
+    Frontend->>Backend: connect()
+    activate Backend
+    Backend->>Broker: subscribe("topology")
+    Broker->>Backend: retained("topology", JSON)
+    Backend->>Frontend: emit("topology", data)
+    deactivate Backend
+    Frontend->>Frontend: Render grid topology
+    deactivate Frontend

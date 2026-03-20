@@ -1,0 +1,113 @@
+{
+    "busses": [
+        {
+            "cim_id": "bus_0",
+            "name": "Main Bus",
+            "id": 0,
+            "vn_kv": 20.0
+        },
+        {
+            "cim_id": "bus_1",
+            "name": "Load Bus 1",
+            "id": 1,
+            "vn_kv": 0.4
+        },
+        {
+            "cim_id": "bus_2",
+            "name": "Load Bus 2",
+            "id": 2,
+            "vn_kv": 0.4
+        },
+        {
+            "cim_id": "bus_3",
+            "name": "PV Bus",
+            "id": 3,
+            "vn_kv": 0.4
+        }
+    ],
+    "loads": [
+        {
+            "cim_id": "load_0",
+            "name": "Household 1",
+            "id": 0,
+            "bus": 1,
+            "p_mw": 0.01,
+            "q_mvar": 0.005,
+            "sn_mva": null
+        },
+        {
+            "cim_id": "load_1",
+            "name": "Household 2",
+            "id": 1,
+            "bus": 2,
+            "p_mw": 0.015,
+            "q_mvar": 0.007,
+            "sn_mva": null
+        }
+    ],
+    "sgens": [
+        {
+            "cim_id": "sgen_0",
+            "name": "PV System",
+            "id": 0,
+            "bus": 3,
+            "p_mw": 0.005,
+            "q_mvar": 0.0,
+            "sn_mva": 0.01,
+            "min_p_mw": 0.0,
+            "max_p_mw": 0.01
+        }
+    ],
+    "trafos": [
+        {
+            "cim_id": "trafo_0",
+            "name": "Main Trafo",
+            "id": 0,
+            "hv_bus": 0,
+            "lv_bus": 1,
+            "vn_hv_kv": 20.0,
+            "vn_lv_kv": 0.4,
+            "tap_side": "hv",
+            "sn_mva": 0.25
+        }
+    ],
+    "lines": [
+        {
+            "cim_id": "line_0",
+            "name": null,
+            "id": 0,
+            "from_bus": 1,
+            "to_bus": 2,
+            "max_i_ka": 0.2
+        },
+        {
+            "cim_id": "line_1",
+            "name": null,
+            "id": 1,
+            "from_bus": 1,
+            "to_bus": 3,
+            "max_i_ka": 0.15
+        }
+    ],
+    "switches": [],
+    "ext_grids": [
+        {
+            "cim_id": "ext_grid_0",
+            "name": "External Grid",
+            "id": 0,
+            "bus": 0
+        }
+    ],
+    "ac_line_segments": [
+        {
+            "id": 0,
+            "from_bus": 1,
+            "to_bus": 2
+        },
+        {
+            "id": 1,
+            "from_bus": 1,
+            "to_bus": 3
+        }
+    ]
+}

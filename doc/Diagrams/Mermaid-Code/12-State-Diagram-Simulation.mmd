@@ -1,0 +1,117 @@
+%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#4A90D9', 'primaryTextColor': '#1a1a1a', 'primaryBorderColor': '#2563eb', 'lineColor': '#4b5563', 'secondaryColor': '#f3f4f6', 'tertiaryColor': '#e5e7eb', 'background': '#ffffff', 'mainBkg': '#ffffff', 'nodeBorder': '#374151'}}}%%
+
+%% State Diagram: Simulation Lifecycle
+%% Author: Sally SCADA System Documentation
+%% Purpose: Document the simulation states and transitions
+
+stateDiagram-v2
+    direction LR
+
+    [*] --> Uninitialized: Application Start
+
+    state Uninitialized {
+        direction LR
+        [*] --> ConfigLoading
+        ConfigLoading --> WaitingForHDF5: Config loaded
+        WaitingForHDF5 --> [*]: HDF5 path provided
+    }
+
+    Uninitialized --> Initializing: HDF5 file selected
+
+    state Initializing {
+        direction TB
+        [*] --> LoadingHDF5
+        LoadingHDF5 --> ParsingEntities: File opened
+        ParsingEntities --> ParsingVariables: Entities parsed
+        ParsingVariables --> ParsingRelations: Variables parsed
+        ParsingRelations --> RegisteringMetrics: Relations parsed
+        RegisteringMetrics --> SubscribingEventBus: OTEL metrics registered
+        SubscribingEventBus --> [*]: Subscribed to EventBus
+    }
+
+    Initializing --> Ready: Initialization complete
+    Initializing --> Error: HDF5 parse error
+
+    state Ready {
+        direction TB
+        [*] --> Idle: Awaiting commands
+
+        state Idle {
+            [*] --> WaitingForStep
+        }
+
+        Idle --> Stepping: step() called
+        Idle --> AutoPlay: play() called
+
+        state Stepping {
+            [*] --> ReadingTimestep
+            ReadingTimestep --> BuildingSnapshot: Data loaded
+            BuildingSnapshot --> ApplyingSetpoints: Snapshot built
+            ApplyingSetpoints --> CreatingMeasurements: Setpoints applied
+            CreatingMeasurements --> PublishingEvents: Measurements created
+            PublishingEvents --> EvaluatingRules: Events published
+            EvaluatingRules --> IncrementingTimestep: Rules evaluated
+            IncrementingTimestep --> [*]: Step complete
+        }
+
+        Stepping --> Idle: step complete
+        Stepping --> Complete: last timestep reached
+        Stepping --> Error: processing error
+
+        state AutoPlay {
+            [*] --> Playing
+            Playing --> SteppingAuto: interval elapsed
+            SteppingAuto --> Playing: step complete
+            Playing --> [*]: pause() called
+        }
+
+        AutoPlay --> Idle: pause() called
+        AutoPlay --> Complete: last timestep reached
+    }
+
+    state Complete {
+        [*] --> Finished
+        Finished --> [*]: close() called
+    }
+
+    Ready --> Paused: pause() called
+    Paused --> Ready: resume() called
+
+    state Error {
+        [*] --> ErrorState
+        ErrorState --> LoggingError: Error logged
+        LoggingError --> [*]: Error handled
+    }
+
+    Error --> Ready: error recovered
+    Error --> Shutdown: fatal error
+
+    Ready --> Shutdown: close() called
+    Complete --> Shutdown: close() called
+
+    state Shutdown {
+        [*] --> ClosingHDF5
+        ClosingHDF5 --> UnsubscribingEventBus: File closed
+        UnsubscribingEventBus --> FlushingMetrics: Unsubscribed
+        FlushingMetrics --> [*]: Metrics flushed
+    }
+
+    Shutdown --> [*]: Shutdown complete
+
+    note right of Ready
+        Main operational state
+        Handles step/play commands
+        Publishes grid events
+    end note
+
+    note right of Stepping
+        Single simulation step
+        ~1-10ms per step
+        Publishes GridDataEvent per entity
+    end note
+
+    note right of AutoPlay
+        Continuous playback mode
+        Configurable interval (default 1s)
+        Can be paused anytime
+    end note

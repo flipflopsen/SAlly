@@ -1,0 +1,274 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "sally"
+version = "0.7.3"
+description = "SAlly - Smart Grid Ally for Simulation, Monitoring, and Analysis"
+readme = "sally/README.md"
+requires-python = "==3.11.14"
+license = { text = "MIT" }
+authors = [
+    { name = "Philip Weber", email = "philip.weber@uni-oldenburg.de" }
+]
+keywords = ["smart-grid", "simulation", "mosaik", "hdf5", "monitoring", "scada", "sally", "timeseries", "pandapower", "grafana", "otel"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+]
+
+# Core dependencies - minimal set for basic simulation
+dependencies = [
+    # Core async and event handling
+    "asyncio>=3.4.3",
+    "aiohttp>=3.13.0",
+    "asyncpg>=0.30.0",
+    "trio>=0.32.0",           # Restored
+    "trio-asyncio>=0.15.0",   # Restored
+    "sniffio>=1.3.1",         # Restored
+    "outcome>=1.3.0",         # Restored
+    "greenlet>=3.3.1",        # Restored
+    "gevent>=25.9.1",         # Restored
+    "zope-event>=6.1",        # Restored
+
+    # Data handling
+    "h5py>=3.11.0",
+    "numpy>=1.24.0,<2.0.0",
+    "pandas>=1.5.0,<2.0.0",
+    "polars>=1.8.0",
+    "tables>=3.8.0",
+    "sortedcontainers>=2.4.0", # Restored
+
+    # Configuration and DI
+    "pyyaml>=6.0.0",
+    "dependency-injector>=4.46.0",
+    "python-decouple>=3.8",
+    "deprecated>=1.3.1",       # Restored
+
+    # Logging
+    "loguru>=0.7.0",
+    "structlog>=25.0.0",
+
+    # Utilities
+    "pydantic>=2.5.0",
+    "attrs>=25.0.0",
+    "click>=8.1.0",
+    "uv==0.9.26",
+    "pip>=24.0.0",
+    "setuptools==79.0.1",
+    "aioitertools>=0.13.0",
+    "django-vite-hmr>=1.0.3",
+    "protobuf>=4.25.0",        # Restored (Explicit versioning often helps)
+]
+
+[project.optional-dependencies]
+# GUI applications (ttkbootstrap-based rule manager)
+gui = [
+    "ttkbootstrap>=1.13.0",
+    "customtkinter>=5.2.0",
+    "pillow>=10.4.0",
+]
+
+# Web application (Django-based simbuilder)
+web = [
+    "django>=4.2.0,<5.0.0",
+    "djangorestframework>=3.14.0",
+    "django-cors-headers>=4.3.0",
+    "django-pwa>=2.0.0",
+    "django-vite>=3.0.0",
+    "channels>=4.0.0",
+    "channels-redis>=4.1.0",
+    "daphne>=4.0.0",
+    "redis>=5.0.0",
+    "twisted>=25.0.0",
+]
+
+# Mosaik co-simulation framework
+mosaik = [
+    "mosaik>=3.5.0",
+    "mosaik-api>=3.0.0",
+    "mosaik-hdf5>=0.4",
+    "mosaik-csv>=2.0.0", # Source overridden in tool.uv.sources
+    "importlib-metadata",
+    "mosaik-pandapower>=0.2.0",
+    "simpy>=3.0.0",
+
+    # MIDAS ecosystem
+    "midas-mosaik>=2.0.0",
+    "midas-powergrid>=2.0.0",
+    "midas-util>=1.1.0",
+
+    # Power grid simulation
+    "pandapower>=2.14.0",
+    "pandapipes>=0.8.0",
+    "lightsim2grid>=0.10.0",
+    "networkx>=2.8.0,<3.0.0",
+]
+
+# Jupyter notebook support
+jupyter = [
+    "jupyter>=1.1.0",
+    "jupyterlab>=4.3.0",
+    "ipython>=8.12.0",
+    "ipykernel>=6.29.0",
+    "ipywidgets>=8.1.0",
+    "matplotlib>=3.7.0,<4.0.0",
+    "notebook>=7.3.0",
+]
+
+# Data visualization and analysis
+viz = [
+    "matplotlib>=3.7.0,<4.0.0",
+    "scikit-learn>=1.6.0",
+]
+
+# OpenTelemetry Full Stack (Restored all instrumentation)
+otel = [
+    "opentelemetry-distro>=0.60b1",
+    "opentelemetry-exporter-otlp>=1.39.1",
+    "opentelemetry-exporter-otlp-proto-grpc>=1.39.1",
+    "opentelemetry-exporter-otlp-proto-http>=1.39.1",
+    "opentelemetry-proto>=1.39.1",
+    "opentelemetry-sdk>=1.39.1",
+    "opentelemetry-semantic-conventions>=0.60b1",
+
+    # Instrumentation
+    "opentelemetry-instrumentation-django>=0.45b0",
+    "opentelemetry-instrumentation-asyncpg>=0.45b0",
+    "opentelemetry-instrumentation-aiohttp-client>=0.45b0",
+    "opentelemetry-instrumentation-aiohttp-server>=0.60b1",  # Restored
+    "opentelemetry-instrumentation-system-metrics>=0.45b0",
+    "opentelemetry-instrumentation-logging>=0.45b0",
+    "opentelemetry-instrumentation-requests>=0.60b1",       # Restored
+    "opentelemetry-instrumentation-urllib>=0.60b1",         # Restored
+    "opentelemetry-instrumentation-urllib3>=0.60b1",        # Restored
+    "opentelemetry-instrumentation-sqlite3>=0.60b1",        # Restored
+    "opentelemetry-instrumentation-redis>=0.60b1",          # Restored
+    "opentelemetry-instrumentation-httpx>=0.60b1",          # Restored
+    "opentelemetry-instrumentation-grpc>=0.60b1",           # Restored
+    "opentelemetry-instrumentation-asyncio>=0.60b1",        # Restored
+    "opentelemetry-instrumentation-threading>=0.60b1",      # Restored
+    "opentelemetry-instrumentation-dbapi>=0.60b1",          # Restored
+    "opentelemetry-instrumentation-asgi>=0.60b1",           # Restored
+    "opentelemetry-instrumentation-tortoiseorm>=0.60b1",    # Restored
+    "opentelemetry-instrumentation-jinja2>=0.60b1",         # Restored
+    "opentelemetry-instrumentation-click>=0.60b1",          # Restored
+    "opentelemetry-instrumentation-tornado>=0.60b1",        # Restored
+]
+
+# Development tools
+dev = [
+    "pytest>=8.3.0",
+    "pytest-mock>=3.14.0",
+    "pytest-asyncio>=0.24.0",
+    "black>=24.0.0",
+    "ruff>=0.6.0",
+    "mypy>=1.11.0",
+    "types-pyyaml",
+    "reloadium>=1.5.0",
+    "flake8>=7.3.0",         # Restored
+    "pycodestyle>=2.14.0",   # Restored
+    "pyflakes>=3.4.0",       # Restored
+    "mccabe>=0.7.0",         # Restored
+    "trove-classifiers>=2026.1.14.14", # Restored
+    "hatchling>=1.28.0",     # Explicitly added for dev context
+]
+
+# SCADA Web integration (Guardian-compatible web frontend)
+scada_web = [
+    "paho-mqtt>=2.0.0",              # MQTT client for bridge service
+    "python-socketio[asyncio_server]>=5.11.0",  # WebSocket bridge
+    "aiohttp>=3.13.0",               # Async HTTP server for WebSocket
+]
+
+# All optional dependencies
+all = [
+    "sally[gui,web,mosaik,jupyter,viz,dev,otel]",
+]
+
+[project.scripts]
+# Main CLI entry point
+sally = "sally.main:main"
+sally-gui = "sally.main_dev_and_gui:start_rule_manager_gui"
+sally-web = "sally.simbuilder.django_runner:run_django"
+sally-dev = "sally.simbuilder.run_dev:main"
+
+[project.urls]
+Homepage = "https://github.com/bena1680/sally"
+Repository = "https://github.com/bena1680/sally"
+Documentation = "https://github.com/bena1680/sally"
+
+[tool.hatch.build.targets.wheel]
+packages = ["sally"]
+
+[dependency-groups]
+dev = [
+  "black>=26.1.0",
+  "mypy>=1.19.1",
+  "pytest>=9.0.2",
+  "pytest-asyncio>=1.3.0",
+  "pytest-mock>=3.15.1",
+  "reloadium>=1.5.1",
+  "ruff>=0.14.13",
+  "types-PyYAML>=6.0.12.20250915",
+]
+
+[tool.black]
+line-length = 100
+target-version = ['py311']
+include = '\\.pyi?$'
+exclude = '''
+/(
+    \\.git
+  | \\.venv
+  | __pycache__
+  | build
+  | dist
+  | node_modules
+)/
+'''
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+select = ["E", "W", "F", "I", "B", "C4", "UP"]
+ignore = ["E501", "B008", "C901"]
+
+[tool.ruff.per-file-ignores]
+"__init__.py" = ["F401"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py", "*_test.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = ["-v", "--strict-markers", "--tb=short"]
+asyncio_mode = "auto"
+markers = [
+    "unit: Unit tests (fast, isolated)",
+    "integration: Integration tests (multiple components)",
+    "hdf5: Tests that load/use HDF5 simulation data",
+    "midas: MIDAS parsing/mapping/integration tests",
+    "bhv: BHV-focused scenarios (often via MIDAS HDF5 datasets)",
+    "benchmark: Performance benchmark tests",
+    "observability: OpenTelemetry/telemetry end-to-end tests",
+]
+
+[tool.mypy]
+python_version = "3.11.14"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = false
+ignore_missing_imports = true
+
+# UV Configuration
+[tool.uv.sources]
+mosaik-csv = { path = "../mosaik-csv", editable = true }
+
+[tool.uv]
+override-dependencies = [
+    "importlib-metadata>=6.0"
+]

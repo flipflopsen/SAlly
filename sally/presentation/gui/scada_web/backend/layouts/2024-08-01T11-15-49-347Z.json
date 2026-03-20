@@ -1,0 +1,3195 @@
+{
+  "SAVEDDATA": {
+    "bus 0": {
+      "gridOffsetToParent": {
+        "x": -2.5,
+        "y": 0
+      }
+    },
+    "bus 1": {
+      "gridOffsetToParent": {
+        "x": 0,
+        "y": 1.5
+      }
+    },
+    "bus 2": {
+      "gridOffsetToParent": {
+        "x": 2.5,
+        "y": -1.5
+      }
+    },
+    "bus 3": {
+      "gridOffsetToParent": {
+        "x": 17,
+        "y": -0.5
+      }
+    },
+    "bus 4": {
+      "gridOffsetToParent": {
+        "x": 16.5,
+        "y": 2
+      }
+    },
+    "bus 5": {
+      "gridOffsetToParent": {
+        "x": 2,
+        "y": 1.5
+      }
+    },
+    "bus 6": {
+      "gridOffsetToParent": {
+        "x": 7.5,
+        "y": 3.5
+      }
+    },
+    "bus 7": {
+      "gridOffsetToParent": {
+        "x": 0,
+        "y": 1
+      }
+    },
+    "bus 8": {
+      "gridOffsetToParent": {
+        "x": 0,
+        "y": 1.5
+      }
+    },
+    "bus 9": {
+      "gridOffsetToParent": {
+        "x": 3,
+        "y": 0
+      }
+    },
+    "bus 10": {
+      "gridOffsetToParent": {
+        "x": 1,
+        "y": 1
+      }
+    },
+    "bus 11": {
+      "gridOffsetToParent": {
+        "x": -1.5,
+        "y": 1
+      }
+    },
+    "bus 12": {
+      "gridOffsetToParent": {
+        "x": -1,
+        "y": 1
+      }
+    },
+    "bus 13": {
+      "gridOffsetToParent": {
+        "x": 0,
+        "y": 1.5
+      }
+    },
+    "bus 14": {
+      "gridOffsetToParent": {
+        "x": 0,
+        "y": 1.5
+      }
+    },
+    "bus 15": {
+      "gridOffsetToParent": {
+        "x": 0,
+        "y": 1.5
+      }
+    },
+    "bus 16": {
+      "gridOffsetToParent": {
+        "x": -1,
+        "y": 0
+      }
+    },
+    "bus 17": {
+      "gridOffsetToParent": {
+        "x": 0,
+        "y": 1.5
+      }
+    },
+    "bus 18": {
+      "gridOffsetToParent": {
+        "x": -1,
+        "y": 0
+      }
+    },
+    "bus 19": {
+      "gridOffsetToParent": {
+        "x": -2,
+        "y": 0
+      }
+    },
+    "bus 20": {
+      "gridOffsetToParent": {
+        "x": 0,
+        "y": 1.5
+      }
+    },
+    "bus 21": {
+      "gridOffsetToParent": {
+        "x": -3.5,
+        "y": 1
+      }
+    },
+    "bus 22": {
+      "gridOffsetToParent": {
+        "x": 1.5,
+        "y": 0
+      }
+    },
+    "bus 23": {
+      "gridOffsetToParent": {
+        "x": -2,
+        "y": 0
+      }
+    },
+    "bus 24": {
+      "gridOffsetToParent": {
+        "x": -1,
+        "y": 0
+      }
+    },
+    "bus 25": {
+      "gridOffsetToParent": {
+        "x": 0,
+        "y": 1.5
+      }
+    },
+    "bus 26": {
+      "gridOffsetToParent": {
+        "x": -1,
+        "y": 0
+      }
+    },
+    "bus 27": {
+      "gridOffsetToParent": {
+        "x": 0,
+        "y": 1.5
+      }
+    },
+    "bus 28": {
+      "gridOffsetToParent": {
+        "x": 0,
+        "y": 1.5
+      }
+    },
+    "bus 29": {
+      "gridOffsetToParent": {
+        "x": 0,
+        "y": 1
+      }
+    },
+    "bus 30": {
+      "gridOffsetToParent": {
+        "x": 0,
+        "y": 1.5
+      }
+    },
+    "bus 31": {
+      "gridOffsetToParent": {
+        "x": -2,
+        "y": 0
+      }
+    },
+    "bus 32": {
+      "gridOffsetToParent": {
+        "x": -11,
+        "y": 1
+      }
+    },
+    "bus 33": {
+      "gridOffsetToParent": {
+        "x": 0,
+        "y": 1.5
+      }
+    },
+    "bus 34": {
+      "gridOffsetToParent": {
+        "x": 9,
+        "y": 0
+      }
+    },
+    "bus 35": {
+      "gridOffsetToParent": {
+        "x": 0,
+        "y": 1.5
+      }
+    },
+    "bus 36": {
+      "gridOffsetToParent": {
+        "x": -2,
+        "y": 0
+      }
+    },
+    "bus 37": {
+      "gridOffsetToParent": {
+        "x": 0,
+        "y": 1.5
+      }
+    },
+    "bus 38": {
+      "gridOffsetToParent": {
+        "x": -4,
+        "y": 1.5
+      }
+    },
+    "bus 39": {
+      "gridOffsetToParent": {
+        "x": -2,
+        "y": 0
+      }
+    },
+    "bus 40": {
+      "gridOffsetToParent": {
+        "x": 0,
+        "y": 1.5
+      }
+    },
+    "bus 41": {
+      "gridOffsetToParent": {
+        "x": 2,
+        "y": 0
+      }
+    },
+    "bus 42": {
+      "gridOffsetToParent": {
+        "x": 0,
+        "y": 1.5
+      }
+    },
+    "bus 43": {
+      "gridOffsetToParent": {
+        "x": 0,
+        "y": 1
+      }
+    },
+    "bus 44": {
+      "gridOffsetToParent": {
+        "x": -1,
+        "y": 0
+      }
+    },
+    "bus 45": {
+      "gridOffsetToParent": {
+        "x": 0,
+        "y": 1.5
+      }
+    },
+    "bus 46": {
+      "gridOffsetToParent": {
+        "x": -1,
+        "y": 0
+      }
+    },
+    "bus 47": {
+      "gridOffsetToParent": {
+        "x": -2,
+        "y": 0
+      }
+    },
+    "bus 48": {
+      "gridOffsetToParent": {
+        "x": -1,
+        "y": 0
+      }
+    },
+    "bus 49": {
+      "gridOffsetToParent": {
+        "x": -1,
+        "y": 0
+      }
+    },
+    "bus 50": {
+      "gridOffsetToParent": {
+        "x": 0,
+        "y": 1.5
+      }
+    },
+    "bus 51": {
+      "gridOffsetToParent": {
+        "x": -1,
+        "y": 0
+      }
+    },
+    "bus 52": {
+      "gridOffsetToParent": {
+        "x": -2,
+        "y": 0
+      }
+    },
+    "bus 53": {
+      "gridOffsetToParent": {
+        "x": 0,
+        "y": 1.5
+      }
+    },
+    "bus 54": {
+      "gridOffsetToParent": {
+        "x": -1,
+        "y": 0
+      }
+    },
+    "bus 55": {
+      "gridOffsetToParent": {
+        "x": -2,
+        "y": 0
+      }
+    },
+    "bus 56": {
+      "gridOffsetToParent": {
+        "x": -1,
+        "y": 0
+      }
+    },
+    "bus 57": {
+      "gridOffsetToParent": {
+        "x": 0,
+        "y": 1.5
+      }
+    },
+    "bus 58": {
+      "gridOffsetToParent": {
+        "x": -1,
+        "y": 0
+      }
+    },
+    "bus 59": {
+      "gridOffsetToParent": {
+        "x": -2,
+        "y": 0
+      }
+    },
+    "bus 60": {
+      "gridOffsetToParent": {
+        "x": -1,
+        "y": 0
+      }
+    },
+    "bus 61": {
+      "gridOffsetToParent": {
+        "x": -1,
+        "y": 0
+      }
+    },
+    "bus 62": {
+      "gridOffsetToParent": {
+        "x": -1,
+        "y": 0
+      }
+    },
+    "bus 63": {
+      "gridOffsetToParent": {
+        "x": 0,
+        "y": 1.5
+      }
+    },
+    "bus 64": {
+      "gridOffsetToParent": {
+        "x": -1,
+        "y": 0
+      }
+    },
+    "bus 65": {
+      "gridOffsetToParent": {
+        "x": 0,
+        "y": 1.5
+      }
+    },
+    "bus 66": {
+      "gridOffsetToParent": {
+        "x": -2,
+        "y": 0
+      }
+    },
+    "bus 67": {
+      "gridOffsetToParent": {
+        "x": 0,
+        "y": 1.5
+      }
+    },
+    "bus 68": {
+      "gridOffsetToParent": {
+        "x": -2,
+        "y": 0
+      }
+    },
+    "bus 69": {
+      "gridOffsetToParent": {
+        "x": -2,
+        "y": 0
+      }
+    },
+    "bus 70": {
+      "gridOffsetToParent": {
+        "x": -1,
+        "y": 0
+      }
+    },
+    "bus 71": {
+      "gridOffsetToParent": {
+        "x": 0,
+        "y": 1.5
+      }
+    },
+    "bus 72": {
+      "gridOffsetToParent": {
+        "x": -1,
+        "y": 0
+      }
+    },
+    "bus 73": {
+      "gridOffsetToParent": {
+        "x": -2,
+        "y": 0
+      }
+    },
+    "bus 74": {
+      "gridOffsetToParent": {
+        "x": -1,
+        "y": 0
+      }
+    },
+    "bus 75": {
+      "gridOffsetToParent": {
+        "x": -1,
+        "y": 0
+      }
+    },
+    "bus 76": {
+      "gridOffsetToParent": {
+        "x": -1,
+        "y": 0
+      }
+    },
+    "bus 77": {
+      "gridOffsetToParent": {
+        "x": -1,
+        "y": 0
+      }
+    },
+    "bus 78": {
+      "gridOffsetToParent": {
+        "x": -1,
+        "y": 0
+      }
+    },
+    "bus 79": {
+      "gridOffsetToParent": {
+        "x": -1,
+        "y": 0
+      }
+    },
+    "bus 80": {
+      "gridOffsetToParent": {
+        "x": 0,
+        "y": 1.5
+      }
+    },
+    "bus 81": {
+      "gridOffsetToParent": {
+        "x": 0,
+        "y": 1.5
+      }
+    },
+    "ext_grid 0": {
+      "gridOffsetToParent": {
+        "x": 31.5,
+        "y": 1.5
+      }
+    },
+    "ext_grid 1": {
+      "gridOffsetToParent": {
+        "x": 15,
+        "y": 1.5
+      }
+    },
+    "ext_grid 2": {
+      "gridOffsetToParent": {
+        "x": 48.5,
+        "y": 14
+      }
+    },
+    "ext_grid 3": {
+      "gridOffsetToParent": {
+        "x": 12.5,
+        "y": 14
+      }
+    },
+    "trafo 0": {
+      "gridOffsetToParent": {
+        "x": 0,
+        "y": 1.5
+      }
+    },
+    "trafo 1": {
+      "gridOffsetToParent": {
+        "x": 0,
+        "y": 1.5
+      }
+    },
+    "trafo 2": {
+      "gridOffsetToParent": {
+        "x": 0,
+        "y": 1.5
+      }
+    },
+    "trafo 3": {
+      "gridOffsetToParent": {
+        "x": 0,
+        "y": 1.5
+      }
+    },
+    "trafo 4": {
+      "gridOffsetToParent": {
+        "x": 0,
+        "y": 1.5
+      }
+    },
+    "trafo 5": {
+      "gridOffsetToParent": {
+        "x": 0,
+        "y": 1.5
+      }
+    },
+    "trafo 6": {
+      "gridOffsetToParent": {
+        "x": 0,
+        "y": 1.5
+      }
+    },
+    "trafo 7": {
+      "gridOffsetToParent": {
+        "x": 0,
+        "y": 1.5
+      }
+    },
+    "trafo 8": {
+      "gridOffsetToParent": {
+        "x": 0,
+        "y": 1.5
+      }
+    },
+    "trafo 9": {
+      "gridOffsetToParent": {
+        "x": 0,
+        "y": 1.5
+      }
+    },
+    "trafo 10": {
+      "gridOffsetToParent": {
+        "x": 0,
+        "y": 1.5
+      }
+    },
+    "trafo 11": {
+      "gridOffsetToParent": {
+        "x": 0,
+        "y": 1.5
+      }
+    },
+    "trafo 12": {
+      "gridOffsetToParent": {
+        "x": 0,
+        "y": 1.5
+      }
+    },
+    "trafo 13": {
+      "gridOffsetToParent": {
+        "x": 0,
+        "y": 1.5
+      }
+    },
+    "trafo 14": {
+      "gridOffsetToParent": {
+        "x": 0,
+        "y": 1.5
+      }
+    },
+    "trafo 15": {
+      "gridOffsetToParent": {
+        "x": 0,
+        "y": 1.5
+      }
+    },
+    "trafo 16": {
+      "gridOffsetToParent": {
+        "x": 0,
+        "y": 1.5
+      }
+    },
+    "trafo 17": {
+      "gridOffsetToParent": {
+        "x": 0,
+        "y": 1.5
+      }
+    },
+    "trafo 18": {
+      "gridOffsetToParent": {
+        "x": 0,
+        "y": 1.5
+      }
+    },
+    "trafo 19": {
+      "gridOffsetToParent": {
+        "x": 0,
+        "y": 1.5
+      }
+    },
+    "trafo 20": {
+      "gridOffsetToParent": {
+        "x": 0,
+        "y": 1.5
+      }
+    },
+    "trafo 21": {
+      "gridOffsetToParent": {
+        "x": 0,
+        "y": 1.5
+      }
+    },
+    "load 0": {
+      "gridOffsetToParent": {
+        "x": 0,
+        "y": 1.5
+      }
+    },
+    "load 1": {
+      "gridOffsetToParent": {
+        "x": 0,
+        "y": 1.5
+      }
+    },
+    "load 2": {
+      "gridOffsetToParent": {
+        "x": 0,
+        "y": 1.5
+      }
+    },
+    "load 3": {
+      "gridOffsetToParent": {
+        "x": 0,
+        "y": 1.5
+      }
+    },
+    "load 4": {
+      "gridOffsetToParent": {
+        "x": 0,
+        "y": 1.5
+      }
+    },
+    "load 5": {
+      "gridOffsetToParent": {
+        "x": 0,
+        "y": 1.5
+      }
+    },
+    "load 6": {
+      "gridOffsetToParent": {
+        "x": 0,
+        "y": 1.5
+      }
+    },
+    "load 7": {
+      "gridOffsetToParent": {
+        "x": 0,
+        "y": 1.5
+      }
+    },
+    "load 8": {
+      "gridOffsetToParent": {
+        "x": 0,
+        "y": 1.5
+      }
+    },
+    "load 9": {
+      "gridOffsetToParent": {
+        "x": 0,
+        "y": 1.5
+      }
+    },
+    "load 10": {
+      "gridOffsetToParent": {
+        "x": 0,
+        "y": 1.5
+      }
+    },
+    "load 11": {
+      "gridOffsetToParent": {
+        "x": 0,
+        "y": 1.5
+      }
+    },
+    "load 12": {
+      "gridOffsetToParent": {
+        "x": 0,
+        "y": 1.5
+      }
+    },
+    "load 13": {
+      "gridOffsetToParent": {
+        "x": 0,
+        "y": 1.5
+      }
+    },
+    "load 14": {
+      "gridOffsetToParent": {
+        "x": 0,
+        "y": 1.5
+      }
+    },
+    "load 15": {
+      "gridOffsetToParent": {
+        "x": 0,
+        "y": 1.5
+      }
+    },
+    "load 16": {
+      "gridOffsetToParent": {
+        "x": 0,
+        "y": 1.5
+      }
+    },
+    "load 17": {
+      "gridOffsetToParent": {
+        "x": 0,
+        "y": 1.5
+      }
+    },
+    "load 18": {
+      "gridOffsetToParent": {
+        "x": 0,
+        "y": 1.5
+      }
+    },
+    "load 19": {
+      "gridOffsetToParent": {
+        "x": 0,
+        "y": 1.5
+      }
+    },
+    "load 20": {
+      "gridOffsetToParent": {
+        "x": 0,
+        "y": 1.5
+      }
+    },
+    "load 21": {
+      "gridOffsetToParent": {
+        "x": 0,
+        "y": 1.5
+      }
+    },
+    "load 22": {
+      "gridOffsetToParent": {
+        "x": 0,
+        "y": 1.5
+      }
+    },
+    "load 23": {
+      "gridOffsetToParent": {
+        "x": 0,
+        "y": 1.5
+      }
+    },
+    "load 24": {
+      "gridOffsetToParent": {
+        "x": 0,
+        "y": 1.5
+      }
+    },
+    "load 25": {
+      "gridOffsetToParent": {
+        "x": 0,
+        "y": 1.5
+      }
+    },
+    "load 26": {
+      "gridOffsetToParent": {
+        "x": 0,
+        "y": 1.5
+      }
+    },
+    "load 27": {
+      "gridOffsetToParent": {
+        "x": 0,
+        "y": 1.5
+      }
+    },
+    "load 28": {
+      "gridOffsetToParent": {
+        "x": 0,
+        "y": 1.5
+      }
+    },
+    "load 29": {
+      "gridOffsetToParent": {
+        "x": 0,
+        "y": 1.5
+      }
+    },
+    "load 30": {
+      "gridOffsetToParent": {
+        "x": 0,
+        "y": 1.5
+      }
+    },
+    "load 31": {
+      "gridOffsetToParent": {
+        "x": 0,
+        "y": 1.5
+      }
+    },
+    "load 32": {
+      "gridOffsetToParent": {
+        "x": 0,
+        "y": 1.5
+      }
+    },
+    "load 33": {
+      "gridOffsetToParent": {
+        "x": 0,
+        "y": 1.5
+      }
+    },
+    "load 34": {
+      "gridOffsetToParent": {
+        "x": 0,
+        "y": 1.5
+      }
+    },
+    "load 35": {
+      "gridOffsetToParent": {
+        "x": 0,
+        "y": 1.5
+      }
+    },
+    "load 36": {
+      "gridOffsetToParent": {
+        "x": 0,
+        "y": 1.5
+      }
+    },
+    "load 37": {
+      "gridOffsetToParent": {
+        "x": 0,
+        "y": 1.5
+      }
+    },
+    "load 38": {
+      "gridOffsetToParent": {
+        "x": 0,
+        "y": 1.5
+      }
+    },
+    "load 39": {
+      "gridOffsetToParent": {
+        "x": 0,
+        "y": 1.5
+      }
+    },
+    "sgen 0": {
+      "gridOffsetToParent": {
+        "x": 0,
+        "y": 1.5
+      }
+    },
+    "sgen 1": {
+      "gridOffsetToParent": {
+        "x": -1,
+        "y": 0.5
+      }
+    },
+    "sgen 2": {
+      "gridOffsetToParent": {
+        "x": -1,
+        "y": 0.5
+      }
+    },
+    "sgen 3": {
+      "gridOffsetToParent": {
+        "x": 0,
+        "y": 1.5
+      }
+    },
+    "sgen 4": {
+      "gridOffsetToParent": {
+        "x": 0,
+        "y": 1.5
+      }
+    },
+    "sgen 5": {
+      "gridOffsetToParent": {
+        "x": -1,
+        "y": 0.5
+      }
+    },
+    "sgen 6": {
+      "gridOffsetToParent": {
+        "x": -1,
+        "y": 0.5
+      }
+    },
+    "sgen 7": {
+      "gridOffsetToParent": {
+        "x": -1,
+        "y": 0.5
+      }
+    },
+    "sgen 8": {
+      "gridOffsetToParent": {
+        "x": -1,
+        "y": 0.5
+      }
+    },
+    "sgen 9": {
+      "gridOffsetToParent": {
+        "x": -1,
+        "y": 0.5
+      }
+    },
+    "sgen 10": {
+      "gridOffsetToParent": {
+        "x": -1,
+        "y": 0.5
+      }
+    },
+    "sgen 11": {
+      "gridOffsetToParent": {
+        "x": -1,
+        "y": 0.5
+      }
+    },
+    "sgen 12": {
+      "gridOffsetToParent": {
+        "x": 0,
+        "y": 1.5
+      }
+    },
+    "sgen 13": {
+      "gridOffsetToParent": {
+        "x": -1,
+        "y": 0.5
+      }
+    },
+    "sgen 14": {
+      "gridOffsetToParent": {
+        "x": 0,
+        "y": 1.5
+      }
+    },
+    "sgen 15": {
+      "gridOffsetToParent": {
+        "x": -1,
+        "y": 0.5
+      }
+    },
+    "sgen 16": {
+      "gridOffsetToParent": {
+        "x": -1,
+        "y": 0.5
+      }
+    },
+    "sgen 17": {
+      "gridOffsetToParent": {
+        "x": -1,
+        "y": 0.5
+      }
+    },
+    "sgen 18": {
+      "gridOffsetToParent": {
+        "x": 0,
+        "y": 1.5
+      }
+    },
+    "sgen 19": {
+      "gridOffsetToParent": {
+        "x": -1,
+        "y": 0.5
+      }
+    },
+    "sgen 20": {
+      "gridOffsetToParent": {
+        "x": -1,
+        "y": 0.5
+      }
+    },
+    "sgen 21": {
+      "gridOffsetToParent": {
+        "x": -1,
+        "y": 0.5
+      }
+    },
+    "sgen 22": {
+      "gridOffsetToParent": {
+        "x": -1,
+        "y": 0.5
+      }
+    },
+    "sgen 23": {
+      "gridOffsetToParent": {
+        "x": -1,
+        "y": 0.5
+      }
+    },
+    "sgen 24": {
+      "gridOffsetToParent": {
+        "x": -1,
+        "y": 0.5
+      }
+    }
+  },
+  "NETWORKJSON": {
+    "busses": {
+      "bus 0": {
+        "name": "110 kV Umspannwerk Blexen/hv_bus_0",
+        "vn_kv": 110,
+        "relations": [
+          "line 15"
+        ]
+      },
+      "bus 1": {
+        "name": "110 kV Überseehafen, Wurster Straße/ov_hv_0",
+        "vn_kv": 110,
+        "relations": [
+          "line 0",
+          "line 8",
+          "line 10",
+          "trafo 0"
+        ]
+      },
+      "bus 2": {
+        "name": "110 kV Überseehafen, Grauwallring/hv_bus_2",
+        "vn_kv": 110,
+        "relations": [
+          "line 8",
+          "line 19",
+          "line 20"
+        ]
+      },
+      "bus 3": {
+        "name": "110 kV Leherheide, Debstedter Weg/hv_bus_3",
+        "vn_kv": 110,
+        "relations": [
+          "line 0",
+          "line 2",
+          "line 7",
+          "line 19",
+          "line 24"
+        ]
+      },
+      "bus 4": {
+        "name": "110 kV Lehe, Am Wischhacker/hv_bus_4",
+        "vn_kv": 110,
+        "relations": [
+          "line 2",
+          "line 3",
+          "line 4",
+          "line 9",
+          "line 20",
+          "line 21",
+          "line 23",
+          "line 24"
+        ]
+      },
+      "bus 5": {
+        "name": "110 kV Schiffdorferdamm, Johann-Wichels-Weg/hv_bus_5",
+        "vn_kv": 110,
+        "relations": [
+          "line 1",
+          "line 9",
+          "line 22",
+          "line 25"
+        ]
+      },
+      "bus 6": {
+        "name": "110 kV Surheide, Midgardweg/hv_bus_6",
+        "vn_kv": 110,
+        "relations": [
+          "line 4",
+          "line 5",
+          "line 6",
+          "line 7"
+        ]
+      },
+      "bus 7": {
+        "name": "110 kV Wulsdorf, Daimlerstraße/hv_bus_7",
+        "vn_kv": 110,
+        "relations": [
+          "line 5",
+          "line 16",
+          "line 17",
+          "line 25"
+        ]
+      },
+      "bus 8": {
+        "name": "110 kV Wulsdorf, Hackfahrel/hv_bus_8",
+        "vn_kv": 110,
+        "relations": [
+          "line 6",
+          "line 14",
+          "line 16",
+          "trafo 21"
+        ]
+      },
+      "bus 9": {
+        "name": "110 kV Kaiserhafen Eins, Lohmannstraße/hv_bus_9",
+        "vn_kv": 110,
+        "relations": [
+          "line 10",
+          "line 11",
+          "line 23"
+        ]
+      },
+      "bus 10": {
+        "name": "110 kV Mitte, Barkhausenstraße/hv_bus_10",
+        "vn_kv": 110,
+        "relations": [
+          "line 11",
+          "line 12",
+          "line 18"
+        ]
+      },
+      "bus 11": {
+        "name": "110 kV Geestemünde-Nord, Mozartstraße/hv_bus_11",
+        "vn_kv": 110,
+        "relations": [
+          "line 12",
+          "line 13",
+          "line 21",
+          "line 22"
+        ]
+      },
+      "bus 12": {
+        "name": "110 kV Handelshafen, Klußmannstraße/hv_bus_12",
+        "vn_kv": 110,
+        "relations": [
+          "line 13",
+          "line 14",
+          "line 15",
+          "line 17",
+          "line 18"
+        ]
+      },
+      "bus 13": {
+        "name": "110 kV Langen Bremerhaven Nord/c_hv_0",
+        "vn_kv": 110,
+        "relations": [
+          "line 1",
+          "trafo 4"
+        ]
+      },
+      "bus 14": {
+        "name": "110 kV Lehe/c_hv_1",
+        "vn_kv": 110,
+        "relations": [
+          "line 3",
+          "trafo 11"
+        ]
+      },
+      "bus 15": {
+        "name": "Weddewarden Industrielast/ov_load_0",
+        "vn_kv": 20,
+        "relations": [
+          "line 26",
+          "trafo 0"
+        ]
+      },
+      "bus 16": {
+        "name": "20 kV Gen Bus Windpark Speckenbüttel 2/ov_sgen_0",
+        "vn_kv": 20,
+        "relations": [
+          "line 26",
+          "line 27"
+        ]
+      },
+      "bus 17": {
+        "name": "Weddewarden LV/ov_lv_0",
+        "vn_kv": 0.4,
+        "relations": [
+          "trafo 1"
+        ]
+      },
+      "bus 18": {
+        "name": "Weddewarden MV/ov_load_1",
+        "vn_kv": 20,
+        "relations": [
+          "line 27",
+          "line 28",
+          "trafo 1"
+        ]
+      },
+      "bus 19": {
+        "name": "Lehe Industrielast/c_load_2",
+        "vn_kv": 20,
+        "relations": [
+          "line 28",
+          "line 29"
+        ]
+      },
+      "bus 20": {
+        "name": "Lehe LV - 0/c_lv_1_0",
+        "vn_kv": 0.4,
+        "relations": [
+          "trafo 2"
+        ]
+      },
+      "bus 21": {
+        "name": "Lehe MV - 0/c_load_3_0",
+        "vn_kv": 20,
+        "relations": [
+          "line 29",
+          "line 30",
+          "line 31",
+          "trafo 2"
+        ]
+      },
+      "bus 22": {
+        "name": "20 kV Gen Bus Windpark Speckenbüttel 1/ov_sgen_1",
+        "vn_kv": 20,
+        "relations": [
+          "line 30"
+        ]
+      },
+      "bus 23": {
+        "name": "20 kV Gen Bus Windpark Multibrid/ov_sgen_2",
+        "vn_kv": 20,
+        "relations": [
+          "line 31",
+          "line 32"
+        ]
+      },
+      "bus 24": {
+        "name": "Geestemünde Industrielast/c_load_12",
+        "vn_kv": 20,
+        "relations": [
+          "line 32",
+          "line 33"
+        ]
+      },
+      "bus 25": {
+        "name": "Geestemünde LV - 0/c_lv_3",
+        "vn_kv": 0.4,
+        "relations": [
+          "trafo 3"
+        ]
+      },
+      "bus 26": {
+        "name": "Geestemünde MV - 0/c_load_11",
+        "vn_kv": 20,
+        "relations": [
+          "line 33",
+          "line 34",
+          "trafo 3"
+        ]
+      },
+      "bus 27": {
+        "name": "110 kV Langen Bremerhaven Nord/c_ext_grid",
+        "vn_kv": 20,
+        "relations": [
+          "line 34",
+          "line 35",
+          "trafo 4"
+        ]
+      },
+      "bus 28": {
+        "name": "Lehe LV - 1/c_lv_1_1",
+        "vn_kv": 0.4,
+        "relations": [
+          "trafo 5"
+        ]
+      },
+      "bus 29": {
+        "name": "Lehe MV - 1/c_load_3_1",
+        "vn_kv": 20,
+        "relations": [
+          "line 35",
+          "line 36",
+          "trafo 5"
+        ]
+      },
+      "bus 30": {
+        "name": "Lehe LV - 2/c_lv_1_2",
+        "vn_kv": 0.4,
+        "relations": [
+          "trafo 6"
+        ]
+      },
+      "bus 31": {
+        "name": "Lehe MV - 2/c_load_3_2",
+        "vn_kv": 20,
+        "relations": [
+          "line 36",
+          "line 37",
+          "trafo 6"
+        ]
+      },
+      "bus 32": {
+        "name": "110 kV Gen Bus Erdgas Kronos Titan GmbH/c_sgen_0",
+        "vn_kv": 20,
+        "relations": [
+          "line 37",
+          "line 38"
+        ]
+      },
+      "bus 33": {
+        "name": "Geestemünde LV - 1/c_lv_3",
+        "vn_kv": 0.4,
+        "relations": [
+          "trafo 7"
+        ]
+      },
+      "bus 34": {
+        "name": "Geestemünde MV - 1/c_load_11",
+        "vn_kv": 20,
+        "relations": [
+          "line 38",
+          "line 39",
+          "trafo 7"
+        ]
+      },
+      "bus 35": {
+        "name": "Lehe LV - 3/c_lv_1_3",
+        "vn_kv": 0.4,
+        "relations": [
+          "trafo 8"
+        ]
+      },
+      "bus 36": {
+        "name": "Lehe MV - 3/c_load_3_3",
+        "vn_kv": 20,
+        "relations": [
+          "line 39",
+          "line 40",
+          "trafo 8"
+        ]
+      },
+      "bus 37": {
+        "name": "Lehe LV - 4/c_lv_1_4",
+        "vn_kv": 0.4,
+        "relations": [
+          "trafo 9"
+        ]
+      },
+      "bus 38": {
+        "name": "Lehe MV - 4/c_load_3_4",
+        "vn_kv": 20,
+        "relations": [
+          "line 40",
+          "line 41",
+          "line 42",
+          "trafo 9"
+        ]
+      },
+      "bus 39": {
+        "name": "20 kV Gen Bus Windpark Repower/ov_sgen_2",
+        "vn_kv": 20,
+        "relations": [
+          "line 41"
+        ]
+      },
+      "bus 40": {
+        "name": "Leherheide LV - 0/c_lv_0",
+        "vn_kv": 0.4,
+        "relations": [
+          "trafo 10"
+        ]
+      },
+      "bus 41": {
+        "name": "Leherheide MV - 0/c_load_1",
+        "vn_kv": 20,
+        "relations": [
+          "line 42",
+          "trafo 10"
+        ]
+      },
+      "bus 42": {
+        "name": "110 kV Lehe ExtGrid/c_ext_grid_1",
+        "vn_kv": 20,
+        "relations": [
+          "line 43",
+          "trafo 11"
+        ]
+      },
+      "bus 43": {
+        "name": "20 kV Gen Bus Windpark Lehe/c_sgen_2",
+        "vn_kv": 20,
+        "relations": [
+          "line 43",
+          "line 44"
+        ]
+      },
+      "bus 44": {
+        "name": "Klinikum Bremerhaven - Reinkenheide gGmbH/c_load_20",
+        "vn_kv": 20,
+        "relations": [
+          "line 44",
+          "line 45"
+        ]
+      },
+      "bus 45": {
+        "name": "Schiffdorferdamm LV/c_lv_6",
+        "vn_kv": 0.4,
+        "relations": [
+          "trafo 12"
+        ]
+      },
+      "bus 46": {
+        "name": "Schiffdorferdamm MV/c_load_18",
+        "vn_kv": 20,
+        "relations": [
+          "line 45",
+          "line 46",
+          "trafo 12"
+        ]
+      },
+      "bus 47": {
+        "name": "Schiffdorferdamm Industrielast/c_load_19",
+        "vn_kv": 20,
+        "relations": [
+          "line 46",
+          "line 47"
+        ]
+      },
+      "bus 48": {
+        "name": "Bremerhaven Eisarena, Stadthalle etc./c_load_4",
+        "vn_kv": 20,
+        "relations": [
+          "line 47",
+          "line 48"
+        ]
+      },
+      "bus 49": {
+        "name": "Mitte Industrielast/c_load_7",
+        "vn_kv": 20,
+        "relations": [
+          "line 48",
+          "line 49"
+        ]
+      },
+      "bus 50": {
+        "name": "Mitte LV - 0/c_lv_2",
+        "vn_kv": 0.4,
+        "relations": [
+          "trafo 13"
+        ]
+      },
+      "bus 51": {
+        "name": "Mitte MV - 0/c_load_6",
+        "vn_kv": 20,
+        "relations": [
+          "line 49",
+          "line 50",
+          "trafo 13"
+        ]
+      },
+      "bus 52": {
+        "name": "Leherheide Industrielast/c_load_0",
+        "vn_kv": 20,
+        "relations": [
+          "line 50",
+          "line 51"
+        ]
+      },
+      "bus 53": {
+        "name": "Wulsdorf LV - 0/c_lv_4_1",
+        "vn_kv": 0.4,
+        "relations": [
+          "trafo 14"
+        ]
+      },
+      "bus 54": {
+        "name": "Wulsdorf MV - 0/c_load_13_1",
+        "vn_kv": 20,
+        "relations": [
+          "line 51",
+          "line 52",
+          "trafo 14"
+        ]
+      },
+      "bus 55": {
+        "name": "20 kV Gen Bus Abfall BEG mbh/c_sgen_1",
+        "vn_kv": 20,
+        "relations": [
+          "line 52",
+          "line 53"
+        ]
+      },
+      "bus 56": {
+        "name": "Surheide Industrielast/c_load_17",
+        "vn_kv": 20,
+        "relations": [
+          "line 53",
+          "line 54"
+        ]
+      },
+      "bus 57": {
+        "name": "Surheide LV/c_lv_5",
+        "vn_kv": 0.4,
+        "relations": [
+          "trafo 15"
+        ]
+      },
+      "bus 58": {
+        "name": "Surheide MV/c_load_16",
+        "vn_kv": 20,
+        "relations": [
+          "line 54",
+          "line 55",
+          "trafo 15"
+        ]
+      },
+      "bus 59": {
+        "name": "AMEOS Klinikum Am Bürgerpark Bremerhaven/c_load_10",
+        "vn_kv": 20,
+        "relations": [
+          "line 55",
+          "line 56"
+        ]
+      },
+      "bus 60": {
+        "name": "Bremerhaven Innenstadt/c_load_9",
+        "vn_kv": 20,
+        "relations": [
+          "line 56",
+          "line 57"
+        ]
+      },
+      "bus 61": {
+        "name": "Zoo/c_load_8",
+        "vn_kv": 20,
+        "relations": [
+          "line 57",
+          "line 58"
+        ]
+      },
+      "bus 62": {
+        "name": "AMEOS Klinikum Mitte Bremerhaven/c_load_5",
+        "vn_kv": 20,
+        "relations": [
+          "line 58",
+          "line 59"
+        ]
+      },
+      "bus 63": {
+        "name": "Mitte LV - 1/c_lv_2",
+        "vn_kv": 0.4,
+        "relations": [
+          "trafo 16"
+        ]
+      },
+      "bus 64": {
+        "name": "Mitte MV/c_load_6",
+        "vn_kv": 20,
+        "relations": [
+          "line 59",
+          "line 60",
+          "trafo 16"
+        ]
+      },
+      "bus 65": {
+        "name": "Leherheide LV - 1/c_lv_0_1",
+        "vn_kv": 0.4,
+        "relations": [
+          "trafo 17"
+        ]
+      },
+      "bus 66": {
+        "name": "Leherheide MV - 1/c_load_1_1",
+        "vn_kv": 20,
+        "relations": [
+          "line 60",
+          "line 61",
+          "trafo 17"
+        ]
+      },
+      "bus 67": {
+        "name": "Wulsdorf LV - 1/c_lv_4",
+        "vn_kv": 0.4,
+        "relations": [
+          "trafo 18"
+        ]
+      },
+      "bus 68": {
+        "name": "Wulsdorf MV - 1/c_load_13",
+        "vn_kv": 20,
+        "relations": [
+          "line 61",
+          "line 62",
+          "trafo 18"
+        ]
+      },
+      "bus 69": {
+        "name": "Fischereihafen Industrielast/fp_load_6",
+        "vn_kv": 20,
+        "relations": [
+          "line 62",
+          "line 63"
+        ]
+      },
+      "bus 70": {
+        "name": "Wulsdorf Industrielast/c_load_14",
+        "vn_kv": 20,
+        "relations": [
+          "line 63",
+          "line 64"
+        ]
+      },
+      "bus 71": {
+        "name": "Geestemünde LV - 2/c_lv_3",
+        "vn_kv": 0.4,
+        "relations": [
+          "trafo 19"
+        ]
+      },
+      "bus 72": {
+        "name": "Geestemünde MV - 2/c_load_11",
+        "vn_kv": 20,
+        "relations": [
+          "line 64",
+          "line 65",
+          "trafo 19"
+        ]
+      },
+      "bus 73": {
+        "name": "Bremerhaven Süd/c_load_15",
+        "vn_kv": 20,
+        "relations": [
+          "line 65",
+          "line 66"
+        ]
+      },
+      "bus 74": {
+        "name": "Fischereihafen - 4/fp_load_5",
+        "vn_kv": 20,
+        "relations": [
+          "line 66",
+          "line 67"
+        ]
+      },
+      "bus 75": {
+        "name": "Fischereihafen - 3/fp_load_4",
+        "vn_kv": 20,
+        "relations": [
+          "line 67",
+          "line 68"
+        ]
+      },
+      "bus 76": {
+        "name": "Fischereihafen - 2/fp_load_3",
+        "vn_kv": 20,
+        "relations": [
+          "line 68",
+          "line 69"
+        ]
+      },
+      "bus 77": {
+        "name": "Fischereihafen - 1/fp_load_2",
+        "vn_kv": 20,
+        "relations": [
+          "line 69",
+          "line 70"
+        ]
+      },
+      "bus 78": {
+        "name": "Fischereihafen - 0/fp_load_1",
+        "vn_kv": 20,
+        "relations": [
+          "line 70",
+          "line 71"
+        ]
+      },
+      "bus 79": {
+        "name": "Fischereihafen MV/fp_load_0",
+        "vn_kv": 20,
+        "relations": [
+          "line 71",
+          "line 72",
+          "trafo 20"
+        ]
+      },
+      "bus 80": {
+        "name": "Fischereihafen LV/fp_lv__0",
+        "vn_kv": 0.4,
+        "relations": [
+          "trafo 20"
+        ]
+      },
+      "bus 81": {
+        "name": "110 kV Ext Grid Fischereihafen MV/fp_ext_grid",
+        "vn_kv": 20,
+        "relations": [
+          "line 72",
+          "trafo 21"
+        ]
+      }
+    },
+    "energy_consumers": {
+      "load 0": {
+        "name": "Weddewarden Industrielast",
+        "q_mvar": 0.01503741746120811,
+        "sn_mva": 20,
+        "p_mv": 0.06,
+        "relations": [
+          "bus 15"
+        ]
+      },
+      "load 1": {
+        "name": "Weddewarden Households",
+        "q_mvar": 0.05939779897177198,
+        "sn_mva": 0.4,
+        "p_mv": 0.237,
+        "relations": [
+          "bus 17"
+        ]
+      },
+      "load 2": {
+        "name": "Lehe Industrielast",
+        "q_mvar": 0.9786852531002941,
+        "sn_mva": 20,
+        "p_mv": 3.905,
+        "relations": [
+          "bus 19"
+        ]
+      },
+      "load 3": {
+        "name": "Lehe Households - 0",
+        "q_mvar": 0.8270579603664465,
+        "sn_mva": 0.4,
+        "p_mv": 3.3,
+        "relations": [
+          "bus 20"
+        ]
+      },
+      "load 4": {
+        "name": "Geestemünde Industrielast",
+        "q_mvar": 0.8621452677759313,
+        "sn_mva": 20,
+        "p_mv": 3.44,
+        "relations": [
+          "bus 24"
+        ]
+      },
+      "load 5": {
+        "name": "Geestemünde Households - 0",
+        "q_mvar": 0.8646515040194663,
+        "sn_mva": 0.4,
+        "p_mv": 3.45,
+        "relations": [
+          "bus 25"
+        ]
+      },
+      "load 6": {
+        "name": "Lehe Households - 1",
+        "q_mvar": 0.7518708730604056,
+        "sn_mva": 0.4,
+        "p_mv": 3.03,
+        "relations": [
+          "bus 28"
+        ]
+      },
+      "load 7": {
+        "name": "Lehe Households - 2",
+        "q_mvar": 0.8270579603664465,
+        "sn_mva": 0.4,
+        "p_mv": 3.3,
+        "relations": [
+          "bus 30"
+        ]
+      },
+      "load 8": {
+        "name": "Erdgas Kronos Titan GmbH",
+        "q_mvar": 0.01002494497413873,
+        "sn_mva": 20,
+        "p_mv": 0.04,
+        "relations": [
+          "bus 32"
+        ]
+      },
+      "load 9": {
+        "name": "Geestemünde Households - 1",
+        "q_mvar": 1.065150403502243,
+        "sn_mva": 0.4,
+        "p_mv": 4.25,
+        "relations": [
+          "bus 33"
+        ]
+      },
+      "load 10": {
+        "name": "Lehe Households - 3",
+        "q_mvar": 0.7518708730604056,
+        "sn_mva": 0.4,
+        "p_mv": 3,
+        "relations": [
+          "bus 35"
+        ]
+      },
+      "load 11": {
+        "name": "Lehe Households - 4",
+        "q_mvar": 0.7518708730604056,
+        "sn_mva": 0.4,
+        "p_mv": 3,
+        "relations": [
+          "bus 37"
+        ]
+      },
+      "load 12": {
+        "name": "Leherheide Households - 0",
+        "q_mvar": 0.9273074101078329,
+        "sn_mva": 0.4,
+        "p_mv": 3.7,
+        "relations": [
+          "bus 40"
+        ]
+      },
+      "load 13": {
+        "name": "Klinikum Bremerhaven - Reinkenheide gGmbH",
+        "q_mvar": 0.2350849596435537,
+        "sn_mva": 20,
+        "p_mv": 0.938,
+        "relations": [
+          "bus 44"
+        ]
+      },
+      "load 14": {
+        "name": "Schiffdorferdamm Households",
+        "q_mvar": 0.2614004402006675,
+        "sn_mva": 0.4,
+        "p_mv": 1.043,
+        "relations": [
+          "bus 45"
+        ]
+      },
+      "load 15": {
+        "name": "Schiffdorferdamm Industrielast",
+        "q_mvar": 0.06666588407802265,
+        "sn_mva": 20,
+        "p_mv": 0.266,
+        "relations": [
+          "bus 47"
+        ]
+      },
+      "load 16": {
+        "name": "Bremerhaven Eisarena, Stadthalle etc.",
+        "q_mvar": 0.1353367571508729,
+        "sn_mva": 20,
+        "p_mv": 0.54,
+        "relations": [
+          "bus 48"
+        ]
+      },
+      "load 17": {
+        "name": "Mitte Industrielast",
+        "q_mvar": 0.3248082171620956,
+        "sn_mva": 20,
+        "p_mv": 1.296,
+        "relations": [
+          "bus 49"
+        ]
+      },
+      "load 18": {
+        "name": "Mitte Households - 0",
+        "q_mvar": 0.639090242101345,
+        "sn_mva": 0.4,
+        "p_mv": 2.55,
+        "relations": [
+          "bus 50"
+        ]
+      },
+      "load 19": {
+        "name": "Leherheide Industrielast",
+        "q_mvar": 0.42631078502525,
+        "sn_mva": 20,
+        "p_mv": 1.701,
+        "relations": [
+          "bus 52"
+        ]
+      },
+      "load 20": {
+        "name": "Wulsdorf Households - 0",
+        "q_mvar": 0.6516214233190186,
+        "sn_mva": 0.4,
+        "p_mv": 2.6,
+        "relations": [
+          "bus 53"
+        ]
+      },
+      "load 21": {
+        "name": "Surheide Industrielast",
+        "q_mvar": 0.07794394717392882,
+        "sn_mva": 20,
+        "p_mv": 0.311,
+        "relations": [
+          "bus 56"
+        ]
+      },
+      "load 22": {
+        "name": "Surheide Households",
+        "q_mvar": 0.3057608217112314,
+        "sn_mva": 0.4,
+        "p_mv": 1.22,
+        "relations": [
+          "bus 57"
+        ]
+      },
+      "load 23": {
+        "name": "AMEOS Klinikum Am Bürgerpark Bremerhaven",
+        "q_mvar": 0.07017461481897116,
+        "sn_mva": 20,
+        "p_mv": 0.28,
+        "relations": [
+          "bus 59"
+        ]
+      },
+      "load 24": {
+        "name": "Bremerhaven Innenstadt",
+        "q_mvar": 0.08897138664548115,
+        "sn_mva": 20,
+        "p_mv": 0.355,
+        "relations": [
+          "bus 60"
+        ]
+      },
+      "load 25": {
+        "name": "Zoo",
+        "q_mvar": 0.06766837857543646,
+        "sn_mva": 20,
+        "p_mv": 0.27,
+        "relations": [
+          "bus 61"
+        ]
+      },
+      "load 26": {
+        "name": "AMEOS Klinikum Mitte Bremerhaven",
+        "q_mvar": 0.05914717534741856,
+        "sn_mva": 20,
+        "p_mv": 0.236,
+        "relations": [
+          "bus 62"
+        ]
+      },
+      "load 27": {
+        "name": "Mitte Households - 1",
+        "q_mvar": 0.639090242101345,
+        "sn_mva": 0.4,
+        "p_mv": 2.55,
+        "relations": [
+          "bus 63"
+        ]
+      },
+      "load 28": {
+        "name": "Leherheide Households - 1",
+        "q_mvar": 0.5513719735776313,
+        "sn_mva": 0.4,
+        "p_mv": 2.2,
+        "relations": [
+          "bus 65"
+        ]
+      },
+      "load 29": {
+        "name": "Wulsdorf Households - 1",
+        "q_mvar": 0.5012472487069375,
+        "sn_mva": 0.4,
+        "p_mv": 2,
+        "relations": [
+          "bus 67"
+        ]
+      },
+      "load 30": {
+        "name": "Fischereihafen Industrielast",
+        "q_mvar": 0.005012472487069364,
+        "sn_mva": 20,
+        "p_mv": 0.02,
+        "relations": [
+          "bus 69"
+        ]
+      },
+      "load 31": {
+        "name": "Wulsdorf Industrielast",
+        "q_mvar": 0.2947333822396788,
+        "sn_mva": 20,
+        "p_mv": 1.176,
+        "relations": [
+          "bus 70"
+        ]
+      },
+      "load 32": {
+        "name": "Geestemünde Households - 2",
+        "q_mvar": 0.7268085106250589,
+        "sn_mva": 0.4,
+        "p_mv": 2.9,
+        "relations": [
+          "bus 71"
+        ]
+      },
+      "load 33": {
+        "name": "Bremerhaven Süd",
+        "q_mvar": 0.1335823917803987,
+        "sn_mva": 20,
+        "p_mv": 0.533,
+        "relations": [
+          "bus 73"
+        ]
+      },
+      "load 34": {
+        "name": "Fischereihafen - 4",
+        "q_mvar": 0.06265590608836719,
+        "sn_mva": 20,
+        "p_mv": 0.25,
+        "relations": [
+          "bus 74"
+        ]
+      },
+      "load 35": {
+        "name": "Fischereihafen - 3",
+        "q_mvar": 0.06265590608836719,
+        "sn_mva": 20,
+        "p_mv": 0.25,
+        "relations": [
+          "bus 75"
+        ]
+      },
+      "load 36": {
+        "name": "Fischereihafen - 2",
+        "q_mvar": 0.06265590608836719,
+        "sn_mva": 20,
+        "p_mv": 0.25,
+        "relations": [
+          "bus 76"
+        ]
+      },
+      "load 37": {
+        "name": "Fischereihafen - 1",
+        "q_mvar": 0.06265590608836719,
+        "sn_mva": 20,
+        "p_mv": 0.25,
+        "relations": [
+          "bus 77"
+        ]
+      },
+      "load 38": {
+        "name": "Fischereihafen - 0",
+        "q_mvar": 0.06265590608836719,
+        "sn_mva": 20,
+        "p_mv": 0.25,
+        "relations": [
+          "bus 78"
+        ]
+      },
+      "load 39": {
+        "name": "Fischereihafen Households",
+        "q_mvar": 0.01954864269957056,
+        "sn_mva": 0.4,
+        "p_mv": 0.078,
+        "relations": [
+          "bus 80"
+        ]
+      }
+    },
+    "energy_sources": {
+      "sgen 0": {
+        "name": "Windpark Speckenbüttel 2",
+        "q_mvar": 2.421610524189263,
+        "sn_mva": 20,
+        "p_mv": 5,
+        "relations": [
+          "bus 16"
+        ]
+      },
+      "sgen 1": {
+        "name": "PV Weddewarden",
+        "q_mvar": 0.01452966314513558,
+        "sn_mva": 0.4,
+        "p_mv": 0.03,
+        "relations": [
+          "bus 17"
+        ]
+      },
+      "sgen 2": {
+        "name": "PV Lehe - 0",
+        "q_mvar": 0.1985720629835195,
+        "sn_mva": 0.4,
+        "p_mv": 0.41,
+        "relations": [
+          "bus 20"
+        ]
+      },
+      "sgen 3": {
+        "name": "Windpark Speckenbüttel 1",
+        "q_mvar": 2.421610524189263,
+        "sn_mva": 20,
+        "p_mv": 5,
+        "relations": [
+          "bus 22"
+        ]
+      },
+      "sgen 4": {
+        "name": "Windpark Multibrid",
+        "q_mvar": 2.421610524189263,
+        "sn_mva": 20,
+        "p_mv": 5,
+        "relations": [
+          "bus 23"
+        ]
+      },
+      "sgen 5": {
+        "name": "PV Geestemünde - 0",
+        "q_mvar": 0.4019873470154176,
+        "sn_mva": 0.4,
+        "p_mv": 0.83,
+        "relations": [
+          "bus 25"
+        ]
+      },
+      "sgen 6": {
+        "name": "PV Lehe - 1",
+        "q_mvar": 0.2131017261286551,
+        "sn_mva": 0.4,
+        "p_mv": 0.44,
+        "relations": [
+          "bus 28"
+        ]
+      },
+      "sgen 7": {
+        "name": "PV Lehe - 2",
+        "q_mvar": 0.2373178313705477,
+        "sn_mva": 0.4,
+        "p_mv": 0.49,
+        "relations": [
+          "bus 30"
+        ]
+      },
+      "sgen 8": {
+        "name": "Erdgas Kronos Titan GmbH",
+        "q_mvar": 12.825,
+        "sn_mva": 20,
+        "p_mv": 17.1,
+        "relations": [
+          "bus 32"
+        ]
+      },
+      "sgen 9": {
+        "name": "PV Geestemünde - 1",
+        "q_mvar": 0.4019873470154176,
+        "sn_mva": 0.4,
+        "p_mv": 0.83,
+        "relations": [
+          "bus 33"
+        ]
+      },
+      "sgen 10": {
+        "name": "PV Lehe - 3",
+        "q_mvar": 0.2179449471770336,
+        "sn_mva": 0.4,
+        "p_mv": 0.45,
+        "relations": [
+          "bus 35"
+        ]
+      },
+      "sgen 11": {
+        "name": "PV Lehe - 4",
+        "q_mvar": 0.2131017261286551,
+        "sn_mva": 0.4,
+        "p_mv": 0.44,
+        "relations": [
+          "bus 37"
+        ]
+      },
+      "sgen 12": {
+        "name": "Windpark Repower",
+        "q_mvar": 2.421610524189263,
+        "sn_mva": 20,
+        "p_mv": 5,
+        "relations": [
+          "bus 39"
+        ]
+      },
+      "sgen 13": {
+        "name": "PV Leherheide - 0",
+        "q_mvar": 0.222788168225412,
+        "sn_mva": 0.4,
+        "p_mv": 0.46,
+        "relations": [
+          "bus 40"
+        ]
+      },
+      "sgen 14": {
+        "name": "Windpark Lehe",
+        "q_mvar": 4.843221048378526,
+        "sn_mva": 20,
+        "p_mv": 10,
+        "relations": [
+          "bus 43"
+        ]
+      },
+      "sgen 15": {
+        "name": "PV Schiffdorferdamm",
+        "q_mvar": 0.06296187362892085,
+        "sn_mva": 0.4,
+        "p_mv": 0.13,
+        "relations": [
+          "bus 45"
+        ]
+      },
+      "sgen 16": {
+        "name": "PV Mitte - 0",
+        "q_mvar": 0.1598262945964914,
+        "sn_mva": 0.4,
+        "p_mv": 0.33,
+        "relations": [
+          "bus 50"
+        ]
+      },
+      "sgen 17": {
+        "name": "PV Wulsdorf - 0",
+        "q_mvar": 0.1598262945964914,
+        "sn_mva": 0.4,
+        "p_mv": 0.33,
+        "relations": [
+          "bus 53"
+        ]
+      },
+      "sgen 18": {
+        "name": "Abfall BEG mbh",
+        "q_mvar": 10.5,
+        "sn_mva": 20,
+        "p_mv": 14,
+        "relations": [
+          "bus 55"
+        ]
+      },
+      "sgen 19": {
+        "name": "PV Surheide",
+        "q_mvar": 0.07749153677405642,
+        "sn_mva": 0.4,
+        "p_mv": 0.16,
+        "relations": [
+          "bus 57"
+        ]
+      },
+      "sgen 20": {
+        "name": "PV Mitte - 1",
+        "q_mvar": 0.1549830735481128,
+        "sn_mva": 0.4,
+        "p_mv": 0.32,
+        "relations": [
+          "bus 63"
+        ]
+      },
+      "sgen 21": {
+        "name": "PV Leherheide - 1",
+        "q_mvar": 0.1356101893545987,
+        "sn_mva": 0.4,
+        "p_mv": 0.28,
+        "relations": [
+          "bus 65"
+        ]
+      },
+      "sgen 22": {
+        "name": "PV Wulsdorf - 1",
+        "q_mvar": 0.1210805262094632,
+        "sn_mva": 0.4,
+        "p_mv": 0.25,
+        "relations": [
+          "bus 67"
+        ]
+      },
+      "sgen 23": {
+        "name": "PV Geestemünde - 2",
+        "q_mvar": 0.4019873470154176,
+        "sn_mva": 0.4,
+        "p_mv": 0.83,
+        "relations": [
+          "bus 71"
+        ]
+      },
+      "sgen 24": {
+        "name": "PV Fischereihafen",
+        "q_mvar": 0.004843221048378526,
+        "sn_mva": 0.4,
+        "p_mv": 0.01,
+        "relations": [
+          "bus 80"
+        ]
+      }
+    },
+    "external_network_injections": {
+      "ext_grid 0": {
+        "name": "Überseehafen",
+        "relations": [
+          "bus 1"
+        ]
+      },
+      "ext_grid 1": {
+        "name": "BHV Nord",
+        "relations": [
+          "bus 13"
+        ]
+      },
+      "ext_grid 2": {
+        "name": "Lehe",
+        "relations": [
+          "bus 14"
+        ]
+      },
+      "ext_grid 3": {
+        "name": "Ext Grid Fischereihafen",
+        "relations": [
+          "bus 8"
+        ]
+      }
+    },
+    "ac_line_segments": {
+      "line 0": {
+        "name": "",
+        "max_i_ka": 0.645,
+        "relations": [
+          "bus 1",
+          "bus 3"
+        ]
+      },
+      "line 1": {
+        "name": "",
+        "max_i_ka": 0.645,
+        "relations": [
+          "bus 5",
+          "bus 13"
+        ]
+      },
+      "line 2": {
+        "name": "",
+        "max_i_ka": 0.645,
+        "relations": [
+          "bus 3",
+          "bus 4"
+        ]
+      },
+      "line 3": {
+        "name": "",
+        "max_i_ka": 0.645,
+        "relations": [
+          "bus 4",
+          "bus 14"
+        ]
+      },
+      "line 4": {
+        "name": "",
+        "max_i_ka": 0.645,
+        "relations": [
+          "bus 4",
+          "bus 6"
+        ]
+      },
+      "line 5": {
+        "name": "",
+        "max_i_ka": 0.645,
+        "relations": [
+          "bus 7",
+          "bus 6"
+        ]
+      },
+      "line 6": {
+        "name": "",
+        "max_i_ka": 0.645,
+        "relations": [
+          "bus 6",
+          "bus 8"
+        ]
+      },
+      "line 7": {
+        "name": "",
+        "max_i_ka": 0.645,
+        "relations": [
+          "bus 3",
+          "bus 6"
+        ]
+      },
+      "line 8": {
+        "name": "",
+        "max_i_ka": 0.526,
+        "relations": [
+          "bus 1",
+          "bus 2"
+        ]
+      },
+      "line 9": {
+        "name": "",
+        "max_i_ka": 0.526,
+        "relations": [
+          "bus 4",
+          "bus 5"
+        ]
+      },
+      "line 10": {
+        "name": "",
+        "max_i_ka": 0.526,
+        "relations": [
+          "bus 1",
+          "bus 9"
+        ]
+      },
+      "line 11": {
+        "name": "",
+        "max_i_ka": 0.526,
+        "relations": [
+          "bus 9",
+          "bus 10"
+        ]
+      },
+      "line 12": {
+        "name": "",
+        "max_i_ka": 0.526,
+        "relations": [
+          "bus 10",
+          "bus 11"
+        ]
+      },
+      "line 13": {
+        "name": "",
+        "max_i_ka": 0.526,
+        "relations": [
+          "bus 11",
+          "bus 12"
+        ]
+      },
+      "line 14": {
+        "name": "",
+        "max_i_ka": 0.526,
+        "relations": [
+          "bus 12",
+          "bus 8"
+        ]
+      },
+      "line 15": {
+        "name": "",
+        "max_i_ka": 0.526,
+        "relations": [
+          "bus 0",
+          "bus 12"
+        ]
+      },
+      "line 16": {
+        "name": "",
+        "max_i_ka": 0.526,
+        "relations": [
+          "bus 7",
+          "bus 8"
+        ]
+      },
+      "line 17": {
+        "name": "",
+        "max_i_ka": 0.526,
+        "relations": [
+          "bus 7",
+          "bus 12"
+        ]
+      },
+      "line 18": {
+        "name": "",
+        "max_i_ka": 0.526,
+        "relations": [
+          "bus 10",
+          "bus 12"
+        ]
+      },
+      "line 19": {
+        "name": "",
+        "max_i_ka": 0.526,
+        "relations": [
+          "bus 2",
+          "bus 3"
+        ]
+      },
+      "line 20": {
+        "name": "",
+        "max_i_ka": 0.526,
+        "relations": [
+          "bus 2",
+          "bus 4"
+        ]
+      },
+      "line 21": {
+        "name": "",
+        "max_i_ka": 0.526,
+        "relations": [
+          "bus 4",
+          "bus 11"
+        ]
+      },
+      "line 22": {
+        "name": "",
+        "max_i_ka": 0.526,
+        "relations": [
+          "bus 5",
+          "bus 11"
+        ]
+      },
+      "line 23": {
+        "name": "",
+        "max_i_ka": 0.526,
+        "relations": [
+          "bus 4",
+          "bus 9"
+        ]
+      },
+      "line 24": {
+        "name": "",
+        "max_i_ka": 0.526,
+        "relations": [
+          "bus 3",
+          "bus 4"
+        ]
+      },
+      "line 25": {
+        "name": "",
+        "max_i_ka": 0.526,
+        "relations": [
+          "bus 5",
+          "bus 7"
+        ]
+      },
+      "line 26": {
+        "name": "",
+        "max_i_ka": 0.4,
+        "relations": [
+          "bus 15",
+          "bus 16"
+        ]
+      },
+      "line 27": {
+        "name": "",
+        "max_i_ka": 0.4,
+        "relations": [
+          "bus 16",
+          "bus 18"
+        ]
+      },
+      "line 28": {
+        "name": "",
+        "max_i_ka": 0.4,
+        "relations": [
+          "bus 18",
+          "bus 19"
+        ]
+      },
+      "line 29": {
+        "name": "",
+        "max_i_ka": 0.4,
+        "relations": [
+          "bus 19",
+          "bus 21"
+        ]
+      },
+      "line 30": {
+        "name": "",
+        "max_i_ka": 0.4,
+        "relations": [
+          "bus 21",
+          "bus 22"
+        ]
+      },
+      "line 31": {
+        "name": "",
+        "max_i_ka": 0.4,
+        "relations": [
+          "bus 21",
+          "bus 23"
+        ]
+      },
+      "line 32": {
+        "name": "",
+        "max_i_ka": 0.4,
+        "relations": [
+          "bus 23",
+          "bus 24"
+        ]
+      },
+      "line 33": {
+        "name": "",
+        "max_i_ka": 0.4,
+        "relations": [
+          "bus 24",
+          "bus 26"
+        ]
+      },
+      "line 34": {
+        "name": "",
+        "max_i_ka": 0.4,
+        "relations": [
+          "bus 27",
+          "bus 26"
+        ]
+      },
+      "line 35": {
+        "name": "",
+        "max_i_ka": 0.5,
+        "relations": [
+          "bus 27",
+          "bus 29"
+        ]
+      },
+      "line 36": {
+        "name": "",
+        "max_i_ka": 0.4,
+        "relations": [
+          "bus 29",
+          "bus 31"
+        ]
+      },
+      "line 37": {
+        "name": "",
+        "max_i_ka": 0.4,
+        "relations": [
+          "bus 31",
+          "bus 32"
+        ]
+      },
+      "line 38": {
+        "name": "",
+        "max_i_ka": 0.4,
+        "relations": [
+          "bus 32",
+          "bus 34"
+        ]
+      },
+      "line 39": {
+        "name": "",
+        "max_i_ka": 0.4,
+        "relations": [
+          "bus 34",
+          "bus 36"
+        ]
+      },
+      "line 40": {
+        "name": "",
+        "max_i_ka": 0.4,
+        "relations": [
+          "bus 36",
+          "bus 38"
+        ]
+      },
+      "line 41": {
+        "name": "",
+        "max_i_ka": 0.4,
+        "relations": [
+          "bus 38",
+          "bus 39"
+        ]
+      },
+      "line 42": {
+        "name": "",
+        "max_i_ka": 0.4,
+        "relations": [
+          "bus 38",
+          "bus 41"
+        ]
+      },
+      "line 43": {
+        "name": "",
+        "max_i_ka": 0.4,
+        "relations": [
+          "bus 42",
+          "bus 43"
+        ]
+      },
+      "line 44": {
+        "name": "",
+        "max_i_ka": 0.6,
+        "relations": [
+          "bus 43",
+          "bus 44"
+        ]
+      },
+      "line 45": {
+        "name": "",
+        "max_i_ka": 0.55,
+        "relations": [
+          "bus 44",
+          "bus 46"
+        ]
+      },
+      "line 46": {
+        "name": "",
+        "max_i_ka": 0.55,
+        "relations": [
+          "bus 46",
+          "bus 47"
+        ]
+      },
+      "line 47": {
+        "name": "",
+        "max_i_ka": 0.55,
+        "relations": [
+          "bus 47",
+          "bus 48"
+        ]
+      },
+      "line 48": {
+        "name": "",
+        "max_i_ka": 0.55,
+        "relations": [
+          "bus 48",
+          "bus 49"
+        ]
+      },
+      "line 49": {
+        "name": "",
+        "max_i_ka": 0.55,
+        "relations": [
+          "bus 49",
+          "bus 51"
+        ]
+      },
+      "line 50": {
+        "name": "",
+        "max_i_ka": 0.55,
+        "relations": [
+          "bus 51",
+          "bus 52"
+        ]
+      },
+      "line 51": {
+        "name": "",
+        "max_i_ka": 0.55,
+        "relations": [
+          "bus 52",
+          "bus 54"
+        ]
+      },
+      "line 52": {
+        "name": "",
+        "max_i_ka": 0.55,
+        "relations": [
+          "bus 54",
+          "bus 55"
+        ]
+      },
+      "line 53": {
+        "name": "",
+        "max_i_ka": 0.5,
+        "relations": [
+          "bus 55",
+          "bus 56"
+        ]
+      },
+      "line 54": {
+        "name": "",
+        "max_i_ka": 0.5,
+        "relations": [
+          "bus 56",
+          "bus 58"
+        ]
+      },
+      "line 55": {
+        "name": "",
+        "max_i_ka": 0.5,
+        "relations": [
+          "bus 58",
+          "bus 59"
+        ]
+      },
+      "line 56": {
+        "name": "",
+        "max_i_ka": 0.5,
+        "relations": [
+          "bus 59",
+          "bus 60"
+        ]
+      },
+      "line 57": {
+        "name": "",
+        "max_i_ka": 0.5,
+        "relations": [
+          "bus 60",
+          "bus 61"
+        ]
+      },
+      "line 58": {
+        "name": "",
+        "max_i_ka": 0.5,
+        "relations": [
+          "bus 61",
+          "bus 62"
+        ]
+      },
+      "line 59": {
+        "name": "",
+        "max_i_ka": 0.5,
+        "relations": [
+          "bus 62",
+          "bus 64"
+        ]
+      },
+      "line 60": {
+        "name": "",
+        "max_i_ka": 0.5,
+        "relations": [
+          "bus 64",
+          "bus 66"
+        ]
+      },
+      "line 61": {
+        "name": "",
+        "max_i_ka": 0.5,
+        "relations": [
+          "bus 66",
+          "bus 68"
+        ]
+      },
+      "line 62": {
+        "name": "",
+        "max_i_ka": 0.4,
+        "relations": [
+          "bus 69",
+          "bus 68"
+        ]
+      },
+      "line 63": {
+        "name": "",
+        "max_i_ka": 0.4,
+        "relations": [
+          "bus 69",
+          "bus 70"
+        ]
+      },
+      "line 64": {
+        "name": "",
+        "max_i_ka": 0.4,
+        "relations": [
+          "bus 70",
+          "bus 72"
+        ]
+      },
+      "line 65": {
+        "name": "",
+        "max_i_ka": 0.4,
+        "relations": [
+          "bus 72",
+          "bus 73"
+        ]
+      },
+      "line 66": {
+        "name": "",
+        "max_i_ka": 0.4,
+        "relations": [
+          "bus 73",
+          "bus 74"
+        ]
+      },
+      "line 67": {
+        "name": "",
+        "max_i_ka": 0.4,
+        "relations": [
+          "bus 74",
+          "bus 75"
+        ]
+      },
+      "line 68": {
+        "name": "",
+        "max_i_ka": 0.4,
+        "relations": [
+          "bus 75",
+          "bus 76"
+        ]
+      },
+      "line 69": {
+        "name": "",
+        "max_i_ka": 0.4,
+        "relations": [
+          "bus 76",
+          "bus 77"
+        ]
+      },
+      "line 70": {
+        "name": "",
+        "max_i_ka": 0.4,
+        "relations": [
+          "bus 77",
+          "bus 78"
+        ]
+      },
+      "line 71": {
+        "name": "",
+        "max_i_ka": 0.4,
+        "relations": [
+          "bus 78",
+          "bus 79"
+        ]
+      },
+      "line 72": {
+        "name": "",
+        "max_i_ka": 0.4,
+        "relations": [
+          "bus 79",
+          "bus 81"
+        ]
+      }
+    },
+    "power_transformers": {
+      "trafo 0": {
+        "name": "110kV/20kV transformer",
+        "sn_mva": 25,
+        "hv": {
+          "bus": "bus 1",
+          "vn_kv": 110
+        },
+        "lv": {
+          "bus": "bus 15",
+          "vn_kv": 20
+        }
+      },
+      "trafo 1": {
+        "name": "MV-LV-Trafo-OS",
+        "sn_mva": 0.4,
+        "hv": {
+          "bus": "bus 18",
+          "vn_kv": 20
+        },
+        "lv": {
+          "bus": "bus 17",
+          "vn_kv": 0.4
+        }
+      },
+      "trafo 2": {
+        "name": "MV-LV-Trafo C - 1 - 0",
+        "sn_mva": 2.2,
+        "hv": {
+          "bus": "bus 21",
+          "vn_kv": 20
+        },
+        "lv": {
+          "bus": "bus 20",
+          "vn_kv": 0.4
+        }
+      },
+      "trafo 3": {
+        "name": "MV-LV-Trafo C - 3",
+        "sn_mva": 2.2,
+        "hv": {
+          "bus": "bus 26",
+          "vn_kv": 20
+        },
+        "lv": {
+          "bus": "bus 25",
+          "vn_kv": 0.4
+        }
+      },
+      "trafo 4": {
+        "name": "Trafo 0-1",
+        "sn_mva": 25,
+        "hv": {
+          "bus": "bus 13",
+          "vn_kv": 110
+        },
+        "lv": {
+          "bus": "bus 27",
+          "vn_kv": 20
+        }
+      },
+      "trafo 5": {
+        "name": "MV-LV-Trafo C - 1 - 1",
+        "sn_mva": 1.9,
+        "hv": {
+          "bus": "bus 29",
+          "vn_kv": 20
+        },
+        "lv": {
+          "bus": "bus 28",
+          "vn_kv": 0.4
+        }
+      },
+      "trafo 6": {
+        "name": "MV-LV-Trafo C - 1 - 2",
+        "sn_mva": 2.1,
+        "hv": {
+          "bus": "bus 31",
+          "vn_kv": 20
+        },
+        "lv": {
+          "bus": "bus 30",
+          "vn_kv": 0.4
+        }
+      },
+      "trafo 7": {
+        "name": "MV-LV-Trafo C - 3",
+        "sn_mva": 2.9,
+        "hv": {
+          "bus": "bus 34",
+          "vn_kv": 20
+        },
+        "lv": {
+          "bus": "bus 33",
+          "vn_kv": 0.4
+        }
+      },
+      "trafo 8": {
+        "name": "MV-LV-Trafo C - 1 - 3",
+        "sn_mva": 2,
+        "hv": {
+          "bus": "bus 36",
+          "vn_kv": 20
+        },
+        "lv": {
+          "bus": "bus 35",
+          "vn_kv": 0.4
+        }
+      },
+      "trafo 9": {
+        "name": "MV-LV-Trafo C - 1",
+        "sn_mva": 2,
+        "hv": {
+          "bus": "bus 38",
+          "vn_kv": 20
+        },
+        "lv": {
+          "bus": "bus 37",
+          "vn_kv": 0.4
+        }
+      },
+      "trafo 10": {
+        "name": "MV-LV-Trafo C - 0 - 0",
+        "sn_mva": 2.4,
+        "hv": {
+          "bus": "bus 41",
+          "vn_kv": 20
+        },
+        "lv": {
+          "bus": "bus 40",
+          "vn_kv": 0.4
+        }
+      },
+      "trafo 11": {
+        "name": "110kV/20kV transformer",
+        "sn_mva": 25,
+        "hv": {
+          "bus": "bus 14",
+          "vn_kv": 110
+        },
+        "lv": {
+          "bus": "bus 42",
+          "vn_kv": 20
+        }
+      },
+      "trafo 12": {
+        "name": "MV-LV-Trafo C - 6",
+        "sn_mva": 0.7,
+        "hv": {
+          "bus": "bus 46",
+          "vn_kv": 20
+        },
+        "lv": {
+          "bus": "bus 45",
+          "vn_kv": 0.4
+        }
+      },
+      "trafo 13": {
+        "name": "MV-LV-Trafo C - 2",
+        "sn_mva": 1.7,
+        "hv": {
+          "bus": "bus 51",
+          "vn_kv": 20
+        },
+        "lv": {
+          "bus": "bus 50",
+          "vn_kv": 0.4
+        }
+      },
+      "trafo 14": {
+        "name": "MV-LV-Trafo C - 4",
+        "sn_mva": 1.8,
+        "hv": {
+          "bus": "bus 54",
+          "vn_kv": 20
+        },
+        "lv": {
+          "bus": "bus 53",
+          "vn_kv": 0.4
+        }
+      },
+      "trafo 15": {
+        "name": "MV-LV-Trafo C - 5",
+        "sn_mva": 0.8,
+        "hv": {
+          "bus": "bus 58",
+          "vn_kv": 20
+        },
+        "lv": {
+          "bus": "bus 57",
+          "vn_kv": 0.4
+        }
+      },
+      "trafo 16": {
+        "name": "MV-LV-Trafo C - 2",
+        "sn_mva": 1.8,
+        "hv": {
+          "bus": "bus 64",
+          "vn_kv": 20
+        },
+        "lv": {
+          "bus": "bus 63",
+          "vn_kv": 0.4
+        }
+      },
+      "trafo 17": {
+        "name": "MV-LV-Trafo C - 0 - 1",
+        "sn_mva": 1.6,
+        "hv": {
+          "bus": "bus 66",
+          "vn_kv": 20
+        },
+        "lv": {
+          "bus": "bus 65",
+          "vn_kv": 0.4
+        }
+      },
+      "trafo 18": {
+        "name": "MV-LV-Trafo C - 4",
+        "sn_mva": 1.4,
+        "hv": {
+          "bus": "bus 68",
+          "vn_kv": 20
+        },
+        "lv": {
+          "bus": "bus 67",
+          "vn_kv": 0.4
+        }
+      },
+      "trafo 19": {
+        "name": "MV-LV-Trafo C - 3",
+        "sn_mva": 1.8,
+        "hv": {
+          "bus": "bus 72",
+          "vn_kv": 20
+        },
+        "lv": {
+          "bus": "bus 71",
+          "vn_kv": 0.4
+        }
+      },
+      "trafo 20": {
+        "name": "MV-LV-Trafo FP",
+        "sn_mva": 0.4,
+        "hv": {
+          "bus": "bus 79",
+          "vn_kv": 20
+        },
+        "lv": {
+          "bus": "bus 80",
+          "vn_kv": 0.4
+        }
+      },
+      "trafo 21": {
+        "name": "110kV/20kV transformer",
+        "sn_mva": 25,
+        "hv": {
+          "bus": "bus 8",
+          "vn_kv": 110
+        },
+        "lv": {
+          "bus": "bus 81",
+          "vn_kv": 20
+        }
+      }
+    }
+  }
+}

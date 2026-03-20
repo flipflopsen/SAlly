@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="1" time="2.711" timestamp="2026-02-26T23:54:16.634152+01:00" hostname="DESKTOP-QA54JIN"><testcase classname="tests.integration.test_observability_otel_e2e" name="test_otel_export_smoke_subprocess" time="0.695"><failure message="AssertionError: Traceback (most recent call last):&#10;    File &quot;&lt;string&gt;&quot;, line 2, in &lt;module&gt;&#10;    File &quot;A:\Thesis-Code\thesis-sally-repo\sally\core\__init__.py&quot;, line 10, in &lt;module&gt;&#10;      from .event_bus import Event, EventHandler, EventBus&#10;    File &quot;A:\Thesis-Code\thesis-sally-repo\sally\core\event_bus.py&quot;, line 52, in &lt;module&gt;&#10;      logger = get_logger(__name__)&#10;               ^^^^^^^^^^^^^^^^^^^^&#10;    File &quot;A:\Thesis-Code\thesis-sally-repo\sally\core\logger.py&quot;, line 433, in get_logger&#10;      return getLogger(name)&#10;             ^^^^^^^^^^^^^^^&#10;    File &quot;A:\Thesis-Code\thesis-sally-repo\sally\core\logger.py&quot;, line 451, in getLogger&#10;      return _get_factory().get_logger(name or &quot;sally&quot;)&#10;             ^^^^^^^^^^^^^^&#10;    File &quot;A:\Thesis-Code\thesis-sally-repo\sally\core\logger.py&quot;, line 428, in _get_factory&#10;      _factory = LoggerFactory()&#10;                 ^^^^^^^^^^^^^^^&#10;    File &quot;A:\Thesis-Code\thesis-sally-repo\sally\core\logger.py&quot;, line 275, in __init__&#10;      self._setup_defaults()&#10;    File &quot;A:\Thesis-Code\thesis-sally-repo\sally\core\logger.py&quot;, line 280, in _setup_defaults&#10;      cfg = get_config()&#10;            ^^^^^^^^^^^^&#10;    File &quot;A:\Thesis-Code\thesis-sally-repo\sally\core\config.py&quot;, line 884, in get_config&#10;      _config_instance = ConfigManager(environment=environment)&#10;                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^&#10;    File &quot;A:\Thesis-Code\thesis-sally-repo\sally\core\config.py&quot;, line 501, in __init__&#10;      self._load_config()&#10;    File &quot;A:\Thesis-Code\thesis-sally-repo\sally\core\config.py&quot;, line 529, in _load_config&#10;      self._load_env_vars()&#10;    File &quot;A:\Thesis-Code\thesis-sally-repo\sally\core\config.py&quot;, line 607, in _load_env_vars&#10;      setattr(env_cfg, key, int(env_value) if env_value else None)&#10;                            ^^^^^^^^^^^^^^&#10;  ValueError: invalid literal for int() with base 10: 'None'&#10;  &#10;assert 1 == 0&#10; +  where 1 = CompletedProcess(args=['A:\\Thesis-Code\\thesis-sally-repo\\.venv\\Scripts\\python.exe', '-c', &quot;import time\nfrom sall... else None)\n                          ^^^^^^^^^^^^^^\nValueError: invalid literal for int() with base 10: \'None\'\n').returncode">tests\integration\test_observability_otel_e2e.py:64: in test_otel_export_smoke_subprocess
+    assert completed.returncode == 0, completed.stderr
+E   AssertionError: Traceback (most recent call last):
+E       File "&lt;string&gt;", line 2, in &lt;module&gt;
+E       File "A:\Thesis-Code\thesis-sally-repo\sally\core\__init__.py", line 10, in &lt;module&gt;
+E         from .event_bus import Event, EventHandler, EventBus
+E       File "A:\Thesis-Code\thesis-sally-repo\sally\core\event_bus.py", line 52, in &lt;module&gt;
+E         logger = get_logger(__name__)
+E                  ^^^^^^^^^^^^^^^^^^^^
+E       File "A:\Thesis-Code\thesis-sally-repo\sally\core\logger.py", line 433, in get_logger
+E         return getLogger(name)
+E                ^^^^^^^^^^^^^^^
+E       File "A:\Thesis-Code\thesis-sally-repo\sally\core\logger.py", line 451, in getLogger
+E         return _get_factory().get_logger(name or "sally")
+E                ^^^^^^^^^^^^^^
+E       File "A:\Thesis-Code\thesis-sally-repo\sally\core\logger.py", line 428, in _get_factory
+E         _factory = LoggerFactory()
+E                    ^^^^^^^^^^^^^^^
+E       File "A:\Thesis-Code\thesis-sally-repo\sally\core\logger.py", line 275, in __init__
+E         self._setup_defaults()
+E       File "A:\Thesis-Code\thesis-sally-repo\sally\core\logger.py", line 280, in _setup_defaults
+E         cfg = get_config()
+E               ^^^^^^^^^^^^
+E       File "A:\Thesis-Code\thesis-sally-repo\sally\core\config.py", line 884, in get_config
+E         _config_instance = ConfigManager(environment=environment)
+E                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       File "A:\Thesis-Code\thesis-sally-repo\sally\core\config.py", line 501, in __init__
+E         self._load_config()
+E       File "A:\Thesis-Code\thesis-sally-repo\sally\core\config.py", line 529, in _load_config
+E         self._load_env_vars()
+E       File "A:\Thesis-Code\thesis-sally-repo\sally\core\config.py", line 607, in _load_env_vars
+E         setattr(env_cfg, key, int(env_value) if env_value else None)
+E                               ^^^^^^^^^^^^^^
+E     ValueError: invalid literal for int() with base 10: 'None'
+E     
+E   assert 1 == 0
+E    +  where 1 = CompletedProcess(args=['A:\\Thesis-Code\\thesis-sally-repo\\.venv\\Scripts\\python.exe', '-c', "import time\nfrom sall... else None)\n                          ^^^^^^^^^^^^^^\nValueError: invalid literal for int() with base 10: \'None\'\n').returncode</failure></testcase></testsuite></testsuites>

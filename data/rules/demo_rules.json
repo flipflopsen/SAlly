@@ -1,0 +1,18 @@
+[
+    {
+        "entity_name": "PyPower-0.0-node_a1",
+        "variable_name": "P",
+        "operator": "LESS_THAN",
+        "value": "250",
+        "action": "ALERT_HIGH_POWER_G1",
+        "id": "e248e537"
+    },
+    {
+        "entity_name": "PyPower-0.0-node_b1",
+        "variable_name": "P",
+        "operator": "LESS_THAN",
+        "value": "260",
+        "action": "ALERT_HIGH_POWER_G2",
+        "id": "36a137b1"
+    }
+]

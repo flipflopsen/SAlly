@@ -1,0 +1,116 @@
+%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#4A90D9', 'primaryTextColor': '#1a1a1a', 'primaryBorderColor': '#2563eb', 'lineColor': '#4b5563', 'secondaryColor': '#f3f4f6', 'tertiaryColor': '#e5e7eb', 'background': '#ffffff', 'mainBkg': '#ffffff', 'nodeBorder': '#374151', 'titleColor': '#111827'}}}%%
+
+%% TimescaleDB Entity-Relationship Diagram
+%% Author: Sally SCADA System Documentation
+%% Purpose: Document the relational schema for grid data persistence
+
+erDiagram
+    GRID_DATA {
+        timestamptz time PK "Time of measurement (hypertable partition key)"
+        varchar entity PK "Entity identifier (e.g., 'Bus_1', 'Gen_1')"
+        varchar entity_type "Entity type classification"
+        float8 p "Active power [MW]"
+        float8 p_out "Power output [MW]"
+        float8 p_from "Power flow from node [MW]"
+        float8 p_to "Power flow to node [MW]"
+        float8 q "Reactive power [Mvar]"
+        float8 q_from "Reactive power from [Mvar]"
+        float8 va "Voltage angle [rad]"
+        float8 vl "Voltage level [kV]"
+        float8 vm "Voltage magnitude [p.u.]"
+        float8 humidity "Ambient humidity [%]"
+    }
+
+    GRID_EVENTS {
+        timestamptz time PK "Event timestamp (hypertable partition key)"
+        varchar entity PK "Affected entity identifier"
+        varchar entity_type "Entity type classification"
+        varchar event_type "Event category (alarm, fault, info)"
+        varchar severity "Severity level (INFO, WARNING, CRITICAL, EMERGENCY)"
+        text message "Human-readable event description"
+        jsonb metadata "Additional event context (JSON)"
+    }
+
+    GRID_ENTITIES {
+        serial entity_id PK "Unique entity identifier"
+        varchar entity_name UK "Entity name (unique)"
+        varchar entity_type "Entity type (bus, load, sgen, trafo, line)"
+        float8 rated_power "Rated power capacity [MVA]"
+        float8 rated_voltage "Rated voltage [kV]"
+        varchar location "Physical or logical location"
+        varchar manufacturer "Equipment manufacturer"
+        varchar model "Equipment model"
+        date installation_date "Installation date"
+        jsonb metadata "Extended metadata (JSON)"
+        timestamptz created_at "Record creation timestamp"
+        timestamptz updated_at "Last update timestamp"
+    }
+
+    GRID_CONNECTIONS {
+        serial connection_id PK "Unique connection identifier"
+        int from_entity_id FK "Source entity ID"
+        int to_entity_id FK "Target entity ID"
+        varchar connection_type "Connection type (line, transformer, switch)"
+        float8 line_length "Connection length [km]"
+        float8 resistance "Line resistance [Ohm]"
+        float8 reactance "Line reactance [Ohm]"
+        float8 capacity "Thermal capacity [MVA]"
+        boolean is_active "Connection operational status"
+        jsonb metadata "Extended connection data (JSON)"
+        timestamptz created_at "Record creation timestamp"
+    }
+
+    RULES {
+        varchar rule_id PK "Unique rule identifier"
+        varchar entity_name "Target entity name"
+        varchar variable_name "Monitored variable"
+        varchar operator "Comparison operator"
+        float8 threshold_value "Threshold value for triggering"
+        varchar action "Action to execute on trigger"
+        boolean active "Rule enabled status"
+        varchar group_name "Rule group for organization"
+        varchar logic_op "Logic operator for chaining (AND/OR)"
+        varchar linked_rule_id FK "Linked rule for chaining"
+        timestamptz created_at "Rule creation timestamp"
+        timestamptz updated_at "Last modification timestamp"
+    }
+
+    RULE_TRIGGERS {
+        timestamptz time PK "Trigger timestamp (hypertable)"
+        varchar rule_id FK "Triggered rule identifier"
+        varchar entity_name "Entity that triggered rule"
+        varchar variable_name "Variable that triggered rule"
+        float8 threshold "Threshold value at trigger"
+        float8 actual_value "Actual value that triggered"
+        varchar action_taken "Action that was executed"
+        jsonb context "Trigger context data (JSON)"
+    }
+
+    SETPOINTS {
+        serial setpoint_id PK "Unique setpoint identifier"
+        varchar entity_name "Target entity"
+        varchar variable_name "Target variable"
+        float8 value "Setpoint value"
+        varchar source "Setpoint source (scada_gui, external, rule)"
+        timestamptz applied_at "When setpoint was applied"
+        timestamptz expires_at "Optional expiration time"
+        boolean is_active "Currently active status"
+    }
+
+    SIMULATION_STATE {
+        timestamptz time PK "State snapshot timestamp (hypertable)"
+        int timestep "Simulation timestep number"
+        float8 simulation_time "Simulation time [s]"
+        jsonb snapshot "Complete state snapshot (JSON)"
+        varchar simulation_id "Simulation run identifier"
+    }
+
+    %% Relationships
+    GRID_ENTITIES ||--o{ GRID_DATA : "generates"
+    GRID_ENTITIES ||--o{ GRID_EVENTS : "produces"
+    GRID_ENTITIES ||--o{ GRID_CONNECTIONS : "from_entity"
+    GRID_ENTITIES ||--o{ GRID_CONNECTIONS : "to_entity"
+    GRID_ENTITIES ||--o{ SETPOINTS : "receives"
+    RULES ||--o{ RULE_TRIGGERS : "triggers"
+    RULES ||--o| RULES : "chains_to"
+    GRID_ENTITIES ||--o{ RULES : "monitors"

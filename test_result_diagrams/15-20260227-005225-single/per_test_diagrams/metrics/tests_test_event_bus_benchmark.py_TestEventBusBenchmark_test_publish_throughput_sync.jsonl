@@ -1,0 +1,3 @@
+{"ts": 1772149959.4720974, "nodeid": "tests/test_event_bus_benchmark.py::TestEventBusBenchmark::test_publish_throughput_sync", "metric": "publish_throughput_eps", "value": 93586.7069890721, "unit": "events/s", "tags": {"mode": "sync", "repeat": 0}}
+{"ts": 1772149959.4726012, "nodeid": "tests/test_event_bus_benchmark.py::TestEventBusBenchmark::test_publish_throughput_sync", "metric": "publish_throughput_epms", "value": 93.5867069890721, "unit": "events/ms", "tags": {"mode": "sync", "repeat": 0}}
+{"ts": 1772149959.4731102, "nodeid": "tests/test_event_bus_benchmark.py::TestEventBusBenchmark::test_publish_throughput_sync", "metric": "elapsed_s", "value": 10.68527819999872, "unit": "s", "tags": {"repeat": 0}}

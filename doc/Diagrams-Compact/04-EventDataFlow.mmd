@@ -1,0 +1,41 @@
+%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#e5e5e5', 'primaryTextColor': '#1a1a1a', 'primaryBorderColor': '#525252', 'lineColor': '#525252', 'background': '#ffffff', 'mainBkg': '#ffffff', 'nodeBorder': '#404040'}}}%%
+
+%% Event Lifecycle: GridData to Rule Trigger - Compact
+flowchart LR
+    subgraph Source
+        HDF5[("HDF5")]
+    end
+
+    subgraph Processing
+        Sim["Simulation"]
+        EB["EventBus"]
+        Rules["RuleManager"]
+    end
+
+    subgraph Handlers
+        Orch["Orchestrator"]
+        DB["Database"]
+        Bridge["Bridge"]
+    end
+
+    subgraph Output
+        GUI["GUI Update"]
+        Alert["Alert"]
+        Persist["Persistence"]
+    end
+
+    HDF5 -->|read| Sim
+    Sim -->|GridDataEvent| EB
+    EB --> Rules
+    EB --> Orch
+    EB --> DB
+    EB --> Bridge
+
+    Rules -->|RuleTriggeredEvent| EB
+    Orch --> GUI
+    Rules --> Alert
+    DB --> Persist
+
+    classDef default fill:#f5f5f5,stroke:#525252,stroke-width:1px,color:#171717
+    classDef highlight fill:#d4d4d4,stroke:#404040,stroke-width:2px,color:#171717
+    class EB,Rules highlight

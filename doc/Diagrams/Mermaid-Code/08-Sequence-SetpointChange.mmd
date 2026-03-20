@@ -1,0 +1,74 @@
+%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#4A90D9', 'primaryTextColor': '#1a1a1a', 'primaryBorderColor': '#2563eb', 'lineColor': '#4b5563', 'secondaryColor': '#f3f4f6', 'tertiaryColor': '#e5e7eb', 'background': '#ffffff', 'mainBkg': '#ffffff', 'actorBkg': '#dbeafe', 'actorBorder': '#2563eb', 'activationBorderColor': '#4b5563', 'sequenceNumberColor': '#ffffff', 'signalColor': '#374151', 'signalTextColor': '#1f2937'}}}%%
+
+%% Sequence Diagram: Setpoint Change from GUI
+%% Author: Sally SCADA System Documentation
+%% Purpose: Show the flow when a user changes a setpoint in the SCADA GUI
+
+sequenceDiagram
+    autonumber
+
+    participant User as Operator
+    participant Panel as SetpointPanel
+    participant Orch as SCADAOrchestrationService
+    participant EB as EventBus
+    participant Sim as SmartGridSimulation
+    participant State as SCADAState
+    participant MQTT as MqttBridgeService
+    participant Broker as MQTT Broker
+    participant Web as SCADA Web Frontend
+
+    Note over User,Web: Operator Initiates Setpoint Change
+
+    User->>Panel: Enter new setpoint value
+    User->>Panel: Click "Apply Setpoint"
+    activate Panel
+
+    Panel->>Panel: Validate input
+    Panel->>EB: publish(SetpointChangeEvent)
+    activate EB
+
+    Note right of EB: SetpointChangeEvent:<br/>entity: "Gen_1"<br/>variable: "P_MW_out"<br/>old_value: 80.0<br/>new_value: 95.0<br/>source: "scada_gui"
+
+    EB-->>Panel: event queued
+    deactivate Panel
+
+    par Parallel Event Distribution
+        EB->>Orch: handle_sync(SetpointChangeEvent)
+        activate Orch
+        Orch->>State: update_setpoint("Gen_1.P_MW_out", 95.0)
+        Orch->>Orch: _enqueue_state_update()
+        deactivate Orch
+    and
+        EB->>Sim: handle(SetpointChangeEvent)
+        activate Sim
+        Sim->>Sim: _setpoints["Gen_1.P_MW_out"] = 95.0
+        Note right of Sim: Setpoint stored for<br/>next simulation step
+        deactivate Sim
+    and
+        EB->>MQTT: handle_sync(SetpointChangeEvent)
+        activate MQTT
+        MQTT->>MQTT: Convert to Guardian format
+        MQTT->>Broker: publish("setpoint/Gen_1", payload)
+        activate Broker
+        Broker-->>MQTT: ACK
+        deactivate Broker
+        deactivate MQTT
+    end
+    deactivate EB
+
+    Note over Broker,Web: Web Frontend Update
+
+    Broker->>Web: message("setpoint/Gen_1")
+    activate Web
+    Web->>Web: Update setpoint display
+    Web->>Web: Highlight affected entity
+    deactivate Web
+
+    Note over Sim,State: Next Simulation Step
+
+    Sim->>Sim: step()
+    activate Sim
+    Sim->>Sim: Apply setpoint override
+    Note right of Sim: Gen_1.P_MW_out = 95.0<br/>(override HDF5 value)
+    Sim->>EB: publish(GridDataEvent)
+    deactivate Sim

@@ -1,0 +1,31 @@
+# Production Environment Configuration
+# Overrides default.yml for production deployment
+
+database:
+  # Set via environment variables in production:
+  # SALLY_DB_HOST
+  # SALLY_DB_PORT
+  # SALLY_DB_NAME
+  # SALLY_DB_USER
+  # SALLY_DB_PASSWORD
+  pool_size: 20
+  max_pool_size: 50
+
+logging:
+  level: INFO
+  format: '%(asctime)s - %(name)s - %(levelname)s - %(message)s - [%(filename)s:%(lineno)d]'
+
+event_bus:
+  max_queue_size: 50000  # Larger queue for production load
+  worker_count: 8
+
+services:
+  grid_data:
+    enabled: true
+    update_interval_ms: 1000
+  load_forecasting:
+    enabled: true
+    update_interval_ms: 5000
+  stability_monitoring:
+    enabled: true
+    check_interval_ms: 1000

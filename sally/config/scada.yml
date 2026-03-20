@@ -1,0 +1,51 @@
+scada:
+  orchestration:
+    update_interval_ms: 10
+    max_triggered_rules_history: 50
+    event_buffer_size: 100000
+    default_step_interval_s: 1.0
+
+  gui:
+    window_size: [1920, 1080]
+    sidebar_width: 350
+    theme: "darkly"
+    refresh_rate_ms: 100
+
+  sld:
+    auto_layout: true
+    component_spacing: 100
+    show_labels: true
+    animation_enabled: true
+    blink_interval_ms: 500
+
+  simulation:
+    default_step_interval_s: 1.0
+    scada_poll_interval_minutes: 15
+    enable_setpoints: true
+
+  # SCADA Web configuration (Guardian-compatible web frontend)
+  web:
+    enabled: true
+    # Bridge mode: "mqtt" uses Mosquitto broker, "websocket" uses direct Socket.IO
+    bridge_mode: mqtt
+
+    mqtt:
+      host: localhost
+      port: 1883
+      client_id: sally-scada-bridge
+      keepalive: 60
+      qos: 1
+      retain_topology: true
+
+    websocket:
+      host: "0.0.0.0"
+      port: 3001
+      cors_allowed_origins: "*"
+
+    backend:
+      host: localhost
+      port: 3000
+
+    frontend:
+      host: localhost
+      port: 4200

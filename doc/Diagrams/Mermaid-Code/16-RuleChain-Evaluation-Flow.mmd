@@ -1,0 +1,122 @@
+%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#4A90D9', 'primaryTextColor': '#1a1a1a', 'primaryBorderColor': '#2563eb', 'lineColor': '#4b5563', 'secondaryColor': '#f3f4f6', 'tertiaryColor': '#e5e7eb', 'background': '#ffffff', 'mainBkg': '#ffffff', 'nodeBorder': '#374151', 'clusterBkg': '#f9fafb', 'clusterBorder': '#d1d5db', 'titleColor': '#111827'}}}%%
+
+%% Rule Chain Evaluation Flow Diagram
+%% Author: Sally SCADA System Documentation
+%% Purpose: Show how rules are evaluated with chaining logic (AND/OR)
+
+flowchart TB
+    subgraph Input["Input Data"]
+        Snapshot["Data Snapshot<br/><i>Timestep t</i><br/><br/>Bus_1.vm = 0.92 p.u.<br/>Bus_1.va = -0.05 rad<br/>Gen_1.p = 95.5 MW<br/>Load_1.p = 150 MW"]
+    end
+
+    subgraph RuleManager["SmartGridRuleManager"]
+        direction TB
+
+        GetActive["get_active_rules()<br/><i>Filter active=True</i>"]
+
+        subgraph RuleGroups["Rule Groups"]
+            direction LR
+
+            subgraph GroupVoltage["Group: Voltage_Monitoring"]
+                R1["Rule R1<br/><i>Bus_1.vm < 0.95</i><br/><i>action: LOW_VOLTAGE_ALERT</i><br/><i>logic_op: AND</i><br/><i>linked: R2</i>"]
+                R2["Rule R2<br/><i>Bus_1.va < -0.03</i><br/><i>action: PHASE_SHIFT_ALERT</i><br/><i>logic_op: NONE</i>"]
+            end
+
+            subgraph GroupGen["Group: Generation_Limits"]
+                R3["Rule R3<br/><i>Gen_1.p > 90</i><br/><i>action: HIGH_OUTPUT_WARN</i><br/><i>logic_op: OR</i><br/><i>linked: R4</i>"]
+                R4["Rule R4<br/><i>Gen_1.p > 100</i><br/><i>action: MAX_OUTPUT_CRITICAL</i><br/><i>logic_op: NONE</i>"]
+            end
+
+            subgraph GroupLoad["Group: Load_Balance"]
+                R5["Rule R5<br/><i>Load_1.p > 140</i><br/><i>action: HIGH_LOAD_ALERT</i><br/><i>logic_op: NONE</i>"]
+            end
+        end
+    end
+
+    subgraph Evaluation["Rule Evaluation Engine"]
+        direction TB
+
+        subgraph EvalR1["Evaluate Rule R1"]
+            R1Check["Check: Bus_1.vm < 0.95<br/>0.92 < 0.95 = TRUE ✓"]
+            R1Logic["Logic: AND<br/>Requires linked rule R2"]
+        end
+
+        subgraph EvalR2["Evaluate Rule R2 (chained)"]
+            R2Check["Check: Bus_1.va < -0.03<br/>-0.05 < -0.03 = TRUE ✓"]
+            R2Combine["Combine: R1 AND R2<br/>TRUE AND TRUE = TRUE ✓"]
+        end
+
+        subgraph EvalR3["Evaluate Rule R3"]
+            R3Check["Check: Gen_1.p > 90<br/>95.5 > 90 = TRUE ✓"]
+            R3Logic["Logic: OR<br/>Check linked rule R4"]
+        end
+
+        subgraph EvalR4["Evaluate Rule R4 (chained)"]
+            R4Check["Check: Gen_1.p > 100<br/>95.5 > 100 = FALSE ✗"]
+            R4Combine["Combine: R3 OR R4<br/>TRUE OR FALSE = TRUE ✓"]
+        end
+
+        subgraph EvalR5["Evaluate Rule R5"]
+            R5Check["Check: Load_1.p > 140<br/>150 > 140 = TRUE ✓"]
+            R5Result["Result: TRUE ✓"]
+        end
+    end
+
+    subgraph Results["Triggered Events"]
+        direction LR
+
+        Event1["RuleTriggeredEvent<br/><i>rule_id: R1+R2</i><br/><i>action: LOW_VOLTAGE_ALERT</i><br/><i>severity: CRITICAL</i>"]
+
+        Event2["RuleTriggeredEvent<br/><i>rule_id: R3</i><br/><i>action: HIGH_OUTPUT_WARN</i><br/><i>severity: WARNING</i>"]
+
+        Event3["RuleTriggeredEvent<br/><i>rule_id: R5</i><br/><i>action: HIGH_LOAD_ALERT</i><br/><i>severity: WARNING</i>"]
+    end
+
+    subgraph Actions["Resulting Actions"]
+        direction TB
+        Alert1["🔴 LOW_VOLTAGE_ALERT<br/><i>Notify operator</i><br/><i>Highlight Bus_1</i>"]
+        Alert2["🟡 HIGH_OUTPUT_WARN<br/><i>Log warning</i><br/><i>Highlight Gen_1</i>"]
+        Alert3["🟡 HIGH_LOAD_ALERT<br/><i>Log warning</i><br/><i>Highlight Load_1</i>"]
+    end
+
+    %% Flow
+    Snapshot --> GetActive
+    GetActive --> R1
+    GetActive --> R3
+    GetActive --> R5
+
+    R1 --> R1Check
+    R1Check --> R1Logic
+    R1Logic --> R2Check
+    R2Check --> R2Combine
+
+    R3 --> R3Check
+    R3Check --> R3Logic
+    R3Logic --> R4Check
+    R4Check --> R4Combine
+
+    R5 --> R5Check
+    R5Check --> R5Result
+
+    R2Combine --> Event1
+    R4Combine --> Event2
+    R5Result --> Event3
+
+    Event1 --> Alert1
+    Event2 --> Alert2
+    Event3 --> Alert3
+
+    %% Styling
+    classDef input fill:#dbeafe,stroke:#2563eb,stroke-width:2px,color:#1e40af
+    classDef rule fill:#fef3c7,stroke:#d97706,stroke-width:2px,color:#92400e
+    classDef evalTrue fill:#dcfce7,stroke:#16a34a,stroke-width:2px,color:#166534
+    classDef evalFalse fill:#fef2f2,stroke:#dc2626,stroke-width:2px,color:#991b1b
+    classDef event fill:#fce7f3,stroke:#db2777,stroke-width:2px,color:#9d174d
+    classDef action fill:#ede9fe,stroke:#7c3aed,stroke-width:2px,color:#5b21b6
+
+    class Snapshot input
+    class R1,R2,R3,R4,R5,GetActive rule
+    class R1Check,R2Check,R3Check,R5Check,R2Combine,R4Combine,R5Result evalTrue
+    class R4Check evalFalse
+    class Event1,Event2,Event3 event
+    class Alert1,Alert2,Alert3 action

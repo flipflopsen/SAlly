@@ -1,0 +1,38 @@
+[
+    {
+        "entity_name": "CSV-0.PV_10",
+        "variable_name": "P",
+        "operator": "IS",
+        "value": "0",
+        "action": "WaitForPVToProduce",
+        "active": true,
+        "group": "PV-Anlagen",
+        "logic_op": "AND",
+        "linked_rule_id": "",
+        "id": "379c628e"
+    },
+    {
+        "entity_name": "HouseholdSim-0.House_10",
+        "variable_name": "P_out",
+        "operator": "GREATER_THAN",
+        "value": "700",
+        "action": "PVAnlageAbschirmen",
+        "active": true,
+        "group": "PV-Anlagen",
+        "logic_op": "NONE",
+        "linked_rule_id": "379c628e",
+        "id": "59902db8"
+    },
+    {
+        "entity_name": "HouseholdSim-0.House_10",
+        "variable_name": "P_out",
+        "operator": "LESS_THAN",
+        "value": "500",
+        "action": "ShouldTrigger",
+        "active": true,
+        "group": "PV-Anlagen",
+        "logic_op": "NONE",
+        "linked_rule_id": "",
+        "id": "59902db9"
+    }
+]

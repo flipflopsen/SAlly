@@ -1,0 +1,5 @@
+timestamp=2026-02-27T00:52:41
+group=single
+exit_code=0
+cwd=A:\Thesis-Code\thesis-sally-repo
+pytest_args=--diag-dir=test_result_diagrams\15-20260227-005225-single\per_test_diagrams tests/test_event_bus_benchmark.py::TestEventBusBenchmark::test_publish_throughput_sync

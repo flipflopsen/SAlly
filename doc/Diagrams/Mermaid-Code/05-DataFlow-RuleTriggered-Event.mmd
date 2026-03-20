@@ -1,0 +1,171 @@
+%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#4A90D9', 'primaryTextColor': '#1a1a1a', 'primaryBorderColor': '#2563eb', 'lineColor': '#4b5563', 'secondaryColor': '#f3f4f6', 'tertiaryColor': '#e5e7eb', 'background': '#ffffff', 'mainBkg': '#ffffff', 'nodeBorder': '#374151', 'clusterBkg': '#f9fafb', 'clusterBorder': '#d1d5db', 'titleColor': '#111827'}}}%%
+
+%% Data Flow Diagram: GridData Event Lifecycle with Rule Triggering
+%% Author: Sally SCADA System Documentation
+%% Purpose: Trace the complete lifecycle of a GridDataEvent that triggers a rule
+
+flowchart TB
+    subgraph Phase1["Phase 1: Data Ingestion"]
+        direction TB
+        HDF5[("HDF5 File<br/><i>Entity: Gen_1</i><br/><i>Variable: P_MW_out</i><br/><i>Value: 95.5 MW</i>")]
+
+        DataLoader["HDF5 Data Loader<br/><i>_load_hdf5_data()</i>"]
+
+        Snapshot["Data Snapshot<br/><i>Timestep t=1000</i>"]
+    end
+
+    subgraph Phase2["Phase 2: Measurement Creation"]
+        direction TB
+        MeasBuilder["GridMeasurement Builder"]
+
+        GridMeas["GridMeasurement<br/><i>entity: 'Gen_1'</i><br/><i>entity_type: PYPOWER_NODE</i><br/><i>timestamp: 1000.0</i><br/><i>p: 95.5</i>"]
+    end
+
+    subgraph Phase3["Phase 3: Event Publishing"]
+        direction TB
+        EventCreator["GridDataEvent Creator"]
+
+        GDE["GridDataEvent<br/><i>event_type: 'grid_data_update'</i><br/><i>measurement: GridMeasurement</i><br/><i>timestamp: 1707123456.789</i>"]
+
+        RingBuffer["Lock-free Ring Buffer<br/><i>Batch Queue</i>"]
+    end
+
+    subgraph Phase4["Phase 4: Event Distribution"]
+        direction TB
+        EventBus["EventBus<br/><i>Async/Sync Dispatch</i>"]
+
+        subgraph Subscribers["Subscribed Handlers"]
+            direction LR
+            RuleHandler["RuleManager<br/>Handler"]
+            OrchHandler["Orchestration<br/>Handler"]
+            DBHandler["Database<br/>Handler"]
+            BridgeHandler["MQTT/WS<br/>Bridge"]
+        end
+    end
+
+    subgraph Phase5["Phase 5: Rule Evaluation"]
+        direction TB
+        RuleEngine["SmartGridRuleManager<br/><i>_evaluate_single_rule()</i>"]
+
+        Rule1["Rule: Gen_1_OverPower<br/><i>entity: 'Gen_1'</i><br/><i>variable: 'P_MW_out'</i><br/><i>operator: 'GREATER_THAN'</i><br/><i>threshold: 90.0</i><br/><i>action: 'ALERT_HIGH_OUTPUT'</i>"]
+
+        Comparison["Comparison<br/><i>95.5 > 90.0 = TRUE</i>"]
+
+        RuleTriggered["Rule Triggered!"]
+    end
+
+    subgraph Phase6["Phase 6: Triggered Event Creation"]
+        direction TB
+        RTECreator["RuleTriggeredEvent Creator"]
+
+        RTE["RuleTriggeredEvent<br/><i>event_type: 'rule_triggered'</i><br/><i>rule_id: 'Gen_1_OverPower'</i><br/><i>entity_name: 'Gen_1'</i><br/><i>variable_name: 'P_MW_out'</i><br/><i>threshold: 90.0</i><br/><i>actual_value: 95.5</i><br/><i>action: 'ALERT_HIGH_OUTPUT'</i>"]
+    end
+
+    subgraph Phase7["Phase 7: State Update & Notification"]
+        direction TB
+
+        subgraph StateUpdates["State Management"]
+            direction LR
+            SCADAState["SCADAState<br/><i>update_measurement()</i><br/><i>add_triggered_rule()</i>"]
+            AnomalyInfo["AnomalyInfo<br/><i>severity: CRITICAL</i>"]
+        end
+
+        subgraph Notifications["Notification Channels"]
+            direction LR
+            GUIQueue["GUI State Queue<br/><i>Thread-safe</i>"]
+            MQTTPublish["MQTT Publish<br/><i>anomaly/High_Output</i>"]
+            WSEmit["WebSocket Emit<br/><i>'anomaly' event</i>"]
+        end
+    end
+
+    subgraph Phase8["Phase 8: Presentation & Persistence"]
+        direction TB
+
+        subgraph GUI["GUI Display"]
+            direction LR
+            SCADAWindow["SCADA Window<br/><i>Rule Status Panel</i>"]
+            SLDHighlight["SLD Diagram<br/><i>Entity Highlight: Red</i>"]
+        end
+
+        subgraph Persistence["Database Persistence"]
+            direction LR
+            GridDataDB[("grid_data<br/>INSERT")]
+            GridEventsDB[("grid_events<br/>INSERT")]
+            RuleTriggersDB[("rule_triggers<br/>INSERT")]
+        end
+
+        subgraph Telemetry["Telemetry Export"]
+            direction LR
+            Trace["Trace Span<br/><i>rule.evaluation</i>"]
+            Counter["Metric Counter<br/><i>rules.triggered.total</i>"]
+        end
+    end
+
+    %% Phase 1 Flow
+    HDF5 --> DataLoader
+    DataLoader --> Snapshot
+
+    %% Phase 2 Flow
+    Snapshot --> MeasBuilder
+    MeasBuilder --> GridMeas
+
+    %% Phase 3 Flow
+    GridMeas --> EventCreator
+    EventCreator --> GDE
+    GDE --> RingBuffer
+
+    %% Phase 4 Flow
+    RingBuffer --> EventBus
+    EventBus --> RuleHandler
+    EventBus --> OrchHandler
+    EventBus --> DBHandler
+    EventBus --> BridgeHandler
+
+    %% Phase 5 Flow
+    RuleHandler --> RuleEngine
+    RuleEngine --> Rule1
+    Rule1 --> Comparison
+    Comparison --> RuleTriggered
+
+    %% Phase 6 Flow
+    RuleTriggered --> RTECreator
+    RTECreator --> RTE
+
+    %% Phase 7 Flow
+    RTE --> SCADAState
+    SCADAState --> AnomalyInfo
+    OrchHandler --> SCADAState
+    SCADAState --> GUIQueue
+    BridgeHandler --> MQTTPublish
+    BridgeHandler --> WSEmit
+
+    %% Phase 8 Flow
+    GUIQueue --> SCADAWindow
+    SCADAWindow --> SLDHighlight
+
+    DBHandler --> GridDataDB
+    RTE --> GridEventsDB
+    RTE --> RuleTriggersDB
+
+    RuleEngine --> Trace
+    RuleTriggered --> Counter
+
+    %% Styling
+    classDef data fill:#dbeafe,stroke:#2563eb,stroke-width:2px,color:#1e40af
+    classDef process fill:#dcfce7,stroke:#16a34a,stroke-width:2px,color:#166534
+    classDef event fill:#fce7f3,stroke:#db2777,stroke-width:2px,color:#9d174d
+    classDef rule fill:#fef3c7,stroke:#d97706,stroke-width:2px,color:#92400e
+    classDef state fill:#e0e7ff,stroke:#4f46e5,stroke-width:2px,color:#3730a3
+    classDef output fill:#f0fdf4,stroke:#22c55e,stroke-width:2px,color:#15803d
+    classDef db fill:#fef2f2,stroke:#dc2626,stroke-width:2px,color:#991b1b
+    classDef telemetry fill:#ede9fe,stroke:#7c3aed,stroke-width:2px,color:#5b21b6
+
+    class HDF5,Snapshot,GridMeas data
+    class DataLoader,MeasBuilder,EventCreator,RTECreator process
+    class GDE,RTE,RingBuffer event
+    class RuleEngine,Rule1,Comparison,RuleTriggered,RuleHandler rule
+    class SCADAState,AnomalyInfo,GUIQueue,MQTTPublish,WSEmit state
+    class EventBus,OrchHandler,DBHandler,BridgeHandler process
+    class SCADAWindow,SLDHighlight output
+    class GridDataDB,GridEventsDB,RuleTriggersDB db
+    class Trace,Counter telemetry

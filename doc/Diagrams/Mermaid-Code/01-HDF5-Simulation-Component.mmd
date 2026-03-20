@@ -1,0 +1,94 @@
+%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#4A90D9', 'primaryTextColor': '#1a1a1a', 'primaryBorderColor': '#2563eb', 'lineColor': '#4b5563', 'secondaryColor': '#f3f4f6', 'tertiaryColor': '#e5e7eb', 'background': '#ffffff', 'mainBkg': '#ffffff', 'nodeBorder': '#374151', 'clusterBkg': '#f9fafb', 'clusterBorder': '#d1d5db', 'titleColor': '#111827'}}}%%
+
+%% HDF5 Simulation Component Diagram
+%% Author: Sally SCADA System Documentation
+%% Purpose: Show the internal architecture of the HDF5-based Smart Grid Simulation
+
+flowchart TB
+    subgraph External["External Data Sources"]
+        HDF5File[("HDF5 File<br/>Time Series Data")]
+        RulesFile[("Rules JSON File<br/>Grid Rules Configuration")]
+    end
+
+    subgraph HDF5Sim["SmartGridSimulation (sg_hdf5_sim.py)"]
+        direction TB
+
+        subgraph DataLayer["Data Loading Layer"]
+            HDF5Loader["HDF5 Data Loader<br/><i>_load_hdf5_data()</i>"]
+            EntityVarData["Entity-Variable<br/>Timeseries Data<br/><i>Dict[str, Dict[str, ndarray]]</i>"]
+            RelationData["Relation Data<br/><i>Dict[str, ndarray]</i>"]
+        end
+
+        subgraph SimCore["Simulation Core"]
+            StepEngine["Step Engine<br/><i>step() / step_async()</i>"]
+            TimestepManager["Timestep Manager<br/><i>current_timestep, total_timesteps</i>"]
+            SnapshotBuilder["Snapshot Builder<br/><i>_build_data_snapshot()</i>"]
+        end
+
+        subgraph EventHandling["Event Handling Layer"]
+            EventPublisher["Event Publisher<br/><i>GridDataEvent, SimulationStepEvent</i>"]
+            ControlHandler["Control Action Handler<br/><i>handle(ControlActionEvent)</i>"]
+        end
+
+        subgraph StateManagement["State Management"]
+            SetpointStore["Setpoint Store<br/><i>Dict[str, float]</i>"]
+            EntityRegistry["Entity Registry<br/><i>Set[str]</i>"]
+            CurrentData["Current Timestep Data<br/><i>Dict[str, Dict[str, Any]]</i>"]
+        end
+
+        subgraph Telemetry["OTEL Instrumentation"]
+            MetricsReg["Metrics Registration<br/><i>_register_metrics()</i>"]
+            Gauges["Observable Gauges<br/>• simulation.timestep<br/>• grid_data.entities_monitored<br/>• scada.setpoints.active_count"]
+        end
+    end
+
+    subgraph CoreServices["Core Services Integration"]
+        EventBus["EventBus<br/><i>High-Performance Event Distribution</i>"]
+        RuleManager["SmartGridRuleManager<br/><i>Rule Evaluation Engine</i>"]
+        TelemetryMgr["TelemetryManager<br/><i>OTEL Export</i>"]
+    end
+
+    subgraph OutputEvents["Published Events"]
+        GDE["GridDataEvent<br/><i>Per-entity measurements</i>"]
+        SSE["SimulationStepEvent<br/><i>Step completion signal</i>"]
+        RTE["RuleTriggeredEvent<br/><i>Rule violation alerts</i>"]
+    end
+
+    %% Data Flow
+    HDF5File --> HDF5Loader
+    HDF5Loader --> EntityVarData
+    HDF5Loader --> RelationData
+    RulesFile --> RuleManager
+
+    EntityVarData --> StepEngine
+    RelationData --> StepEngine
+    TimestepManager --> StepEngine
+    StepEngine --> SnapshotBuilder
+    SnapshotBuilder --> CurrentData
+
+    CurrentData --> EventPublisher
+    EventPublisher --> EventBus
+    EventBus --> ControlHandler
+    ControlHandler --> SetpointStore
+
+    StepEngine --> RuleManager
+    RuleManager --> RTE
+
+    EventPublisher --> GDE
+    EventPublisher --> SSE
+
+    MetricsReg --> TelemetryMgr
+    Gauges --> TelemetryMgr
+
+    %% Styling
+    classDef external fill:#dbeafe,stroke:#2563eb,stroke-width:2px,color:#1e40af
+    classDef core fill:#dcfce7,stroke:#16a34a,stroke-width:2px,color:#166534
+    classDef service fill:#fef3c7,stroke:#d97706,stroke-width:2px,color:#92400e
+    classDef event fill:#fce7f3,stroke:#db2777,stroke-width:2px,color:#9d174d
+    classDef telemetry fill:#ede9fe,stroke:#7c3aed,stroke-width:2px,color:#5b21b6
+
+    class HDF5File,RulesFile external
+    class HDF5Loader,EntityVarData,RelationData,StepEngine,TimestepManager,SnapshotBuilder,EventPublisher,ControlHandler,SetpointStore,EntityRegistry,CurrentData core
+    class EventBus,RuleManager,TelemetryMgr service
+    class GDE,SSE,RTE event
+    class MetricsReg,Gauges telemetry

@@ -1,0 +1,22 @@
+%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#e5e5e5', 'primaryTextColor': '#1a1a1a', 'lineColor': '#525252', 'background': '#ffffff', 'actorBkg': '#e5e5e5', 'actorBorder': '#525252', 'signalColor': '#404040'}}}%%
+
+%% Simulation Step Sequence - Compact
+sequenceDiagram
+    participant Orch as Orchestrator
+    participant Sim as Simulation
+    participant EB as EventBus
+    participant Rules as RuleManager
+    participant GUI as GUI
+
+    Orch->>Sim: step()
+    Sim->>Sim: read HDF5 data
+    Sim->>EB: publish(GridDataEvent)
+    EB->>Rules: evaluate()
+
+    alt Rule triggered
+        Rules->>EB: publish(RuleTriggeredEvent)
+    end
+
+    Sim->>EB: publish(SimulationStepEvent)
+    EB->>Orch: handle events
+    Orch->>GUI: update state

@@ -1,0 +1,26 @@
+# Test Environment Configuration
+# Overrides default.yml for automated testing
+
+database:
+  host: localhost
+  port: 5432
+  database: smartgrid_test
+  user: test_user
+  pool_size: 2
+
+logging:
+  level: WARNING  # Reduce noise in test output
+
+event_bus:
+  max_queue_size: 1000  # Smaller queue for tests
+
+simulation:
+  default_steps: 10  # Very short runs for unit tests
+
+services:
+  grid_data:
+    enabled: false  # Disable services in unit tests by default
+  load_forecasting:
+    enabled: false
+  stability_monitoring:
+    enabled: false

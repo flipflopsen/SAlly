@@ -1,0 +1,59 @@
+%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#e5e5e5', 'primaryTextColor': '#1a1a1a', 'lineColor': '#525252', 'background': '#ffffff'}}}%%
+
+%% TimescaleDB Schema - Compact ER Diagram
+erDiagram
+    GRID_DATA {
+        timestamptz time PK
+        varchar entity PK
+        varchar entity_type
+        float8 p
+        float8 q
+        float8 vm
+        float8 va
+    }
+
+    GRID_EVENTS {
+        timestamptz time PK
+        varchar entity
+        varchar event_type
+        varchar severity
+        text message
+    }
+
+    GRID_ENTITIES {
+        serial entity_id PK
+        varchar entity_name UK
+        varchar entity_type
+        float8 rated_power
+        float8 rated_voltage
+    }
+
+    GRID_CONNECTIONS {
+        serial connection_id PK
+        int from_entity_id FK
+        int to_entity_id FK
+        varchar connection_type
+        float8 capacity
+    }
+
+    RULES {
+        varchar rule_id PK
+        varchar entity_name
+        varchar variable_name
+        varchar operator
+        float8 threshold_value
+        varchar action
+        boolean active
+    }
+
+    RULE_TRIGGERS {
+        timestamptz time PK
+        varchar rule_id FK
+        float8 actual_value
+        varchar action_taken
+    }
+
+    GRID_ENTITIES ||--o{ GRID_DATA : generates
+    GRID_ENTITIES ||--o{ GRID_EVENTS : produces
+    GRID_ENTITIES ||--o{ GRID_CONNECTIONS : connects
+    RULES ||--o{ RULE_TRIGGERS : triggers

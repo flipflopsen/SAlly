@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="4" skipped="0" tests="19" time="22.171" timestamp="2026-02-26T23:52:26.655056+01:00" hostname="DESKTOP-QA54JIN"><testcase classname="tests.integration.test_hdf5_real_files" name="test_can_load_and_step_real_hdf5[data\\hdf5\\demo.hdf5]" time="3.914" /><testcase classname="tests.integration.test_hdf5_real_files" name="test_can_load_and_step_real_hdf5[data\\midas\\hdf5\\bhv100res.hdf5]" time="0.002" /><testcase classname="tests.integration.test_hdf5_real_files" name="test_can_load_and_step_real_hdf5[data\\midas\\hdf5\\bhv2.hdf5]" time="0.002" /><testcase classname="tests.integration.test_hdf5_real_files" name="test_can_load_and_step_real_hdf5[data\\midas\\hdf5\\demo.hdf5]" time="3.223" /><testcase classname="tests.integration.test_hdf5_real_files" name="test_can_load_and_step_real_hdf5[data\\midas\\hdf5\\midaslv.hdf5]" time="0.002" /><testcase classname="tests.integration.test_hdf5_real_files" name="test_can_load_and_step_real_hdf5[data\\midas\\hdf5\\midasmv.hdf5]" time="0.002" /><testcase classname="tests.integration.test_hdf5_real_files" name="test_can_load_and_step_real_hdf5[tests\\test_data\\bhv100res.hdf5]" time="0.009" /><testcase classname="tests.integration.test_hdf5_real_files" name="test_can_load_and_step_real_hdf5[tests\\test_data\\bhv2.hdf5]" time="0.008" /><testcase classname="tests.integration.test_hdf5_real_files" name="test_can_load_and_step_real_hdf5[tests\\test_data\\midaslv.hdf5]" time="0.002" /><testcase classname="tests.integration.test_hdf5_real_files" name="test_can_load_and_step_real_hdf5[tests\\test_data\\midasmv.hdf5]" time="0.002" /><testcase classname="tests.integration.test_hdf5_real_files" name="test_can_load_and_step_real_hdf5[tests\\test_data\\mosaik_demo.hdf5]" time="3.185" /><testcase classname="tests.integration.test_hdf5_real_files" name="test_can_load_and_step_real_hdf5[tests\\test_data\\mosaik_demo_bak.hdf5]" time="3.583" /><testcase classname="tests.integration.test_scada_integration" name="test_orchestration_event_handling" time="0.014" /><testcase classname="tests.integration.test_scada_integration" name="test_setpoint_application_flow" time="5.070" /><testcase classname="tests.integration.test_scada_integration" name="test_gui_queue_updates_from_simulation" time="1.023" /><testcase classname="tests.test_hdf5_sim_tests.TestHDF5Modes" name="test_hybrid_hdf5_mode" time="0.004"><failure message="FileNotFoundError: Base file ./test_data/mosaik_demo.hdf5 does not exist">tests\hdf5_sim_tests.py:73: in test_hybrid_hdf5_mode
+    self.run_simulation_test("hybrid_hdf5", setup_simulation)
+tests\framework\base_test.py:102: in run_simulation_test
+    _ = self.test_builder.build_hdf5_file() if self.test_builder.hdf5_builder else "test_simulation.hdf5"
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\framework\test_builder.py:60: in build_hdf5_file
+    return self.hdf5_builder.build()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+sally\core\hdf5_builder.py:228: in build
+    path = self._create_hybrid_hdf5()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+sally\core\hdf5_builder.py:274: in _create_hybrid_hdf5
+    raise FileNotFoundError(f"Base file {self.path} does not exist")
+E   FileNotFoundError: Base file ./test_data/mosaik_demo.hdf5 does not exist</failure></testcase><testcase classname="tests.test_hdf5_sim_tests.TestHDF5Modes" name="test_manual_hdf5_mode" time="0.014"><failure message="ModuleNotFoundError: No module named 'sally.simulation'">tests\hdf5_sim_tests.py:53: in test_manual_hdf5_mode
+    self.run_simulation_test("manual_hdf5", setup_simulation)
+tests\framework\base_test.py:113: in run_simulation_test
+    from sally.simulation.sg_hdf5_sim import SmartGridSimulation
+E   ModuleNotFoundError: No module named 'sally.simulation'</failure></testcase><testcase classname="tests.test_hdf5_sim_tests.TestHDF5Modes" name="test_mosaik_style_entities" time="0.015"><failure message="ModuleNotFoundError: No module named 'sally.simulation'">tests\hdf5_sim_tests.py:97: in test_mosaik_style_entities
+    self.run_simulation_test("mosaik_style", setup_simulation)
+tests\framework\base_test.py:113: in run_simulation_test
+    from sally.simulation.sg_hdf5_sim import SmartGridSimulation
+E   ModuleNotFoundError: No module named 'sally.simulation'</failure></testcase><testcase classname="tests.test_hdf5_sim_tests.TestHDF5Modes" name="test_real_hdf5_mode" time="0.001"><failure message="FileNotFoundError: Real HDF5 file ./test_data/mosaik_demo.hdf5 does not exist">tests\hdf5_sim_tests.py:24: in test_real_hdf5_mode
+    self.run_simulation_test("real_hdf5", setup_simulation)
+tests\framework\base_test.py:102: in run_simulation_test
+    _ = self.test_builder.build_hdf5_file() if self.test_builder.hdf5_builder else "test_simulation.hdf5"
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\framework\test_builder.py:60: in build_hdf5_file
+    return self.hdf5_builder.build()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+sally\core\hdf5_builder.py:217: in build
+    raise FileNotFoundError(f"Real HDF5 file {self.path} does not exist")
+E   FileNotFoundError: Real HDF5 file ./test_data/mosaik_demo.hdf5 does not exist</failure></testcase></testsuite></testsuites>

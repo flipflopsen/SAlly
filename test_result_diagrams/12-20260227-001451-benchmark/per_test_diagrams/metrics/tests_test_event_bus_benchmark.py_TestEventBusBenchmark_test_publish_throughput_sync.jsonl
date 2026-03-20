@@ -1,0 +1,2 @@
+{"ts": 1772147694.6593697, "nodeid": "tests/test_event_bus_benchmark.py::TestEventBusBenchmark::test_publish_throughput_sync", "metric": "publish_throughput_eps", "value": 495773.5798093157, "unit": "events/s", "tags": {"mode": "sync"}}
+{"ts": 1772147694.6603734, "nodeid": "tests/test_event_bus_benchmark.py::TestEventBusBenchmark::test_publish_throughput_sync", "metric": "elapsed_s", "value": 2.0170498000006774, "unit": "s", "tags": {}}

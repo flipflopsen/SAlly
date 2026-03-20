@@ -1,0 +1,95 @@
+%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#4A90D9', 'primaryTextColor': '#1a1a1a', 'primaryBorderColor': '#2563eb', 'lineColor': '#4b5563', 'secondaryColor': '#f3f4f6', 'tertiaryColor': '#e5e7eb', 'background': '#ffffff', 'mainBkg': '#ffffff', 'actorBkg': '#dbeafe', 'actorBorder': '#2563eb', 'activationBorderColor': '#4b5563', 'sequenceNumberColor': '#ffffff', 'signalColor': '#374151', 'signalTextColor': '#1f2937'}}}%%
+
+%% Sequence Diagram: Simulation Step Execution
+%% Author: Sally SCADA System Documentation
+%% Purpose: Show the message flow during a single simulation step
+
+sequenceDiagram
+    autonumber
+
+    participant User as User/Timer
+    participant Orch as SCADAOrchestrationService
+    participant Sim as SmartGridSimulation
+    participant HDF5 as HDF5 Data
+    participant Rules as SmartGridRuleManager
+    participant EB as EventBus
+    participant State as SCADAState
+    participant GUI as SCADA GUI
+
+    Note over User,GUI: Simulation Step Execution Flow
+
+    User->>Orch: request_step() / auto-play timer
+    activate Orch
+
+    Orch->>Sim: step()
+    activate Sim
+
+    Sim->>HDF5: Read timestep data
+    activate HDF5
+    HDF5-->>Sim: entity_variable_timeseries_data[t]
+    deactivate HDF5
+
+    Sim->>Sim: _build_data_snapshot()
+
+    loop For each entity in snapshot
+        Sim->>Sim: Create GridMeasurement
+        Sim->>EB: publish(GridDataEvent)
+        activate EB
+        EB-->>Sim: event queued
+        deactivate EB
+    end
+
+    Sim->>Rules: evaluate(data_snapshot)
+    activate Rules
+
+    loop For each active rule
+        Rules->>Rules: _evaluate_single_rule()
+        alt Rule triggered
+            Rules->>EB: publish(RuleTriggeredEvent)
+            activate EB
+            EB-->>Rules: event queued
+            deactivate EB
+        end
+    end
+    Rules-->>Sim: triggered_rules[]
+    deactivate Rules
+
+    Sim->>EB: publish(SimulationStepEvent)
+    activate EB
+    EB-->>Sim: event queued
+    deactivate EB
+
+    Sim-->>Orch: step completed
+    deactivate Sim
+
+    Note over EB,State: Async Event Processing
+
+    EB->>Orch: handle_sync(GridDataEvent)
+    activate Orch
+    Orch->>State: update_measurement()
+    deactivate Orch
+
+    EB->>Orch: handle_sync(RuleTriggeredEvent)
+    activate Orch
+    Orch->>State: add_triggered_rule()
+    Orch->>State: add_anomaly()
+    deactivate Orch
+
+    EB->>Orch: handle_sync(SimulationStepEvent)
+    activate Orch
+    Orch->>State: update_simulation_time()
+    Orch->>Orch: _enqueue_state_update()
+    deactivate Orch
+
+    Orch->>GUI: state_queue.put(state_snapshot)
+    deactivate Orch
+
+    Note over GUI: Main Thread Render Loop
+
+    GUI->>GUI: _render_frame()
+    activate GUI
+    GUI->>GUI: state_queue.get()
+    GUI->>GUI: _refresh_ui(state)
+    GUI->>GUI: Update SLD Display
+    GUI->>GUI: Update Rule Status Panel
+    deactivate GUI

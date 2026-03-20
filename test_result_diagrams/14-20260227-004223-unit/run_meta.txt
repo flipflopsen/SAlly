@@ -1,0 +1,5 @@
+timestamp=2026-02-27T00:43:01
+group=unit
+exit_code=0
+cwd=A:\Thesis-Code\thesis-sally-repo
+pytest_args=--diag-dir=test_result_diagrams\14-20260227-004223-unit\per_test_diagrams -m hdf5

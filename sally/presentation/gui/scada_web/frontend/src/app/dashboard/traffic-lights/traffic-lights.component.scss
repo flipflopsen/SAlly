@@ -1,0 +1,70 @@
+.circle {
+   border-radius: 50% 50%;
+   height: 3em;
+   width: 3em;
+   text-align: center;
+   background: #E9E9E9;
+   box-shadow: inset 0 0 1em dimgray;
+   
+}
+
+.comp {
+   width: 5em;
+   height: auto;
+   background: #5B5B5B;
+   border-radius: 1em;
+   justify-content: center;
+   display: flex;
+}
+
+.red {
+   background: red;
+   box-shadow: 0 0 1em red;
+}
+
+.yellow {
+   background: yellow;
+   box-shadow: 0 0 1em yellow;
+}
+
+.green {
+   background: #49e048;
+   box-shadow: 0 0 1em #49e048;
+}
+
+.button-settings {
+   margin-top: 1em;
+   position: relative;
+}
+
+
+@media (prefers-color-scheme: dark) {
+   .comp {
+      background: black;
+   }
+
+   .circle {
+      background: dimgrey;
+      border-radius: 50% 50%;
+      height: 3em;
+      width: 3em;
+      text-align: center;
+      box-shadow: inset 0 0 2em #282828;
+   }
+
+   .red {
+      background: red;
+      box-shadow: 0 0 1em red;
+   }
+   
+   .yellow {
+      background: yellow;
+      box-shadow: 0 0 1em yellow;
+   }
+   
+   .green {
+      background: green;
+      box-shadow: 0 0 1em green;
+   }
+
+}

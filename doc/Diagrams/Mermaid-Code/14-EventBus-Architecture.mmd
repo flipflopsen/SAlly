@@ -1,0 +1,143 @@
+%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#4A90D9', 'primaryTextColor': '#1a1a1a', 'primaryBorderColor': '#2563eb', 'lineColor': '#4b5563', 'secondaryColor': '#f3f4f6', 'tertiaryColor': '#e5e7eb', 'background': '#ffffff', 'mainBkg': '#ffffff', 'nodeBorder': '#374151', 'clusterBkg': '#f9fafb', 'clusterBorder': '#d1d5db', 'titleColor': '#111827'}}}%%
+
+%% EventBus Architecture Diagram
+%% Author: Sally SCADA System Documentation
+%% Purpose: Detail the high-performance event bus implementation
+
+flowchart TB
+    subgraph Producers["Event Producers"]
+        direction LR
+        Sim["Simulation<br/><i>GridDataEvent<br/>SimulationStepEvent</i>"]
+        Rules["RuleManager<br/><i>RuleTriggeredEvent</i>"]
+        GUI["GUI<br/><i>SetpointChangeEvent<br/>ControlActionEvent</i>"]
+    end
+
+    subgraph EventBusCore["EventBus Core (event_bus.py)"]
+        direction TB
+
+        subgraph PublishLayer["Publish Layer"]
+            direction LR
+            PublishSync["publish_sync()<br/><i>Non-blocking</i>"]
+            PublishAsync["publish()<br/><i>Async with backpressure</i>"]
+        end
+
+        subgraph BufferSelection["Buffer Selection Strategy"]
+            direction TB
+            ScenarioDetector["Scenario Detector<br/><i>Auto-detect producer/consumer pattern</i>"]
+
+            subgraph BufferTypes["Available Buffer Types"]
+                direction LR
+                SPSC["RingBuffer<br/><i>SPSC: Single-Producer<br/>Single-Consumer</i><br/><b>Fastest, Lock-free</b>"]
+                SPMC["SPMCBuffer<br/><i>Single-Producer<br/>Multiple-Consumer</i><br/><b>Lock on pop</b>"]
+                MPSC["MPSCBuffer<br/><i>Multiple-Producer<br/>Single-Consumer</i><br/><b>Lock on push</b>"]
+                MPMC["MPMCBuffer<br/><i>Multiple-Producer<br/>Multiple-Consumer</i><br/><b>Fully locked</b>"]
+            end
+        end
+
+        subgraph BatchProcessing["Batch Processing"]
+            direction TB
+            BatchQueue["Batch Queue<br/><i>Configurable batch_size</i><br/><i>Default: 256 events</i>"]
+            BatchProcessor["Batch Processor<br/><i>Amortize per-event overhead</i>"]
+        end
+
+        subgraph WorkerPool["Async Worker Pool"]
+            direction LR
+            Worker1["Worker 1"]
+            Worker2["Worker 2"]
+            Worker3["Worker 3"]
+            WorkerN["Worker N..."]
+        end
+
+        subgraph DispatchLayer["Event Dispatch"]
+            direction TB
+            TypeRouter["Type Router<br/><i>Route by event_type</i>"]
+
+            subgraph HandlerTypes["Handler Types"]
+                direction LR
+                AsyncHandlers["Async Handlers<br/><i>EventHandler.handle()</i>"]
+                SyncHandlers["Sync Handlers<br/><i>SyncEventHandler.handle_sync()</i>"]
+            end
+        end
+
+        subgraph Metrics["OTEL Metrics"]
+            direction LR
+            EventsPublished["events_published<br/><i>Counter</i>"]
+            EventsProcessed["events_processed<br/><i>Counter</i>"]
+            LatencyHist["processing_latency<br/><i>Histogram</i>"]
+            QueueSize["queue_size<br/><i>Gauge</i>"]
+        end
+    end
+
+    subgraph Consumers["Event Consumers (Handlers)"]
+        direction LR
+        OrchHandler["SCADAOrchestrationService<br/><i>SyncEventHandler</i>"]
+        MQTTHandler["MqttBridgeService<br/><i>SyncEventHandler</i>"]
+        WSHandler["WebSocketBridgeService<br/><i>SyncEventHandler</i>"]
+        DBHandler["TimescaleDB Handler<br/><i>EventHandler</i>"]
+    end
+
+    %% Producer to Publish
+    Sim --> PublishSync
+    Rules --> PublishSync
+    GUI --> PublishAsync
+
+    %% Publish to Buffer
+    PublishSync --> ScenarioDetector
+    PublishAsync --> ScenarioDetector
+    ScenarioDetector --> SPSC
+    ScenarioDetector --> SPMC
+    ScenarioDetector --> MPSC
+    ScenarioDetector --> MPMC
+
+    %% Buffer to Batch
+    SPSC --> BatchQueue
+    SPMC --> BatchQueue
+    MPSC --> BatchQueue
+    MPMC --> BatchQueue
+
+    %% Batch Processing
+    BatchQueue --> BatchProcessor
+    BatchProcessor --> Worker1
+    BatchProcessor --> Worker2
+    BatchProcessor --> Worker3
+    BatchProcessor --> WorkerN
+
+    %% Worker to Dispatch
+    Worker1 --> TypeRouter
+    Worker2 --> TypeRouter
+    Worker3 --> TypeRouter
+    WorkerN --> TypeRouter
+
+    TypeRouter --> AsyncHandlers
+    TypeRouter --> SyncHandlers
+
+    %% Dispatch to Consumers
+    AsyncHandlers --> DBHandler
+    SyncHandlers --> OrchHandler
+    SyncHandlers --> MQTTHandler
+    SyncHandlers --> WSHandler
+
+    %% Metrics Collection
+    PublishSync -.-> EventsPublished
+    BatchProcessor -.-> EventsProcessed
+    BatchProcessor -.-> LatencyHist
+    BatchQueue -.-> QueueSize
+
+    %% Styling
+    classDef producer fill:#dcfce7,stroke:#16a34a,stroke-width:2px,color:#166534
+    classDef publish fill:#dbeafe,stroke:#2563eb,stroke-width:2px,color:#1e40af
+    classDef buffer fill:#fef3c7,stroke:#d97706,stroke-width:2px,color:#92400e
+    classDef batch fill:#fce7f3,stroke:#db2777,stroke-width:2px,color:#9d174d
+    classDef worker fill:#e0e7ff,stroke:#4f46e5,stroke-width:2px,color:#3730a3
+    classDef dispatch fill:#f0fdf4,stroke:#22c55e,stroke-width:2px,color:#15803d
+    classDef consumer fill:#ede9fe,stroke:#7c3aed,stroke-width:2px,color:#5b21b6
+    classDef metrics fill:#f5f5f5,stroke:#737373,stroke-width:1px,color:#404040
+
+    class Sim,Rules,GUI producer
+    class PublishSync,PublishAsync publish
+    class ScenarioDetector,SPSC,SPMC,MPSC,MPMC buffer
+    class BatchQueue,BatchProcessor batch
+    class Worker1,Worker2,Worker3,WorkerN worker
+    class TypeRouter,AsyncHandlers,SyncHandlers dispatch
+    class OrchHandler,MQTTHandler,WSHandler,DBHandler consumer
+    class EventsPublished,EventsProcessed,LatencyHist,QueueSize metrics

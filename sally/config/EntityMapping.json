@@ -1,0 +1,72 @@
+[
+    {
+        "EntityName": "CSV_PV",
+        "Asset": "photovoltaik.png",
+        "ClassPath": "sally.application.simulation.mosaik_simulators.pv.PVSim"
+    },
+    {
+        "EntityName": "WIND_TURBINE",
+        "Asset": "wind_turbine.png",
+        "ClassPath": "sally.application.simulation.mosaik_simulators.generator.GeneratorSim"
+    },
+    {
+        "EntityName": "HOUSEHOLD_SIM",
+        "Asset": "house.png",
+        "ClassPath": "sally.application.simulation.mosaik_simulators.load.LoadSim"
+    },
+    {
+        "EntityName": "BATTERY_ESS",
+        "Asset": "industry.png",
+        "ClassPath": "sally.application.simulation.mosaik_simulators.battery.BatterySim"
+    },
+    {
+        "EntityName": "LOAD_BUS",
+        "Asset": "load.png",
+        "ClassPath": "sally.application.simulation.mosaik_simulators.load.LoadSim"
+    },
+    {
+        "EntityName": "PANDAPOWER_BUS",
+        "Asset": "bus.png",
+        "ClassPath": "pandapower.create.create_bus"
+    },
+    {
+        "EntityName": "PANDAPOWER_LOAD",
+        "Asset": "load.png",
+        "ClassPath": "pandapower.create.create_load"
+    },
+    {
+        "EntityName": "PANDAPOWER_SGEN",
+        "Asset": "generator.png",
+        "ClassPath": "pandapower.create.create_sgen"
+    },
+    {
+        "EntityName": "PANDAPOWER_TRAFO",
+        "Asset": "trafo.png",
+        "ClassPath": "pandapower.create.create_transformer"
+    },
+    {
+        "EntityName": "PANDAPOWER_EXT_GRID",
+        "Asset": "ext_grid.png",
+        "ClassPath": "pandapower.create.create_ext_grid"
+    },
+    {
+        "EntityName": "PANDAPOWER_SWITCH",
+        "Asset": "switch.png",
+        "ClassPath": "pandapower.create.create_switch"
+    },
+    {
+        "EntityName": "PYPOWER_NODE",
+        "Asset": "bus.png",
+        "ClassPath": "pypower"
+    },
+    {
+        "EntityName": "PYPOWER_TRANSFORMER",
+        "Asset": "trafo.png",
+        "ClassPath": "pypower"
+    },
+    {
+        "EntityName": "Generic Generator",
+        "Asset": "generator.png",
+        "ClassPath": "sally.application.simulation.mosaik_simulators.generator.GeneratorSim"
+    }
+]

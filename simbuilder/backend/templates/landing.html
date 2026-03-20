@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Node Editor - Development</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #80EF80, #42D667);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .container {
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            text-align: center;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 16px;
+        }
+        p {
+            color: #666;
+            margin-bottom: 32px;
+        }
+        .btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #80EF80, #42D667);
+            color: white;
+            padding: 14px 32px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.2s;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+        .info {
+            margin-top: 32px;
+            padding-top: 32px;
+            border-top: 1px solid #e0e0e0;
+        }
+        .endpoint {
+            background: #f8f9fa;
+            padding: 12px;
+            border-radius: 6px;
+            margin: 8px 0;
+            font-family: monospace;
+            color: #42D667;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎨 Node Editorrr</h1>
+        <p>Visual node-based workflow editor with Django & React</p>
+
+        <a href="http://localhost:8000/editor" class="btn" target="_blank">
+            Open Editor →
+        </a>
+
+        <div class="info">
+            <h3 style="margin-bottom: 16px; color: #333;">Available Endpoints</h3>
+            <div class="endpoint">Backend API: http://localhost:8000/api/</div>
+            <div class="endpoint">Vite Debug Server: http://localhost:5173/</div>
+            <div class="endpoint">Dhango Admin Panel: http://localhost:8000/admin/</div>
+        </div>
+    </div>
+</body>
+</html>

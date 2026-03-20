@@ -1,0 +1,17 @@
+{
+  "derived": {
+    "publish_throughput_epms": 93.5867069890721
+  },
+  "duration_s": 13.262089099996956,
+  "markers": [
+    "benchmark"
+  ],
+  "nodeid": "tests/test_event_bus_benchmark.py::TestEventBusBenchmark::test_publish_throughput_sync",
+  "outcome": "passed",
+  "peak_alloc_kib": 180594.03125,
+  "recorded_metrics": [
+    "elapsed_s",
+    "publish_throughput_epms",
+    "publish_throughput_eps"
+  ]
+}

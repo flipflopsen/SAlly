@@ -1,0 +1,58 @@
+%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#e5e5e5', 'primaryTextColor': '#1a1a1a', 'primaryBorderColor': '#525252', 'lineColor': '#525252', 'secondaryColor': '#f5f5f5', 'background': '#ffffff', 'mainBkg': '#ffffff', 'nodeBorder': '#404040', 'clusterBkg': '#fafafa', 'clusterBorder': '#a3a3a3'}}}%%
+
+%% Sally System Architecture - Compact Overview
+flowchart TB
+    subgraph Data["Data Layer"]
+        HDF5[("HDF5")]
+        TSDB[("TimescaleDB")]
+    end
+
+    subgraph Simulation["Simulation"]
+        HDF5Sim["HDF5 Simulation"]
+        MosaikSim["Mosaik Simulation"]
+    end
+
+    subgraph Core["Core Services"]
+        EB["EventBus"]
+        Rules["RuleManager"]
+        Orch["Orchestrator"]
+    end
+
+    subgraph Bridge["Communication"]
+        MQTT["MQTT Bridge"]
+        WS["WebSocket Bridge"]
+    end
+
+    subgraph UI["Presentation"]
+        Desktop["Desktop GUI"]
+        Web["Web Frontend"]
+    end
+
+    subgraph Telemetry["Observability"]
+        OTEL["OTEL Collector"]
+        Grafana["Grafana Stack"]
+    end
+
+    HDF5 --> HDF5Sim
+    TSDB <--> HDF5Sim
+    TSDB <--> MosaikSim
+
+    HDF5Sim --> EB
+    MosaikSim --> EB
+    EB --> Rules
+    EB --> Orch
+    EB --> MQTT
+    EB --> WS
+
+    Orch --> Desktop
+    MQTT --> Web
+    WS --> Web
+
+    Core --> OTEL --> Grafana
+
+    classDef default fill:#f5f5f5,stroke:#525252,stroke-width:1px,color:#171717
+    classDef data fill:#d4d4d4,stroke:#404040,stroke-width:2px,color:#171717
+    classDef core fill:#e5e5e5,stroke:#404040,stroke-width:2px,color:#171717
+
+    class HDF5,TSDB data
+    class EB,Rules,Orch core

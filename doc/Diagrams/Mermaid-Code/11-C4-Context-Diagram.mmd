@@ -1,0 +1,73 @@
+%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#4A90D9', 'primaryTextColor': '#1a1a1a', 'primaryBorderColor': '#2563eb', 'lineColor': '#4b5563', 'secondaryColor': '#f3f4f6', 'tertiaryColor': '#e5e7eb', 'background': '#ffffff', 'mainBkg': '#ffffff', 'nodeBorder': '#374151', 'clusterBkg': '#f9fafb', 'clusterBorder': '#d1d5db', 'titleColor': '#111827'}}}%%
+
+%% C4 Context Diagram: Sally SCADA System
+%% Author: Sally SCADA System Documentation
+%% Purpose: High-level system context showing external actors and systems
+
+flowchart TB
+    subgraph SystemBoundary["Sally SCADA System Boundary"]
+        direction TB
+
+        Sally["Sally SCADA Platform<br/><br/><i>Smart Grid Monitoring &<br/>Control System</i><br/><br/>• Real-time grid visualization<br/>• Rule-based anomaly detection<br/>• Setpoint management<br/>• Co-simulation support"]
+    end
+
+    %% External Actors
+    Operator["👤 Grid Operator<br/><br/><i>Monitors grid state,<br/>configures rules,<br/>applies setpoints</i>"]
+
+    Engineer["👤 Control Engineer<br/><br/><i>Configures simulations,<br/>analyzes performance,<br/>reviews telemetry</i>"]
+
+    %% External Systems
+    subgraph DataSystems["Data Systems"]
+        HDF5[("📁 HDF5 Files<br/><br/><i>Historical time series<br/>simulation data</i>")]
+
+        TSDB[("🗄️ TimescaleDB<br/><br/><i>Persistent grid data<br/>storage & analysis</i>")]
+    end
+
+    subgraph SimSystems["Simulation Systems"]
+        Mosaik["⚡ Mosaik Framework<br/><br/><i>Smart Grid<br/>Co-Simulation</i>"]
+
+        PyPower["🔌 PyPower / PandaPower<br/><br/><i>Power Flow<br/>Calculations</i>"]
+    end
+
+    subgraph ObsSystems["Observability Stack (TT-Stack)"]
+        Grafana["📊 Grafana<br/><br/><i>Dashboards &<br/>Visualization</i>"]
+
+        OTELStack["🔭 OTEL + Prometheus<br/>+ Tempo + Loki<br/><br/><i>Metrics, Traces, Logs</i>"]
+    end
+
+    subgraph CommSystems["Communication Systems"]
+        MQTT[("📡 MQTT Broker<br/><br/><i>Real-time messaging<br/>for web clients</i>")]
+
+        WebBrowser["🌐 Web Browser<br/><br/><i>SCADA Web Frontend<br/>(Angular)</i>"]
+    end
+
+    %% Relationships
+    Operator -->|"Monitors grid,<br/>applies setpoints"| Sally
+    Engineer -->|"Configures & analyzes,<br/>views dashboards"| Sally
+
+    Sally -->|"Reads time series"| HDF5
+    Sally <-->|"Persists grid data,<br/>queries history"| TSDB
+
+    Sally <-->|"Co-simulation<br/>integration"| Mosaik
+    Mosaik -->|"Power flow<br/>calculations"| PyPower
+
+    Sally -->|"Exports telemetry<br/>(OTLP)"| OTELStack
+    OTELStack -->|"Visualization"| Grafana
+    Engineer -->|"Reviews dashboards"| Grafana
+
+    Sally -->|"Publishes events"| MQTT
+    MQTT -->|"Real-time updates"| WebBrowser
+    Operator -->|"Remote access"| WebBrowser
+
+    %% Styling
+    classDef system fill:#1e40af,stroke:#1e3a8a,stroke-width:3px,color:#ffffff
+    classDef actor fill:#dcfce7,stroke:#16a34a,stroke-width:2px,color:#166534
+    classDef external fill:#f3f4f6,stroke:#6b7280,stroke-width:2px,color:#374151
+    classDef database fill:#dbeafe,stroke:#2563eb,stroke-width:2px,color:#1e40af
+    classDef observability fill:#ede9fe,stroke:#7c3aed,stroke-width:2px,color:#5b21b6
+
+    class Sally system
+    class Operator,Engineer actor
+    class HDF5,TSDB database
+    class Mosaik,PyPower,MQTT,WebBrowser external
+    class Grafana,OTELStack observability

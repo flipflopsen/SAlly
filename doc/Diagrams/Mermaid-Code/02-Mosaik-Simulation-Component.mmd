@@ -1,0 +1,129 @@
+%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#4A90D9', 'primaryTextColor': '#1a1a1a', 'primaryBorderColor': '#2563eb', 'lineColor': '#4b5563', 'secondaryColor': '#f3f4f6', 'tertiaryColor': '#e5e7eb', 'background': '#ffffff', 'mainBkg': '#ffffff', 'nodeBorder': '#374151', 'clusterBkg': '#f9fafb', 'clusterBorder': '#d1d5db', 'titleColor': '#111827'}}}%%
+
+%% Mosaik Simulation Component Diagram
+%% Author: Sally SCADA System Documentation
+%% Purpose: Show the internal architecture of the Mosaik-based Co-Simulation
+
+flowchart TB
+    subgraph ExternalConfig["External Configuration"]
+        MosaikConfig["Mosaik Configuration<br/><i>Dict[str, Any]</i>"]
+        SimConfig["Simulator Configurations<br/><i>sim_config, entities, connections</i>"]
+    end
+
+    subgraph MosaikSim["MosaikSimulation (mosaik_sim.py)"]
+        direction TB
+
+        subgraph WorldSetup["Mosaik World Setup"]
+            World["mosaik.World<br/><i>Co-Simulation Orchestrator</i>"]
+            SimulatorRegistry["Simulator Registry<br/><i>Dict[str, MosaikSimulator]</i>"]
+            EntityRegistry["Entity Registry<br/><i>Dict[str, List[Entity]]</i>"]
+        end
+
+        subgraph TopologyManagement["Topology Management"]
+            ConnectionMap["Connection Map<br/><i>Dict[source, List[dest]]</i>"]
+            EntityMap["Entity ID Map<br/><i>Dict[entity_name, entity_id]</i>"]
+            TopologyBuilder["Topology Builder<br/><i>_build_topology_map()</i>"]
+        end
+
+        subgraph SimulatorModels["Mosaik Simulator Models"]
+            direction LR
+            Generator["Generator<br/>Simulator"]
+            Load["Load<br/>Simulator"]
+            Line["Line<br/>Simulator"]
+            Battery["Battery<br/>Simulator"]
+            Connector["Connector<br/>Simulator"]
+        end
+
+        subgraph SimExecution["Simulation Execution"]
+            StepController["Step Controller<br/><i>step(), run()</i>"]
+            ControlApplier["Control Action Applier<br/><i>_apply_control_action()</i>"]
+            StateUpdater["State Updater<br/><i>_update_entity_state()</i>"]
+        end
+
+        subgraph EventIntegration["Event Bus Integration"]
+            EventHandler["Event Handler<br/><i>handle(event)</i>"]
+            TopologyPublisher["Topology Publisher<br/><i>_publish_topology()</i>"]
+            DataPublisher["Grid Data Publisher<br/><i>GridDataEvent emission</i>"]
+        end
+    end
+
+    subgraph MosaikSimulators["Sally Mosaik Simulators"]
+        direction TB
+
+        subgraph BaseSimulator["BaseSimulator (base.py)"]
+            BaseMeta["META Configuration"]
+            BaseStep["step() method"]
+            BaseInit["init/create methods"]
+        end
+
+        subgraph SpecializedSims["Specialized Simulators"]
+            GenSim["GeneratorSimulator<br/><i>P, Q output</i>"]
+            LoadSim["LoadSimulator<br/><i>P, Q consumption</i>"]
+            LineSim["LineSimulator<br/><i>P_from, P_to, losses</i>"]
+            BatSim["BatterySimulator<br/><i>SoC, P charge/discharge</i>"]
+            ConnSim["ConnectorSimulator<br/><i>External data source</i>"]
+        end
+    end
+
+    subgraph CoreIntegration["Core Services"]
+        EventBus["EventBus<br/><i>Pub/Sub Event Distribution</i>"]
+        RuleManager["SmartGridRuleManager<br/><i>Rule Evaluation</i>"]
+    end
+
+    subgraph TopologyEvents["Published Topology Data"]
+        ERDE["EntityRelationalDataEvent<br/><i>Full grid topology</i>"]
+        GEData["GridEntityData<br/><i>Entity metadata</i>"]
+        GCData["GridConnectionData<br/><i>Connection/line data</i>"]
+    end
+
+    %% Configuration Flow
+    MosaikConfig --> World
+    SimConfig --> SimulatorRegistry
+    SimConfig --> EntityRegistry
+
+    %% Setup Flow
+    World --> SimulatorRegistry
+    SimulatorRegistry --> Generator
+    SimulatorRegistry --> Load
+    SimulatorRegistry --> Line
+    SimulatorRegistry --> Battery
+    SimulatorRegistry --> Connector
+
+    EntityRegistry --> TopologyBuilder
+    TopologyBuilder --> ConnectionMap
+    TopologyBuilder --> EntityMap
+
+    %% Execution Flow
+    StepController --> World
+    World --> SimulatorModels
+    SimulatorModels --> StateUpdater
+    StateUpdater --> DataPublisher
+    DataPublisher --> EventBus
+
+    EventBus --> EventHandler
+    EventHandler --> ControlApplier
+    ControlApplier --> SimulatorModels
+
+    %% Topology Publishing
+    TopologyBuilder --> TopologyPublisher
+    TopologyPublisher --> ERDE
+    ERDE --> GEData
+    ERDE --> GCData
+
+    %% Simulator Inheritance
+    BaseMeta --> SpecializedSims
+    BaseStep --> SpecializedSims
+    BaseInit --> SpecializedSims
+
+    %% Styling
+    classDef config fill:#dbeafe,stroke:#2563eb,stroke-width:2px,color:#1e40af
+    classDef mosaik fill:#dcfce7,stroke:#16a34a,stroke-width:2px,color:#166534
+    classDef simulator fill:#fef3c7,stroke:#d97706,stroke-width:2px,color:#92400e
+    classDef event fill:#fce7f3,stroke:#db2777,stroke-width:2px,color:#9d174d
+    classDef service fill:#e0e7ff,stroke:#4f46e5,stroke-width:2px,color:#3730a3
+
+    class MosaikConfig,SimConfig config
+    class World,SimulatorRegistry,EntityRegistry,ConnectionMap,EntityMap,TopologyBuilder,StepController,ControlApplier,StateUpdater,EventHandler,TopologyPublisher,DataPublisher mosaik
+    class Generator,Load,Line,Battery,Connector,GenSim,LoadSim,LineSim,BatSim,ConnSim,BaseMeta,BaseStep,BaseInit simulator
+    class ERDE,GEData,GCData event
+    class EventBus,RuleManager service

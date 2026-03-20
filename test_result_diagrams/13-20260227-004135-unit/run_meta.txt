@@ -1,0 +1,5 @@
+timestamp=2026-02-27T00:41:41
+group=unit
+exit_code=0
+cwd=A:\Thesis-Code\thesis-sally-repo
+pytest_args=--diag-dir=test_result_diagrams\13-20260227-004135-unit\per_test_diagrams -m unit

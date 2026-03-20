@@ -1,0 +1,37 @@
+{
+  "name": "@guardian/scada-backend",
+  "version": "1.0.0",
+  "description": "Backend server for Guardian SCADA Web Application",
+  "main": "dist/index.js",
+  "scripts": {
+    "start": "node dist/index.js",
+    "build": "tsc",
+    "dev": "node dist/index.js dev",
+    "dev:watch": "tsc --watch",
+    "test": "jasmine --require ts-node/register 'spec/**/*.spec.ts'",
+    "clean": "rm -rf dist"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@guardian/scada-shared": "workspace:*",
+    "@influxdata/influxdb-client": "^1.35.0",
+    "@types/express": "^4.17.21",
+    "@types/node": "^20.10.6",
+    "express": "^4.21.0",
+    "http-proxy-middleware": "^2.0.7",
+    "mqtt": "^5.9.0",
+    "socket.io": "^4.7.2",
+    "socket.io-client": "^4.8.3",
+    "typescript": "^5.5.4"
+  },
+  "devDependencies": {
+    "@types/jasmine": "^5.1.0",
+    "@types/jasmine-reporters": "^2.5.3",
+    "jasmine": "^5.1.0",
+    "jasmine-reporters": "^2.5.2",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.7.0"
+  }
+}

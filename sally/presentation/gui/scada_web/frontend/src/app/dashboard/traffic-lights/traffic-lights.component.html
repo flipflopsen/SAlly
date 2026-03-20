@@ -1,0 +1,12 @@
+<button class="comp box" (click)="showSettings = true">
+    <div>
+        <div [class.red]="currentPhase == 'red'" class="circle mb-2"></div>
+        <div [class.yellow]="currentPhase == 'yellow'" class="circle mb-2"></div>
+        <div [class.green]="currentPhase == 'green'" class="circle"></div>
+    </div>
+</button>
+
+<traffic-lights-settings 
+    [showSettings]="showSettings"
+    (closeSettingsEvent)="showSettings = false">
+</traffic-lights-settings>

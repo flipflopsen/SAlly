@@ -1,0 +1,191 @@
+# ===========================
+# Python
+# ===========================
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.log
+.pytest_cache/
+
+# ===========================
+# Virtual Environments
+# ===========================
+.venv/
+venv/
+ENV/
+env/
+.env
+.python-version
+
+# ===========================
+# IDEs and Editors
+# ===========================
+# VSCode
+.vscode/
+*.code-workspace
+
+# PyCharm
+.idea/
+*.iml
+*.iws
+
+# Jupyter Notebook
+.ipynb_checkpoints
+*.ipynb_checkpoints/
+
+# Spyder
+.spyderproject
+.spyproject
+
+# ===========================
+# Data Files
+# ===========================
+# HDF5 data files
+*.hdf5
+*.h5
+sally/simulation/simdata/*.hdf5
+sally/simulation/simdata/*.h5
+tests/test_data/*.hdf5
+notebooks/data/*.hdf5
+
+# CSV and Excel data
+*.csv
+*.xlsx
+*.xls
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+db.sqlite3
+
+# ===========================
+# Node.js / Frontend
+# ===========================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+sally/simbuilder/frontend/node_modules/
+sally/simbuilder/frontend/dist/
+sally/simbuilder/frontend/build/
+
+# ===========================
+# Django
+# ===========================
+*.log
+local_settings.py
+staticfiles/
+media/
+sally/simbuilder/staticfiles/
+sally/simbuilder/media/
+sally/simbuilder/backend/collectedstatic/
+sally/simbuilder/backend/backend/collectedstatic/
+sally/simbuilder/backend/static/
+
+# ===========================
+# OS Files
+# ===========================
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+[Dd]esktop.ini
+$RECYCLE.BIN/
+*.lnk
+
+# Linux
+*~
+.directory
+.Trash-*
+
+# ===========================
+# Project Specific
+# ===========================
+# Backup files
+*.backup
+*.bak
+*.old
+pyproject.toml.backup
+
+# Temporary files
+*.tmp
+*.temp
+*.swp
+*.swo
+
+# Rule data (if sensitive)
+# rule_data/*.json
+
+# Configuration overrides (keep templates)
+config/local.yml
+config/secrets.yml
+
+# Logs
+logs/
+*.log
+
+# Documentation builds
+docs/_build/
+docs/.doctrees/
+
+# ===========================
+# UV Package Manager
+# ===========================
+.uv/
+uv.lock
+
+PackagesToUse.md
+
+# ===========================
+# Simbuilder (Weil ist optional)
+# ===========================
+sally/simbuilder/*
+
+prompts/*

@@ -1,0 +1,23 @@
+# Development Environment Configuration
+# Overrides default.yml for local development
+
+database:
+  host: localhost
+  port: 5432
+  database: smartgrid_dev
+  user: dev_user
+  pool_size: 5
+
+logging:
+  level: DEBUG
+
+simulation:
+  default_steps: 100  # Shorter runs for faster testing
+
+services:
+  grid_data:
+    update_interval_ms: 500  # Faster updates for testing
+  load_forecasting:
+    update_interval_ms: 2000
+  stability_monitoring:
+    check_interval_ms: 500

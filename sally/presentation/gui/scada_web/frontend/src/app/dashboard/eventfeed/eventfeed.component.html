@@ -1,0 +1,26 @@
+<div class="box">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Time</th>
+        <th>Event</th>
+        <th>Bus</th>
+        <th>Detector</th>
+        <th>Eventinfo</th>
+      </tr>
+    </thead>
+  <tbody>
+    <tr  
+    *ngFor="let event of events" 
+    (click)="onEventClick(event)" 
+    class="is-clickable"
+    title="Click on the event to select it for the grafana infoboard.">
+        <th>{{ event?.timestamp | date: 'd.M.y, HH:mm' }}</th>
+        <td>{{ event?.name }}</td>
+        <td>{{ event?.bus }}</td>
+        <td>{{ event?.detector | detection }}</td>
+        <td>{{ event?.event_info }}</td>
+    </tr>
+  </tbody>
+  </table>
+</div>

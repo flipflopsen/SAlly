@@ -1,0 +1,5 @@
+timestamp=2026-02-27T01:05:17
+group=single
+exit_code=4
+cwd=A:\Thesis-Code\thesis-sally-repo
+pytest_args=--diag-dir=test_result_diagrams\16-20260227-010517-single\per_test_diagrams tests/midas/test_midas.py::TestMidasScenarioParser::test_parse_string

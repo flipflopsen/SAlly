@@ -1,0 +1,112 @@
+%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#4A90D9', 'primaryTextColor': '#1a1a1a', 'primaryBorderColor': '#2563eb', 'lineColor': '#4b5563', 'secondaryColor': '#f3f4f6', 'tertiaryColor': '#e5e7eb', 'background': '#ffffff', 'mainBkg': '#ffffff', 'actorBkg': '#dbeafe', 'actorBorder': '#2563eb', 'activationBorderColor': '#4b5563', 'sequenceNumberColor': '#ffffff', 'signalColor': '#374151', 'signalTextColor': '#1f2937'}}}%%
+
+%% Sequence Diagram: Database Persistence Flow
+%% Author: Sally SCADA System Documentation
+%% Purpose: Show data persistence to TimescaleDB
+
+sequenceDiagram
+    autonumber
+
+    participant Sim as SmartGridSimulation
+    participant EB as EventBus
+    participant DBHandler as Database Handler
+    participant Pool as Connection Pool
+    participant TSDB as TimescaleDB
+    participant Telem as TelemetryManager
+
+    Note over Sim,Telem: Grid Data Persistence Flow
+
+    Sim->>EB: publish(GridDataEvent)
+    activate EB
+
+    EB->>DBHandler: handle(GridDataEvent)
+    activate DBHandler
+    deactivate EB
+
+    DBHandler->>DBHandler: Extract measurement data
+    DBHandler->>DBHandler: Accumulate batch
+
+    alt Batch size reached (100 records)
+        Note right of DBHandler: Batch optimization<br/>reduces DB round-trips
+
+        DBHandler->>Pool: acquire()
+        activate Pool
+        Pool-->>DBHandler: Connection
+
+        DBHandler->>Telem: start_span("db.batch_insert")
+        activate Telem
+
+        DBHandler->>TSDB: INSERT INTO grid_data (batch)
+        activate TSDB
+
+        Note over TSDB: TimescaleDB Hypertable<br/>Auto-partitions by time
+
+        TSDB-->>DBHandler: rows_affected
+        deactivate TSDB
+
+        DBHandler->>Telem: record_duration()
+        Telem->>Telem: histogram("db.query.duration_ms")
+        Telem->>Telem: counter("db.queries.total")
+        deactivate Telem
+
+        DBHandler->>Pool: release()
+        deactivate Pool
+    end
+
+    deactivate DBHandler
+
+    Note over Sim,Telem: Rule Trigger Persistence
+
+    Sim->>EB: publish(RuleTriggeredEvent)
+    activate EB
+
+    EB->>DBHandler: handle(RuleTriggeredEvent)
+    activate DBHandler
+    deactivate EB
+
+    DBHandler->>Pool: acquire()
+    activate Pool
+    Pool-->>DBHandler: Connection
+
+    par Insert to multiple tables
+        DBHandler->>TSDB: INSERT INTO grid_events
+        and
+        DBHandler->>TSDB: INSERT INTO rule_triggers
+    end
+
+    TSDB-->>DBHandler: OK
+
+    DBHandler->>Pool: release()
+    deactivate Pool
+    deactivate DBHandler
+
+    Note over Sim,Telem: Query Flow (Historical Data)
+
+    participant GUI as SCADA GUI
+
+    GUI->>DBHandler: get_recent_measurements("Bus_1", 5)
+    activate DBHandler
+
+    DBHandler->>Pool: acquire()
+    activate Pool
+    Pool-->>DBHandler: Connection
+
+    DBHandler->>Telem: start_span("db.select")
+    activate Telem
+
+    DBHandler->>TSDB: SELECT FROM grid_data WHERE entity='Bus_1' AND time > NOW() - 5min
+    activate TSDB
+
+    Note over TSDB: Index scan on<br/>time-based partitions
+
+    TSDB-->>DBHandler: ResultSet (500 rows)
+    deactivate TSDB
+
+    DBHandler->>Telem: end_span()
+    deactivate Telem
+
+    DBHandler->>Pool: release()
+    deactivate Pool
+
+    DBHandler-->>GUI: List[GridMeasurement]
+    deactivate DBHandler

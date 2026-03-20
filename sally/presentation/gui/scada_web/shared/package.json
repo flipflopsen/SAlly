@@ -1,0 +1,18 @@
+{
+  "name": "@guardian/scada-shared",
+  "version": "1.0.0",
+  "description": "Shared types and utilities for Guardian SCADA",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "clean": "rm -rf dist"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "typescript": "~5.5.4"
+  },
+  "dependencies": {}
+}

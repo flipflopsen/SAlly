@@ -1,0 +1,47 @@
+%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#e5e5e5', 'primaryTextColor': '#1a1a1a', 'primaryBorderColor': '#525252', 'lineColor': '#525252', 'background': '#ffffff', 'mainBkg': '#ffffff', 'nodeBorder': '#404040', 'clusterBkg': '#fafafa', 'clusterBorder': '#a3a3a3'}}}%%
+
+%% Deployment Architecture - Compact
+flowchart TB
+    subgraph Host["Host Machine"]
+        Python["Python Process<br/>sally.main_scada_*"]
+        Files[("HDF5 / Config")]
+    end
+
+    subgraph Docker["Docker Network (TT-Stack)"]
+        MQTT["Mosquitto :1883"]
+        TSDB["TimescaleDB :5432"]
+        OTEL["OTEL Collector :4317"]
+        Prom["Prometheus :9090"]
+        Tempo["Tempo :3200"]
+        Loki["Loki :3100"]
+        Graf["Grafana :3000"]
+    end
+
+    subgraph Web["Web Stack (Optional)"]
+        Node["Node.js :3001"]
+        Angular["Angular :4200"]
+    end
+
+    subgraph Client["Client"]
+        Browser["Browser"]
+    end
+
+    Python --> Files
+    Python -->|OTLP| OTEL
+    Python -->|SQL| TSDB
+    Python -->|MQTT| MQTT
+
+    OTEL --> Prom
+    OTEL --> Tempo
+    OTEL --> Loki
+    Prom --> Graf
+    Tempo --> Graf
+    Loki --> Graf
+
+    MQTT --> Node --> Angular
+    Angular --> Browser
+    Graf --> Browser
+
+    classDef default fill:#f5f5f5,stroke:#525252,stroke-width:1px,color:#171717
+    classDef container fill:#d4d4d4,stroke:#404040,stroke-width:2px,color:#171717
+    class TSDB,OTEL,Graf container

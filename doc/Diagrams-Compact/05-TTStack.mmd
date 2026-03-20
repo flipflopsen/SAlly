@@ -1,0 +1,37 @@
+%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#e5e5e5', 'primaryTextColor': '#1a1a1a', 'primaryBorderColor': '#525252', 'lineColor': '#525252', 'background': '#ffffff', 'mainBkg': '#ffffff', 'nodeBorder': '#404040', 'clusterBkg': '#fafafa', 'clusterBorder': '#a3a3a3'}}}%%
+
+%% TT-Stack Observability Architecture - Compact
+flowchart LR
+    subgraph App["Sally Application"]
+        Svc["Services"]
+        Tel["TelemetryManager"]
+    end
+
+    subgraph Collector["OTEL Collector"]
+        Recv["Receiver :4317"]
+        Proc["Processors"]
+    end
+
+    subgraph Storage["Storage Layer"]
+        Prom[("Prometheus")]
+        Tempo[("Tempo")]
+        Loki[("Loki")]
+    end
+
+    subgraph Viz["Visualization"]
+        Graf["Grafana :3000"]
+    end
+
+    Svc --> Tel
+    Tel -->|OTLP gRPC| Recv
+    Recv --> Proc
+    Proc -->|metrics| Prom
+    Proc -->|traces| Tempo
+    Proc -->|logs| Loki
+    Prom --> Graf
+    Tempo --> Graf
+    Loki --> Graf
+
+    classDef default fill:#f5f5f5,stroke:#525252,stroke-width:1px,color:#171717
+    classDef storage fill:#d4d4d4,stroke:#404040,stroke-width:2px,color:#171717
+    class Prom,Tempo,Loki storage

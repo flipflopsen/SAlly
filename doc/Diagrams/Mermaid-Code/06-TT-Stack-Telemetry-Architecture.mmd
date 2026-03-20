@@ -1,0 +1,172 @@
+%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#4A90D9', 'primaryTextColor': '#1a1a1a', 'primaryBorderColor': '#2563eb', 'lineColor': '#4b5563', 'secondaryColor': '#f3f4f6', 'tertiaryColor': '#e5e7eb', 'background': '#ffffff', 'mainBkg': '#ffffff', 'nodeBorder': '#374151', 'clusterBkg': '#f9fafb', 'clusterBorder': '#d1d5db', 'titleColor': '#111827'}}}%%
+
+%% TT-Stack (Telemetry & Tracing Stack) Architecture Diagram
+%% Author: Sally SCADA System Documentation
+%% Purpose: Document the observability infrastructure and OTEL integration
+
+flowchart TB
+    subgraph SallyApplication["Sally Application Layer"]
+        direction TB
+
+        subgraph Services["Instrumented Services"]
+            direction LR
+            Orchestrator["SAlly.Orchestrator<br/><i>SCADA Coordination</i>"]
+            EventBus["SAlly.EventBus<br/><i>Event Processing</i>"]
+            Simulation["SAlly.Simulation<br/><i>HDF5/Mosaik Sim</i>"]
+            RulesService["SAlly.Rules<br/><i>Rule Evaluation</i>"]
+            Database["SAlly.Database<br/><i>TimescaleDB Access</i>"]
+        end
+
+        subgraph TelemetryLib["Telemetry Library (sally/core/)"]
+            direction TB
+
+            TelemetryMgr["TelemetryManager<br/><i>telemetry.py</i><br/><i>Singleton Pattern</i>"]
+            ServiceTelemetry["ServiceTelemetry<br/><i>service_telemetry.py</i><br/><i>Service-specific Init</i>"]
+            MetricsRegistry["MetricsRegistry<br/><i>metrics_registry.py</i><br/><i>Metric Naming Constants</i>"]
+            MetricsHelpers["MetricsHelpers<br/><i>metrics_helpers.py</i><br/><i>Aggregation Helpers</i>"]
+
+            subgraph TelemetryConfig["Configuration"]
+                ConfigEnv["Environment Variables<br/><i>SALLY_OTEL_*</i>"]
+                ConfigYAML["YAML Config<br/><i>default.yml → otel:</i>"]
+            end
+        end
+
+        subgraph Instrumentation["OTEL Instrumentation"]
+            direction LR
+            TracerProv["TracerProvider<br/><i>Distributed Tracing</i>"]
+            MeterProv["MeterProvider<br/><i>Metrics Collection</i>"]
+            LoggerProv["LoggerProvider<br/><i>Structured Logs</i>"]
+        end
+    end
+
+    subgraph OTELExport["OTEL Export Layer"]
+        direction TB
+
+        subgraph Exporters["Batch Exporters"]
+            SpanExporter["BatchSpanProcessor<br/><i>Trace Batching</i>"]
+            MetricExporter["PeriodicExportingMetricReader<br/><i>10s intervals</i>"]
+            LogExporter["BatchLogRecordProcessor<br/><i>Log Batching</i>"]
+        end
+
+        OTLPClient["OTLP gRPC Client<br/><i>Endpoint: localhost:4317</i>"]
+    end
+
+    subgraph DockerStack["TT-Stack (Docker Compose)"]
+        direction TB
+
+        subgraph OTELCollector["OpenTelemetry Collector"]
+            Receiver["OTLP Receiver<br/><i>:4317 gRPC, :4318 HTTP</i>"]
+            Processors["Processors<br/><i>batch, memory_limiter,<br/>resource, attributes</i>"]
+
+            subgraph Exporters2["Collector Exporters"]
+                direction LR
+                PromExporter["Prometheus Exporter<br/><i>:8889/metrics</i>"]
+                TempoExporter["OTLP/Tempo Exporter<br/><i>tempo:4317</i>"]
+                LokiExporter["OTLP/HTTP Loki<br/><i>loki:3100/otlp</i>"]
+            end
+        end
+
+        subgraph Storage["Telemetry Storage"]
+            direction LR
+            Tempo[("Tempo<br/><i>Trace Storage</i><br/><i>:3200</i>")]
+            Prometheus[("Prometheus<br/><i>Metrics Storage</i><br/><i>:9090</i>")]
+            Loki[("Loki<br/><i>Log Aggregation</i><br/><i>:3100</i>")]
+        end
+
+        subgraph Visualization["Grafana Visualization"]
+            Grafana["Grafana<br/><i>:3000</i>"]
+
+            subgraph Dashboards["Provisioned Dashboards"]
+                direction LR
+                OverviewDash["Sally Overview<br/><i>sally-overview.json</i>"]
+                SCADADash["SCADA Metrics<br/><i>sally-scada.json</i>"]
+                DBDash["Database Metrics<br/><i>database.json</i>"]
+            end
+
+            subgraph Datasources["Data Sources"]
+                direction LR
+                PromDS["Prometheus<br/>Data Source"]
+                TempoDS["Tempo<br/>Data Source"]
+                LokiDS["Loki<br/>Data Source"]
+            end
+        end
+
+        subgraph Infrastructure["Supporting Infrastructure"]
+            direction LR
+            Mosquitto[("Mosquitto<br/><i>MQTT Broker</i><br/><i>:1883, :9001</i>")]
+            TimescaleDB[("TimescaleDB<br/><i>Grid Data</i><br/><i>:5432</i>")]
+        end
+    end
+
+    %% Application to Telemetry Library
+    Orchestrator --> TelemetryMgr
+    EventBus --> TelemetryMgr
+    Simulation --> TelemetryMgr
+    RulesService --> TelemetryMgr
+    Database --> TelemetryMgr
+
+    ServiceTelemetry --> TelemetryMgr
+    MetricsRegistry --> TelemetryMgr
+    MetricsHelpers --> TelemetryMgr
+    ConfigEnv --> TelemetryMgr
+    ConfigYAML --> TelemetryMgr
+
+    %% Telemetry to Providers
+    TelemetryMgr --> TracerProv
+    TelemetryMgr --> MeterProv
+    TelemetryMgr --> LoggerProv
+
+    %% Providers to Exporters
+    TracerProv --> SpanExporter
+    MeterProv --> MetricExporter
+    LoggerProv --> LogExporter
+
+    SpanExporter --> OTLPClient
+    MetricExporter --> OTLPClient
+    LogExporter --> OTLPClient
+
+    %% OTLP to Collector
+    OTLPClient --> Receiver
+
+    %% Collector Processing
+    Receiver --> Processors
+    Processors --> PromExporter
+    Processors --> TempoExporter
+    Processors --> LokiExporter
+
+    %% Exporters to Storage
+    PromExporter --> Prometheus
+    TempoExporter --> Tempo
+    LokiExporter --> Loki
+
+    %% Grafana Connections
+    Prometheus --> PromDS
+    Tempo --> TempoDS
+    Loki --> LokiDS
+
+    PromDS --> Grafana
+    TempoDS --> Grafana
+    LokiDS --> Grafana
+
+    Grafana --> OverviewDash
+    Grafana --> SCADADash
+    Grafana --> DBDash
+
+    %% Styling
+    classDef service fill:#dcfce7,stroke:#16a34a,stroke-width:2px,color:#166534
+    classDef telemetry fill:#ede9fe,stroke:#7c3aed,stroke-width:2px,color:#5b21b6
+    classDef config fill:#fef3c7,stroke:#d97706,stroke-width:2px,color:#92400e
+    classDef otel fill:#dbeafe,stroke:#2563eb,stroke-width:2px,color:#1e40af
+    classDef collector fill:#e0e7ff,stroke:#4f46e5,stroke-width:2px,color:#3730a3
+    classDef storage fill:#fce7f3,stroke:#db2777,stroke-width:2px,color:#9d174d
+    classDef grafana fill:#f0fdf4,stroke:#22c55e,stroke-width:2px,color:#15803d
+    classDef infra fill:#f5f5f5,stroke:#737373,stroke-width:2px,color:#404040
+
+    class Orchestrator,EventBus,Simulation,RulesService,Database service
+    class TelemetryMgr,ServiceTelemetry,MetricsRegistry,MetricsHelpers telemetry
+    class ConfigEnv,ConfigYAML config
+    class TracerProv,MeterProv,LoggerProv,SpanExporter,MetricExporter,LogExporter,OTLPClient otel
+    class Receiver,Processors,PromExporter,TempoExporter,LokiExporter collector
+    class Tempo,Prometheus,Loki storage
+    class Grafana,OverviewDash,SCADADash,DBDash,PromDS,TempoDS,LokiDS grafana
+    class Mosquitto,TimescaleDB infra

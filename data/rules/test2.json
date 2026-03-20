@@ -1,0 +1,24 @@
+[
+    {
+        "entity_name": "CSV-0.PV_0",
+        "variable_name": "P",
+        "operator": "GREATER_THAN",
+        "value": "20",
+        "action": "Go",
+        "active": true,
+        "group": "Default",
+        "logic_op": "AND",
+        "id": "900936ca"
+    },
+    {
+        "entity_name": "CSV-0.PV_1",
+        "variable_name": "P",
+        "operator": "GREATER_THAN",
+        "value": "30",
+        "action": "Go2",
+        "active": true,
+        "group": "Default",
+        "logic_op": "NONE",
+        "id": "6f15740f"
+    }
+]

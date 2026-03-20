@@ -1,0 +1,101 @@
+receivers:
+  otlp:
+    protocols:
+      grpc:
+        endpoint: 0.0.0.0:4317
+      http:
+        endpoint: 0.0.0.0:4318
+
+processors:
+  batch:
+    timeout: 5s
+    send_batch_size: 512
+    send_batch_max_size: 1024
+
+  # Memory limiter to prevent OOM
+  memory_limiter:
+    check_interval: 1s
+    limit_mib: 512
+    spike_limit_mib: 128
+
+  # Resource processor - DO NOT overwrite service.name from application
+  resource:
+    attributes:
+      - key: service.namespace
+        value: "sally"
+        action: insert
+      - key: deployment.environment
+        value: "SAlly.Development"
+        action: insert
+
+  # Attributes processor to add deployment info
+  attributes:
+    actions:
+      - key: service.version
+        value: "0.7.3"
+        action: insert
+
+  # Transform processor for logs - extract labels for Loki
+  # IMPORTANT: Do NOT overwrite service.name - preserve from application
+  transform/logs:
+    error_mode: ignore
+    log_statements:
+      - context: log
+        statements:
+          # Extract level as attribute for Loki filtering
+          - set(attributes["level"], severity_text) where attributes["level"] == nil
+          # Normalize LogLevel for Loki filtering
+          - set(attributes["LogLevel"], "ERROR") where severity_text == "ERROR" or severity_text == "FATAL"
+          - set(attributes["LogLevel"], "WARN") where severity_text == "WARN" or severity_text == "WARNING"
+          - set(attributes["LogLevel"], "INFO") where severity_text == "INFO"
+          - set(attributes["LogLevel"], "DEBUG") where severity_text == "DEBUG"
+          - set(attributes["LogLevel"], "TRACE") where severity_text == "TRACE"
+          - set(attributes["LogLevel"], "INFO") where attributes["LogLevel"] == nil
+          # Copy logger name for Loki filtering
+          - set(attributes["logger"], instrumentation_scope.name) where attributes["logger"] == nil
+
+  # Resource detector for automatic resource attributes
+  resourcedetection:
+    detectors: [env]
+    override: false
+
+exporters:
+  # Export metrics to a port Prometheus can scrape
+  prometheus:
+    endpoint: "0.0.0.0:8889"
+    namespace: "sally"
+    const_labels:
+      environment: development
+    resource_to_telemetry_conversion:
+      enabled: true
+
+  # Export traces to Tempo (using internal docker DNS)
+  otlp/tempo:
+    endpoint: "tempo:4317"
+    tls:
+      insecure: true
+
+  # Export logs to Loki via OTLP
+  otlphttp/loki:
+    endpoint: "http://loki:3100/otlp"
+    tls:
+      insecure: true
+
+  # Debug exporter for troubleshooting (disabled in production)
+  # debug:
+  #   verbosity: detailed
+
+service:
+  pipelines:
+    metrics:
+      receivers: [otlp]
+      processors: [memory_limiter, batch, resource, attributes]
+      exporters: [prometheus]
+    traces:
+      receivers: [otlp]
+      processors: [memory_limiter, batch, resource, attributes]
+      exporters: [otlp/tempo]
+    logs:
+      receivers: [otlp]
+      processors: [memory_limiter, batch, resource, transform/logs]
+      exporters: [otlphttp/loki]

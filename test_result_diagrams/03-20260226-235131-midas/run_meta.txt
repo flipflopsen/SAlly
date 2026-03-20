@@ -1,0 +1,5 @@
+timestamp=2026-02-26T23:51:39
+group=midas
+exit_code=2
+cwd=A:\Thesis-Code\thesis-sally-repo
+pytest_args=-m midas -q

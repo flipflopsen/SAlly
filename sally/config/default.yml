@@ -1,0 +1,277 @@
+# SAlly Default Configuration
+# This file contains default configuration values for all environments.
+# Override specific values in environment-specific files (dev.yml, test.yml, prod.yml)
+
+# =============================================================================
+# Environment Variables
+# =============================================================================
+env:
+  # BEGIN: Environment Section
+  SALLY_ENV: development
+
+  # BEGIN: TT-Stack Section
+  SALLY_OTEL_ENABLED: true
+  SALLY_OTEL_ENDPOINT: "http://localhost:4317"
+  SALLY_OTEL_MODE: otlp_grpc
+  SALLY_OTEL_TRACES_ENDPOINT: null
+  SALLY_OTEL_METRICS_ENDPOINT: null
+  SALLY_OTEL_LOGS_ENDPOINT: null
+  SALLY_OTEL_SERVICE_NAME: sally
+  SALLY_OTEL_SERVICE_VERSION: "0.7.3"
+  SALLY_OTEL_METRICS_INTERVAL_MS: 10000
+  SALLY_OTEL_TRACES_BATCH_SIZE: 512
+  SALLY_OTEL_SAMPLE_RATE: 1.0
+  SALLY_OTEL_TRACE_EVENT_BUS: true
+  SALLY_OTEL_TRACE_SIMULATION: true
+  SALLY_OTEL_TRACE_RULES: true
+  SALLY_OTEL_TRACE_GUI: true
+  SALLY_DEPLOYMENT_ENV: development
+
+  # Logging Configuration
+  SALLY_LOG_LEVEL: DEBUG
+  SALLY_LOG_FILE_ENABLED: true
+  SALLY_LOG_CONSOLE_ENABLED: true
+  SALLY_LOG_COLORED: true
+  SALLY_LOG_OTEL_EXPORT: true
+
+  # Event Bus Configuration
+  SALLY_EVENTBUS_BUFFER_SIZE: 65536
+  SALLY_EVENTBUS_BATCH_SIZE: 65536
+  SALLY_EVENTBUS_WORKER_COUNT: 16
+  SALLY_EVENTBUS_MAX_QUEUE_SIZE: 1000000
+  SALLY_EVENT_QUEUE_SIZE: null
+
+  # Simulation Configuration
+  SALLY_SIM_STEPS: 44640
+  SALLY_SIM_STEP_SIZE: 1
+  SALLY_SIM_STEP_TIMEOUT: 0.1
+  SALLY_SIM_PUBLISH_SCADA: true
+
+  # Database Configuration
+  SALLY_DB_HOST: localhost
+  SALLY_DB_PORT: 5432
+  SALLY_DB_NAME: smartgrid
+  SALLY_DB_USER: postgres
+  SALLY_DB_PASSWORD: "password"
+  SALLY_DB_POOL_SIZE: 10
+  SALLY_DB_MAX_POOL_SIZE: 20
+
+  # SCADA Configuration
+  SALLY_SCADA_UPDATE_INTERVAL_MS: 10
+  SALLY_SCADA_STEP_INTERVAL: 1.0
+  SALLY_SCADA_THEME: default
+
+  # Docker Network Configuration (for docker-compose)
+  OTEL_HTTP_PORT: 4318
+  PROMETHEUS_PORT: 9090
+  GRAFANA_PORT: 3000
+  TEMPO_PORT: 3200
+  LOKI_PORT: 3100
+  SALLY_MQTT_HOST: localhost
+  SALLY_MQTT_PORT: 1883
+
+# =============================================================================
+# Paths Configuration
+# =============================================================================
+# Paths can be absolute or relative to PROJECT_ROOT (thesis-sally-repo/)
+# Use forward slashes for cross-platform compatibility
+paths:
+  # Data directories
+  data_dir: data
+  rules_dir: data/rules
+  csv_dir: data/csv
+  hdf5_dir: data/hdf5
+  midas_dir: data/midas
+
+  # Logs directory
+  logs_dir: logs
+
+  # Simulation paths
+  sim_app_dir: sally/application/simulation
+  simdata_dir: sally/application/simulation/simdata
+
+  # Default file artifacts
+  default_rules_file: data/rules/chainrule_pv_household.json
+  default_hdf5_file: sally/application/simulation/simdata/demo.hdf5
+
+  # Config directory (relative to PACKAGE_ROOT)
+  config_dir: sally/config
+
+
+
+# =============================================================================
+# OpenTelemetry Configuration
+# =============================================================================
+otel:
+  enabled: true  # Set to true to enable OTEL or use SALLY_OTEL_ENABLED=true
+  endpoint: "http://localhost:4317"  # gRPC endpoint for OTEL collector
+  traces_endpoint: null  # Override for traces (defaults to endpoint)
+  metrics_endpoint: null  # Override for metrics (defaults to endpoint)
+  logs_endpoint: null     # Override for logs (defaults to endpoint)
+
+  service_name: "sally"
+  service_version: "0.7.3"
+
+  # Export settings
+  metrics_interval_ms: 10  # 10 seconds
+  traces_batch_size: 512
+  sample_rate: 1.0  # 1.0 = 100% sampling
+
+  # Feature flags for instrumenting specific components
+  trace_event_bus: true
+  trace_simulation: true
+  trace_rules: true
+  trace_gui: true  # GUI tracing can be noisy
+
+# =============================================================================
+# Database Configuration
+# =============================================================================
+database:
+  host: localhost
+  port: 5347
+  database: smartgrid
+  user: postgres
+  password: 'password'  # Set via environment variable SALLY_DB_PASSWORD
+  pool_size: 10
+  max_pool_size: 20
+  timescale_specific:
+    enabled: true
+    hypertable_chunk_time_interval: "15 minutes"
+
+# =============================================================================
+# Event Bus Configuration (High-Performance)
+# =============================================================================
+event_bus:
+  buffer_size: 65536       # Ring buffer size per event type
+  batch_size: 1024         # Events processed per batch
+  worker_count: 4          # Worker coroutines per event type
+  max_queue_size: 10000    # Legacy parameter
+
+# =============================================================================
+# HDF5 Simulation Configuration
+# =============================================================================
+simulation:
+  # Simulation mode: hdf5 | midas | timescale
+  simulation_mode: midas
+  default_hdf5_path: ../simulation/simdata/demo.hdf5
+  default_rules_path: ../../../data/rules/chainrule_pv_household.json
+  default_steps: 44640
+  step_size: 1
+  step_timeout_seconds: 0.1
+  start_time: '2014-01-01 00:00:00'
+  publish_scada_events: true
+
+# =============================================================================
+# Mosaik Simulator Configuration
+# =============================================================================
+mosaik:
+  config_file: simulation/mosaik_simulators/simulation_config.yml
+  duration: 100
+  step_size: 1
+
+# =============================================================================
+# Logging Configuration
+# =============================================================================
+logging:
+  level: DEBUG  # DEBUG for development, INFO for production
+  format: '[%(asctime)s] [%(levelname)s] [%(name)s] %(message)s'
+
+  # File logging
+  file_enabled: true
+  file_max_bytes: 5000000   # 5MB
+  file_backup_count: 5
+
+  # Console logging
+  console_enabled: true
+  console_colored: true
+
+  # OTEL log export (enabled automatically when otel.enabled is true)
+  otel_export: true
+
+# =============================================================================
+# Service Configuration
+# =============================================================================
+services:
+  grid_data:
+    enabled: true
+    update_interval_ms: 1000
+  load_forecasting:
+    enabled: false
+    forecast_horizon_minutes: 60
+    update_interval_ms: 5000
+  stability_monitoring:
+    enabled: true
+    check_interval_ms: 10
+    voltage_low_pu: 0.92
+    voltage_high_pu: 1.08
+    freq_low_hz: 49.5
+    freq_high_hz: 50.5
+
+# =============================================================================
+# SCADA Configuration
+# =============================================================================
+scada:
+  theme: cosmo
+  window_width: 1600
+  window_height: 900
+
+  orchestration:
+    update_interval_ms: 10
+    max_triggered_rules_history: 50
+    event_buffer_size: 100000
+    default_step_interval_s: 1.0
+
+  sld:
+    auto_layout: true
+    component_spacing: 120
+    show_labels: true
+    animation_enabled: true
+    blink_interval_ms: 500
+
+  simulation:
+    default_step_interval_s: 1.0
+    scada_poll_interval_minutes: 15
+    enable_setpoints: true
+
+  # SCADA Web configuration (Guardian-compatible web frontend)
+  web:
+    enabled: true
+    # Bridge mode: "mqtt" uses Mosquitto broker, "websocket" uses direct Socket.IO
+    bridge_mode: mqtt
+
+    mqtt:
+      host: localhost
+      port: 1883
+      client_id: sally-scada-bridge
+      keepalive: 60
+      qos: 1
+      retain_topology: true
+
+    websocket:
+      host: "0.0.0.0"
+      port: 3001
+      cors_allowed_origins: "*"
+
+    backend:
+      host: localhost
+      port: 3000
+
+    frontend:
+      host: localhost
+      port: 4200
+
+# =============================================================================
+# Mosaik Configuration
+# =============================================================================
+mosaik:
+  config_file: simulation/mosaik_simulators/simulation_config.yml
+  duration: 100
+  step_size: 1
+
+# =============================================================================
+# GUI Configuration (Legacy)
+# =============================================================================
+gui:
+  theme: cosmo  # default, dark, high_contrast, colorblind_friendly, industrial, modern
+  window_width: 1200
+  window_height: 800
